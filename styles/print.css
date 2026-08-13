@@ -1,0 +1,131 @@
+.print-shell {
+  background: #0b0b0c;
+  color: #f1f0ec;
+  font-family: 'Space Grotesk', sans-serif;
+  margin: -0.6in;
+  padding: 0.6in;
+}
+
+.print-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid rgba(241, 240, 236, 0.2);
+  margin-bottom: 44px;
+  break-inside: avoid;
+}
+
+.print-header-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  mix-blend-mode: screen;
+}
+
+.print-header-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+
+.print-header-tagline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #8a8a87;
+  letter-spacing: 0.24em;
+  margin-top: 7px;
+}
+
+.print-h1 {
+  font-size: 38px;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 18px;
+  max-width: 18ch;
+}
+
+.print-lead {
+  font-size: 15px;
+  color: #b8b7b2;
+  line-height: 1.6;
+  margin: 0 0 48px;
+  max-width: 62ch;
+}
+
+.print-h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.print-h2-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #ece81f;
+  margin-right: 12px;
+}
+
+.print-intro {
+  font-size: 14px;
+  color: #8a8a87;
+  margin: 0 0 24px;
+  line-height: 1.6;
+}
+
+.print-goals {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 44px;
+}
+
+.print-goal {
+  break-inside: avoid;
+  border: 1px solid rgba(241, 240, 236, 0.18);
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+
+.print-goal-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #ece81f;
+  letter-spacing: 0.14em;
+  margin-bottom: 10px;
+}
+
+.print-goal-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.print-goal-desc {
+  font-size: 13px;
+  color: #8a8a87;
+  line-height: 1.55;
+  margin: 0 0 14px;
+}
+
+.print-goal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.print-goal-item-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.print-goal-item-desc {
+  font-size: 12px;
+  color: #8a8a87;
+  line-height: 1.45;
+}

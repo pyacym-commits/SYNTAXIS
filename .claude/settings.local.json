@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m http.server 8000)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000/Syntaxis.dc.html)",
+      "WebSearch",
+      "WebFetch(domain:docs.web3forms.com)",
+      "Bash(python3 -c \"import PIL; print\\(PIL.__version__\\)\")",
+      "Bash(python -c \"import PIL; print\\(PIL.__version__\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(awk '{print $5}')",
+      "Bash(curl -s http://localhost:8000/styles/global.css -o /dev/null -w \"global.css: %{http_code}\\\\n\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 3 http://localhost:8000/Syntaxis.dc.html)",
+      "Bash(python -c \"import numpy, scipy; print\\('numpy', numpy.__version__, 'scipy', scipy.__version__\\)\")",
+      "Bash(python -c \"import numpy; print\\('numpy', numpy.__version__\\)\")",
+      "Bash(pip install *)",
+      "mcp__claude_ai_Vercel__list_teams",
+      "mcp__claude_ai_Vercel__list_projects",
+      "Bash(mkdir -p 'C:\\\\Users\\\\USER/AppData/Local/Temp/claude/c--Users-USER-Desktop-SYNTAXYS/e1ee2448-33c8-4d08-be14-741721d7b962/scratchpad')",
+      "Bash(python3 -c ' *)",
+      "Bash(vercel --version)",
+      "Bash(vercel whoami *)",
+      "Bash(npx --version)",
+      "Bash(npm --version)",
+      "Read(//c/Users/USER/**)",
+      "Read(//c/Users/USER/.local/share/**)",
+      "Read(//c//**)",
+      "mcp__claude_ai_Vercel__deploy_to_vercel",
+      "mcp__claude_ai_Vercel__get_deployment"
+    ]
+  }
+}

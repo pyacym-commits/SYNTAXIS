@@ -1,0 +1,49 @@
+:root {
+  --syntaxis-blue: #4488ee;
+  --blue-hover: #6ba4f5;
+  --bg-dark: #0b0b0c;
+  --text-light: #f1f0ec;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-display: 'Sora', sans-serif;
+}
+#__bundler_loading, #__bundler_thumbnail { display: none !important; }
+body { margin: 0; background: var(--bg-dark); }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@keyframes splat-morph {
+  0%   { border-radius: 58% 42% 47% 53% / 44% 56% 44% 56%; }
+  25%  { border-radius: 44% 56% 61% 39% / 57% 41% 59% 43%; }
+  50%  { border-radius: 62% 38% 40% 60% / 39% 62% 38% 61%; }
+  75%  { border-radius: 41% 59% 55% 45% / 60% 44% 56% 40%; }
+  100% { border-radius: 58% 42% 47% 53% / 44% 56% 44% 56%; }
+}
+@keyframes blink { 0%, 45% { opacity: 1; } 50%, 95% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes pulse-ring { 0% { transform: scale(1); opacity: 0.7; } 70% { transform: scale(2.4); opacity: 0; } 100% { opacity: 0; } }
+@keyframes dash-run { to { stroke-dashoffset: -24; } }
+@keyframes type-line { from { max-width: 0; } to { max-width: 100%; } }
+@keyframes join-a { 0% { transform: translate(46%, -46%); opacity: 0; } 55% { opacity: 1; } 100% { transform: translate(0, 0); opacity: 1; } }
+@keyframes join-b { 0% { transform: translate(-46%, 46%); opacity: 0; } 55% { opacity: 1; } 100% { transform: translate(0, 0); opacity: 1; } }
+@keyframes join-flash { 0% { opacity: 0; transform: scale(0.5); } 25% { opacity: 0.85; transform: scale(1.05); } 100% { opacity: 0; transform: scale(1.7); } }
+@keyframes caret-in { 0%, 100% { opacity: 1; } }
+@keyframes caret-out { to { opacity: 0; visibility: hidden; } }
+@keyframes scroll-line { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(8px); opacity: 0.35; } }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--syntaxis-blue); color: var(--bg-dark); }
+:focus-visible { outline: 2px solid var(--syntaxis-blue); outline-offset: 3px; }
+input::placeholder, textarea::placeholder { color: #6f6f6c; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition-duration: 0.01ms !important; }
+}
+@media (max-width: 959px) {
+  .contact-visual { display: none; }
+}
+.section-inner { max-width: 1400px; margin: 0 auto; }
+.tipos-grid { grid-template-columns: 1fr; }
+@media (min-width: 960px) {
+  .tipos-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1240px) {
+  .tipos-grid { grid-template-columns: repeat(4, 1fr); }
+}

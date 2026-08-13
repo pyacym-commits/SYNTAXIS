@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:fixed;inset:0;width:100vw;height:100vh;background:var(--bg-dark);display:block"><rect x="-400" y="-400" width="1000" height="1000" fill="var(--bg-dark)"></rect></svg></template>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Syntaxis — Estudio digital</title>
+<meta name="description" content="Estudio digital. Creamos páginas, tiendas online, sistemas a medida y automatizaciones. Diseño y desarrollo en un mismo equipo.">
+<link rel="icon" type="image/png" href="assets/syntaxis-icon-white-on-black.png">
+<meta property="og:title" content="Syntaxis — Estudio digital">
+<meta property="og:description" content="Creamos páginas, tiendas online, sistemas a medida y automatizaciones.">
+<meta property="og:type" content="website">
+<meta name="ext-resource-dependency" content="assets/proyecto-noircoffee.webp">
+<meta name="ext-resource-dependency" content="assets/proyecto-encommunidad.webp">
+<meta name="ext-resource-dependency" content="assets/proyecto-maisondoree-full.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/global.css">
+</helmet>
+
+<div ref="{{ setRootRef }}" style="background:var(--bg-dark); color:var(--text-light); font-family:var(--font-sans); overflow-x:clip; min-height:100vh; position:relative;">
+
+  <!-- SPINE: sistema visual continuo -->
+  <div aria-hidden="true" style="{{ spineStyle }}">
+    <div style="position:relative; display:flex; flex-direction:column; gap:26px;">
+      <div style="position:absolute; left:3px; top:4px; bottom:4px; width:1px; background:rgba(241,240,236,0.18);"></div>
+      <div style="{{ spineFillStyle }}"></div>
+      <sc-for list="{{ spineNodes }}" as="s" hint-placeholder-count="8">
+        <a href="{{ s.href }}" aria-label="{{ s.label }}" style="{{ s.rowStyle }}">
+          <span style="{{ s.dotStyle }}"></span>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav style="{{ navStyle }}">
+    <a href="#hero" aria-label="Syntaxis — inicio" style="display:flex; align-items:center; gap:12px;">
+      <img width="80" height="80" src="assets/syntaxis-icon-black-on-white.png" alt="" style="{{ navLogoStyle }}" />
+      <span style="font-family:var(--font-mono); font-size:17px; font-weight:600; letter-spacing:0.14em;">SYNTAXIS</span>
+    </a>
+
+    <div style="{{ navDesktopStyle }}">
+      <a href="#soluciones" style="{{ navLinkStyle }}" style-hover="{{ navLinkHoverStyle }}">Soluciones</a>
+      <a href="#portfolio" style="{{ navLinkStyle }}" style-hover="{{ navLinkHoverStyle }}">Portfolio</a>
+      <a href="#proceso" style="{{ navLinkStyle }}" style-hover="{{ navLinkHoverStyle }}">Proceso</a>
+      <a href="#contacto" style="{{ navCtaStyle }}" style-hover="background:var(--bg-dark);color:#ffffff;box-shadow:0 10px 30px rgba(68,136,238,0.6);transform:translateY(-2px);">Contacto</a>
+    </div>
+
+    <button type="button" onClick="{{ toggleMenu }}" aria-label="Abrir menú" aria-expanded="{{ menuOpen }}" style="{{ burgerStyle }}">
+      <span style="{{ burgerTop }}"></span>
+      <span style="{{ burgerMid }}"></span>
+      <span style="{{ burgerBot }}"></span>
+    </button>
+  </nav>
+
+  <!-- MENU MOBILE -->
+  <div style="{{ menuPanelStyle }}">
+    <div aria-hidden="true" style="position:absolute; inset:0; background-image:linear-gradient(rgba(241,240,236,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(241,240,236,0.05) 1px, transparent 1px); background-size:44px 44px; mask-image:radial-gradient(ellipse at 50% 40%, black, transparent 75%); pointer-events:none;"></div>
+    <img aria-hidden="true" width="640" height="640" src="assets/syntaxis-icon-white-on-black.jpg" alt="" style="position:absolute; right:-8%; bottom:-8%; width:min(62vw,420px); height:min(62vw,420px); object-fit:contain; mix-blend-mode:screen; opacity:0.05; pointer-events:none;" />
+    <div style="position:relative; z-index:1; display:flex; flex-direction:column; gap:6px; width:100%; max-width:520px;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:22px; font-family:var(--font-mono); font-size:11px; color:#5c5c59; letter-spacing:0.2em;">
+        <span style="width:26px; height:1px; background:rgba(241,240,236,0.25); display:inline-block;"></span>
+        MENÚ
+      </div>
+      <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="5">
+        <a href="{{ m.href }}" onClick="{{ closeMenu }}" style="{{ m.style }}" style-hover="color:var(--syntaxis-blue);">
+          <span style="font-family:var(--font-mono); font-size:13px; color:var(--syntaxis-blue);">{{ m.n }}</span>
+          {{ m.label }}
+        </a>
+      </sc-for>
+      <a href="#contacto" onClick="{{ closeMenu }}" style="margin-top:28px; display:inline-flex; align-items:center; justify-content:center; gap:12px; background:var(--syntaxis-blue); color:#ffffff; padding:18px 28px; border-radius:999px; font-family:var(--font-mono); font-size:14px; font-weight:600; letter-spacing:0.06em; min-height:56px;" style-hover="background:var(--blue-hover);">EMPEZAR PROYECTO →</a>
+      <div style="display:flex; gap:12px; margin-top:28px;">
+        <a href="https://instagram.com/syntaxis.digital" target="_blank" rel="noopener" aria-label="Instagram de Syntaxis" style="display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 16px; border:1px solid rgba(241,240,236,0.2); border-radius:999px; font-family:var(--font-mono); font-size:12px; letter-spacing:0.06em; color:var(--text-light);" style-hover="border-color:var(--syntaxis-blue); color:var(--syntaxis-blue);">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61592937162357" target="_blank" rel="noopener" aria-label="Facebook de Syntaxis" style="display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 16px; border:1px solid rgba(241,240,236,0.2); border-radius:999px; font-family:var(--font-mono); font-size:12px; letter-spacing:0.06em; color:var(--text-light);" style-hover="border-color:var(--syntaxis-blue); color:var(--syntaxis-blue);">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.3 0-1.3-.13-2.47-.13-2.45 0-4.13 1.5-4.13 4.24V9.9H7.4V13h2.7v8z"/></svg>
+          Facebook
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 HERO -->
+  <section data-sid="hero" data-screen-label="Hero" id="hero" style="{{ revealHero }}">
+    <div aria-hidden="true" style="position:absolute; inset:0; background-image:linear-gradient(rgba(11,11,12,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(11,11,12,0.055) 1px, transparent 1px); background-size:56px 56px; pointer-events:none; mask-image:radial-gradient(ellipse at 50% 45%, black, transparent 78%);"></div>
+
+    <div style="position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; width:100%; max-width:1000px; margin:0 auto;">
+      <div role="img" aria-label="Isotipo de Syntaxis" style="position:relative; width:clamp(100px,10vw,150px); height:clamp(100px,10vw,150px); margin-bottom:clamp(10px,1.6vh,18px);">
+        <span aria-hidden="true" style="position:absolute; inset:-14%; border-radius:999px; background:radial-gradient(circle, var(--syntaxis-blue) 0%, transparent 68%); opacity:0; animation:join-flash 0.55s cubic-bezier(.16,.84,.44,1) 1s both;"></span>
+        <img width="108" height="108" src="assets/syntaxis-icon-black-on-white.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; mix-blend-mode:multiply; clip-path:polygon(0% 0%, 100% 0%, 100% 64%, 0% 40%); animation:join-a 1.15s cubic-bezier(.16,.84,.44,1) both;" />
+        <img width="108" height="108" src="assets/syntaxis-icon-black-on-white.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; mix-blend-mode:multiply; clip-path:polygon(0% 40%, 100% 64%, 100% 100%, 0% 100%); animation:join-b 1.15s cubic-bezier(.16,.84,.44,1) both;" />
+      </div>
+
+      <div style="display:inline-flex; align-items:center; gap:11px; font-family:var(--font-mono); font-size:clamp(10px,1.4vh,13px); color:#4a4a47; letter-spacing:0.24em; margin-bottom:clamp(16px,2.6vh,30px);">
+        <span style="position:relative; display:inline-flex; width:8px; height:8px;">
+          <span style="position:absolute; inset:0; border-radius:999px; background:var(--syntaxis-blue); animation:pulse-ring 2.4s ease-out infinite;"></span>
+          <span style="position:relative; width:8px; height:8px; border-radius:999px; background:var(--syntaxis-blue); border:1px solid var(--bg-dark);"></span>
+        </span>
+        ESTUDIO DE DESARROLLO DIGITAL
+      </div>
+
+      <h1 style="font-family:var(--font-display); font-size:clamp(16px,5vw,74px); line-height:1.06; font-weight:800; letter-spacing:-0.03em; margin:0 0 clamp(16px,2.8vh,28px); max-width:none; color:var(--bg-dark);">
+        <span style="display:block;">
+          <span style="display:inline-flex; align-items:baseline; max-width:0; overflow:hidden; white-space:nowrap; animation:type-line 1.05s steps(21,end) 0.95s both;">
+            <span>Cada proyecto empieza</span>
+            <span aria-hidden="true" style="flex:0 0 auto; width:0.06em; height:0.82em; background:var(--syntaxis-blue); margin-left:0.06em; animation:blink 0.7s step-end 0.95s 2, caret-out 0.01s linear 2s forwards;"></span>
+          </span>
+        </span>
+        <span style="display:block; color:#4a4a47;">
+          <span style="display:inline-flex; align-items:baseline; max-width:0; overflow:hidden; white-space:nowrap; animation:type-line 1.05s steps(19,end) 2s both;">
+            <span>con la <span style="color:var(--bg-dark); background:linear-gradient(transparent 62%, rgba(68,136,238,0.35) 62%);">sintaxis correcta.</span></span>
+            <span aria-hidden="true" style="flex:0 0 auto; width:0.06em; height:0.82em; background:var(--syntaxis-blue); margin-left:0.06em; opacity:0; animation:caret-in 0.01s linear 2s forwards, blink 0.85s step-end 2.01s infinite;"></span>
+          </span>
+        </span>
+      </h1>
+
+      <p style="font-size:clamp(15px,2.1vh,21px); color:#4a4a47; max-width:46ch; line-height:1.6; margin:0 0 clamp(22px,3.4vh,36px); text-wrap:pretty;">
+        Desarrollamos sitios web, sistemas a medida y automatizaciones con inteligencia artificial para negocios que quieren dejar de improvisar su presencia digital.
+      </p>
+
+      <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:center;">
+        <a href="#contact-form" onMouseEnter="{{ onPrimaryEnter }}" onMouseLeave="{{ onPrimaryLeave }}" onFocus="{{ onPrimaryEnter }}" onBlur="{{ onPrimaryLeave }}" style="{{ heroPrimaryStyle }}">
+          <span aria-hidden="true" style="{{ heroPrimarySplat }}"></span>
+          <span aria-hidden="true" style="{{ heroPrimaryDrip }}"></span>
+          <span style="position:relative; z-index:2; display:inline-flex; align-items:center; gap:12px;">Iniciar un proyecto <span>→</span></span>
+        </a>
+        <a href="#portfolio" onMouseEnter="{{ onSecondaryEnter }}" onMouseLeave="{{ onSecondaryLeave }}" onFocus="{{ onSecondaryEnter }}" onBlur="{{ onSecondaryLeave }}" style="{{ heroSecondaryStyle }}">
+          <span aria-hidden="true" style="{{ heroSecondarySplat }}"></span>
+          <span aria-hidden="true" style="{{ heroSecondaryDrip }}"></span>
+          <span style="position:relative; z-index:2;">Ver proyectos</span>
+        </a>
+      </div>
+    </div>
+
+    <div aria-hidden="true" style="position:absolute; bottom:34px; left:50%; transform:translateX(-50%); font-family:var(--font-mono); font-size:12px; font-weight:600; color:var(--syntaxis-blue); letter-spacing:0.18em; display:flex; flex-direction:column; align-items:center; gap:10px;">
+      DESLIZÁ
+      <span style="width:1px; height:26px; background:var(--syntaxis-blue); display:inline-block; animation:scroll-line 1.6s ease-in-out infinite;"></span>
+    </div>
+  </section>
+
+  <!-- 02 SOLUCIONES -->
+  <section data-sid="soluciones" data-screen-label="Soluciones" id="soluciones" style="{{ revealServices }}">
+    <div ref="{{ setTrackRef }}" class="section-inner" style="{{ trackOuterStyle }}">
+      <div style="{{ trackStickyStyle }}">
+        <div style="{{ headColStyle }}">
+          <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:18px;">
+            <span style="font-family:var(--font-mono); color:var(--syntaxis-blue); font-size:13px; letter-spacing:0.1em;">02</span>
+            <h2 style="font-size:clamp(28px,3.6vw,44px); font-weight:600; margin:0; letter-spacing:-0.01em;">¿Qué necesitás?</h2>
+          </div>
+          <p style="font-size:clamp(17px,1.05vw,20px); color:#8a8a87; max-width:44ch; margin:0 0 32px; line-height:1.6; text-wrap:pretty;">Empezá por lo que querés lograr. Nosotros nos ocupamos de cómo se hace.</p>
+          <div style="display:flex; flex-direction:column;">
+            <sc-for list="{{ goalCards }}" as="idx" hint-placeholder-count="4">
+              <button type="button" onClick="{{ idx.onJump }}" style="{{ idx.indexRowStyle }}">
+                <span style="{{ idx.indexIconStyle }}">{{ idx.icon }}</span>
+                <span style="text-align:left;">
+                  <span style="{{ idx.indexLabelStyle }}">{{ idx.label }}</span>
+                  <span style="display:block; font-size:clamp(13px,0.85vw,15px); color:#8a8a87; line-height:1.45; text-wrap:pretty;">{{ idx.blurb }}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="{{ cardsColStyle }}">
+          <sc-for list="{{ goalCards }}" as="g" hint-placeholder-count="4">
+            <div style="{{ g.cardStyle }}">
+              <div style="display:flex; align-items:center; margin-bottom:clamp(10px,1.8vh,18px);">
+                <span style="{{ g.cardIconStyle }}">{{ g.icon }}</span>
+              </div>
+              <h3 style="font-size:clamp(19px,3vh,29px); font-weight:600; margin:0 0 10px; letter-spacing:-0.01em; line-height:1.2; text-wrap:pretty;">{{ g.question }}</h3>
+              <p style="font-size:clamp(13px,1.9vh,15px); color:#8a8a87; line-height:1.5; margin:0 0 clamp(12px,2vh,24px); text-wrap:pretty;">{{ g.sub }}</p>
+              <div style="display:flex; flex-direction:column; margin-top:auto;">
+                <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3">
+                  <div style="display:flex; gap:12px; align-items:baseline; padding:clamp(7px,1.4vh,13px) 0; border-top:1px solid rgba(241,240,236,0.12);">
+                    <span style="color:var(--syntaxis-blue); font-family:var(--font-mono); font-size:13px;">›</span>
+                    <span>
+                      <span style="display:block; font-size:clamp(14px,2vh,16px); font-weight:600; margin-bottom:2px;">{{ it.name }}</span>
+                      <span style="display:block; font-size:clamp(12px,1.75vh,14px); color:#8a8a87; line-height:1.45; text-wrap:pretty;">{{ it.desc }}</span>
+                    </span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 QUÉ NECESITÁS REALMENTE -->
+  <section data-sid="tipos" data-screen-label="Tipos de solucion" id="tipos" style="{{ revealTipos }}">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(24px,4vw,64px); align-items:end; margin-bottom:clamp(36px,4vw,56px);">
+      <div>
+        <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:18px;">
+          <span style="font-family:var(--font-mono); color:var(--syntaxis-blue); font-size:13px; letter-spacing:0.1em;">03</span>
+          <h2 style="font-size:clamp(28px,3.6vw,52px); font-weight:600; margin:0; letter-spacing:-0.01em;">Elegí el tipo de solución</h2>
+        </div>
+        <p style="font-size:clamp(17px,1.05vw,20px); color:#8a8a87; max-width:46ch; margin:0; line-height:1.6; text-wrap:pretty;">Cuatro caminos posibles. Esta es la diferencia entre ellos, sin vueltas.</p>
+      </div>
+      <div aria-hidden="true" style="display:flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:11px; color:#5c5c59; letter-spacing:0.14em; justify-content:flex-end;">
+        <span style="width:60px; height:1px; background:rgba(241,240,236,0.2);"></span>COMPARACIÓN
+      </div>
+    </div>
+
+    <div class="tipos-grid" style="display:grid; gap:1px; background:rgba(241,240,236,0.14); border:1px solid rgba(241,240,236,0.14); border-radius:18px; overflow:hidden;">
+      <sc-for list="{{ tipos }}" as="t" hint-placeholder-count="4">
+        <div style="background:#101011; padding:clamp(24px,2.6vw,40px); display:flex; flex-direction:column;">
+          <span style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:12px; border:1px solid rgba(68,136,238,0.4); color:var(--syntaxis-blue); margin-bottom:20px;">{{ t.icon }}</span>
+          <h3 style="font-family:var(--font-mono); font-size:15px; letter-spacing:0.12em; font-weight:600; margin:0 0 12px;">{{ t.title }}</h3>
+          <p style="font-size:clamp(14px,1vw,16px); color:#b8b7b2; line-height:1.55; margin:0 0 20px; text-wrap:pretty;">{{ t.desc }}</p>
+          <div style="font-family:var(--font-mono); font-size:11px; color:#5c5c59; letter-spacing:0.12em; margin-bottom:10px; padding-top:16px; border-top:1px solid rgba(241,240,236,0.1);">IDEAL PARA</div>
+          <div style="display:flex; flex-wrap:wrap; gap:7px;">
+            <sc-for list="{{ t.ideal }}" as="i" hint-placeholder-count="4">
+              <span style="font-size:12.5px; color:#8a8a87; border:1px solid rgba(241,240,236,0.16); border-radius:999px; padding:5px 11px;">{{ i }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="margin-top:clamp(24px,3vw,36px); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px; border:1px dashed rgba(68,136,238,0.45); border-radius:16px; padding:clamp(20px,2.4vw,28px) clamp(22px,2.6vw,32px);">
+      <p style="font-size:clamp(16px,1.8vw,22px); margin:0; max-width:52ch; text-wrap:pretty;">¿No estás seguro cuál te sirve? Te ayudamos a encontrar la opción correcta antes de empezar.</p>
+      <a href="#contact-form" style="display:inline-flex; align-items:center; gap:12px; background:var(--syntaxis-blue); color:#ffffff; padding:15px 28px; border-radius:999px; font-family:var(--font-mono); font-size:13px; font-weight:600; letter-spacing:0.06em; min-height:50px;" style-hover="background:var(--blue-hover);">Hablemos <span>→</span></a>
+    </div>
+  </section>
+
+  <!-- 04 PORTFOLIO -->
+  <section data-sid="portfolio" data-screen-label="Portfolio" id="portfolio" style="{{ revealPortfolio }}">
+    <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:clamp(36px,4vw,56px);">
+      <div>
+        <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:14px;">
+          <span style="font-family:var(--font-mono); color:var(--syntaxis-blue); font-size:13px; letter-spacing:0.1em;">04</span>
+          <span style="font-family:var(--font-mono); font-size:12px; color:#5c5c59; letter-spacing:0.16em;">SELECCIÓN 2025 — 2026</span>
+        </div>
+        <h2 style="font-size:clamp(32px,4.4vw,66px); font-weight:600; margin:0; letter-spacing:-0.02em; line-height:1;">PORTFOLIO</h2>
+      </div>
+      <p style="font-size:clamp(16px,1vw,18px); color:#8a8a87; max-width:34ch; margin:0; line-height:1.6; text-wrap:pretty;">Pasá el mouse sobre cada preview para recorrer el sitio, como si lo estuvieras navegando.</p>
+    </div>
+
+    <div style="{{ projectsGridStyle }}">
+      <sc-for list="{{ projects }}" as="p" hint-placeholder-count="3">
+        <article style="{{ p.cardStyle }}" style-hover="border-color:rgba(68,136,238,0.5);">
+          <a href="{{ p.url }}" target="_blank" rel="noopener" aria-label="{{ p.aria }}" onMouseEnter="{{ p.onEnter }}" onMouseLeave="{{ p.onLeave }}" onFocus="{{ p.onEnter }}" onBlur="{{ p.onLeave }}" onTouchStart="{{ p.onEnter }}" style="{{ p.frameStyle }}">
+            <div style="display:flex; align-items:center; gap:14px; padding:11px 14px; background:#15151a; border-bottom:1px solid rgba(241,240,236,0.12);">
+              <span style="display:flex; gap:6px; flex-shrink:0;">
+                <span style="width:9px; height:9px; border-radius:999px; background:#3a3a42;"></span>
+                <span style="width:9px; height:9px; border-radius:999px; background:#3a3a42;"></span>
+                <span style="width:9px; height:9px; border-radius:999px; background:#3a3a42;"></span>
+              </span>
+              <span style="flex:1; display:flex; align-items:center; gap:8px; min-width:0; background:#0d0d11; border:1px solid rgba(241,240,236,0.1); border-radius:999px; padding:5px 12px; font-family:var(--font-mono); font-size:11px; color:#7a7a80;">
+                <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9" rx="2"></rect><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"></path></svg>
+                <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ p.domain }}</span>
+              </span>
+            </div>
+
+            <div style="{{ p.viewportStyle }}">
+              <sc-if value="{{ p.isNoir }}" hint-placeholder-val="{{ true }}">
+                <img loading="lazy" width="1600" height="2355" src="assets/proyecto-noircoffee.webp" alt="{{ p.alt }}" style="{{ p.shotStyle }}" />
+              </sc-if>
+              <sc-if value="{{ p.isEnco }}" hint-placeholder-val="{{ false }}">
+                <img loading="lazy" width="1600" height="4106" src="assets/proyecto-encommunidad.webp" alt="{{ p.alt }}" style="{{ p.shotStyle }}" />
+              </sc-if>
+              <sc-if value="{{ p.isMaison }}" hint-placeholder-val="{{ false }}">
+                <img loading="lazy" width="1600" height="1922" src="assets/proyecto-maisondoree-full.jpg" alt="{{ p.alt }}" style="{{ p.shotStyle }}" />
+              </sc-if>
+              <span aria-hidden="true" style="{{ p.overlayStyle }}">
+                <span style="display:inline-flex; align-items:center; gap:10px; background:var(--syntaxis-blue); color:#ffffff; padding:13px 24px; border-radius:999px; font-family:var(--font-mono); font-size:12.5px; font-weight:600; letter-spacing:0.08em;">VER PROYECTO →</span>
+              </span>
+            </div>
+          </a>
+
+          <div style="padding:clamp(20px,2.2vw,26px); display:flex; flex-direction:column; gap:12px;">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:14px;">
+              <h3 style="font-size:clamp(21px,2.2vw,32px); font-weight:600; margin:0; letter-spacing:-0.01em;">{{ p.title }}</h3>
+              <span style="font-family:var(--font-mono); font-size:11px; letter-spacing:0.12em; color:var(--syntaxis-blue); flex-shrink:0;">{{ p.category }}</span>
+            </div>
+            <p style="font-size:clamp(14.5px,0.9vw,16px); line-height:1.6; color:#b8b7b2; margin:0; text-wrap:pretty;">{{ p.description }}</p>
+            <a href="{{ p.url }}" target="_blank" rel="noopener" style="margin-top:8px; display:inline-flex; align-items:center; gap:9px; align-self:flex-start; font-family:var(--font-mono); font-size:12.5px; letter-spacing:0.06em; color:var(--text-light); border-bottom:1px solid rgba(241,240,236,0.35); padding:4px 0; transition:color 0.25s ease, border-color 0.25s ease;" style-hover="color:var(--syntaxis-blue);border-color:var(--syntaxis-blue);">Ver proyecto ↗</a>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- 05 PROCESO -->
+  <section data-sid="proceso" data-screen-label="Proceso" id="proceso" style="{{ revealProcess }}">
+    <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:clamp(32px,4vw,52px);">
+      <div>
+        <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:14px;">
+          <span style="font-family:var(--font-mono); color:var(--syntaxis-blue); font-size:13px; letter-spacing:0.1em;">05</span>
+          <span style="font-family:var(--font-mono); font-size:12px; color:#5c5c59; letter-spacing:0.16em;">{{ stepCounter }}</span>
+        </div>
+        <h2 style="font-size:clamp(30px,4.4vw,64px); font-weight:600; margin:0; letter-spacing:-0.02em; line-height:1.02;">Cómo trabajamos</h2>
+      </div>
+      <p style="font-size:clamp(16px,1vw,18px); color:#8a8a87; max-width:38ch; margin:0; line-height:1.6; text-wrap:pretty;">Cinco etapas, siempre las mismas. Abrí cada una para ver qué pasa adentro.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column;">
+      <sc-for list="{{ steps }}" as="step" hint-placeholder-count="5">
+        <div style="{{ step.wrapStyle }}">
+          <button type="button" onClick="{{ step.onClick }}" aria-expanded="{{ step.open }}" style="{{ step.headStyle }}">
+            <span style="{{ step.numStyle }}">{{ step.n }}</span>
+            <span style="{{ step.titleStyle }}">{{ step.title }}</span>
+            <span style="{{ step.hintStyle }}">{{ step.objetivo }}</span>
+            <span style="{{ step.iconStyle }}">+</span>
+          </button>
+          <div style="{{ step.bodyWrapStyle }}">
+            <div style="min-height:0; overflow:hidden;">
+              <div style="{{ step.bodyStyle }}">
+                <div>
+                  <div style="font-family:var(--font-mono); font-size:11px; color:var(--syntaxis-blue); letter-spacing:0.14em; margin-bottom:10px;">OBJETIVO</div>
+                  <p style="font-size:clamp(15px,1vw,17px); line-height:1.6; color:#e6e5e0; margin:0; text-wrap:pretty;">{{ step.objetivo }}</p>
+                </div>
+                <div>
+                  <div style="font-family:var(--font-mono); font-size:11px; color:var(--syntaxis-blue); letter-spacing:0.14em; margin-bottom:10px;">QUÉ HACEMOS</div>
+                  <div style="display:flex; flex-direction:column; gap:7px;">
+                    <sc-for list="{{ step.hacemos }}" as="h" hint-placeholder-count="4">
+                      <span style="font-size:clamp(14.5px,0.95vw,16px); color:#b8b7b2; line-height:1.45;">— {{ h }}</span>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="border-left:2px solid var(--syntaxis-blue); padding-left:18px;">
+                  <div style="font-family:var(--font-mono); font-size:11px; color:var(--syntaxis-blue); letter-spacing:0.14em; margin-bottom:10px;">QUÉ OBTENÉS</div>
+                  <p style="font-size:clamp(15px,1vw,17px); line-height:1.6; color:#e6e5e0; margin:0; text-wrap:pretty;">{{ step.obtenes }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- 06 POR QUÉ SYNTAXIS -->
+  <section data-sid="porque" data-screen-label="Por que Syntaxis" id="porque" style="{{ revealDiff }}">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(32px,4vw,72px); align-items:center;">
+      <div>
+        <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:18px;">
+          <span style="font-family:var(--font-mono); color:var(--bg-dark); opacity:0.45; font-size:13px; letter-spacing:0.1em;">06</span>
+          <h2 style="font-size:clamp(28px,3.6vw,52px); font-weight:600; margin:0; letter-spacing:-0.01em;">¿Por qué elegir Syntaxis?</h2>
+        </div>
+        <p style="font-size:clamp(17px,1.05vw,19px); color:#4a4a47; max-width:40ch; margin:0 0 clamp(24px,3vw,36px); line-height:1.6; text-wrap:pretty;">Porque no separamos las piezas. Diseño, desarrollo, automatización y negocio son un mismo sistema.</p>
+
+        <div aria-hidden="true" style="{{ diagramStyle }}">
+          <div style="{{ vRuleStyle }}"></div>
+          <div style="{{ hRuleStyle }}"></div>
+          <div style="{{ centerNodeStyle }}">SYNTAXIS</div>
+          <sc-for list="{{ nodes }}" as="nd" hint-placeholder-count="4">
+            <div style="{{ nd.style }}">{{ nd.label }}</div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column;">
+        <sc-for list="{{ diffs }}" as="d" hint-placeholder-count="6">
+          <div style="display:grid; grid-template-columns:44px 1fr; gap:18px; align-items:baseline; padding:clamp(16px,2vw,20px) 0; border-top:1px solid rgba(11,11,12,0.15);" style-hover="background:rgba(68,136,238,0.16);">
+            <span style="font-family:var(--font-mono); font-size:clamp(20px,2.4vw,30px); color:var(--bg-dark); opacity:0.35;">{{ d.n }}</span>
+            <span>
+              <span style="display:block; font-size:clamp(17px,1.9vw,22px); font-weight:600; margin-bottom:6px; text-wrap:pretty;">{{ d.title }}</span>
+              <span style="display:block; font-size:clamp(14px,0.9vw,16px); line-height:1.55; color:#4a4a47; text-wrap:pretty;">{{ d.desc }}</span>
+            </span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 FAQ -->
+  <section data-sid="faq" data-screen-label="Preguntas frecuentes" id="faq" style="{{ revealFaq }}">
+    <div style="display:flex; align-items:baseline; gap:16px; justify-content:center; margin-bottom:clamp(32px,4vw,52px);">
+      <span style="font-family:var(--font-mono); color:var(--syntaxis-blue); font-size:13px; letter-spacing:0.1em;">07</span>
+      <h2 style="font-size:clamp(28px,3.6vw,52px); font-weight:600; margin:0; letter-spacing:-0.01em;">Preguntas frecuentes</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px clamp(12px,2.5vw,32px);">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+        <div style="{{ f.itemStyle }}">
+          <button type="button" onClick="{{ f.onClick }}" aria-expanded="{{ f.open }}" style="{{ f.buttonStyle }}">
+            <span style="font-size:clamp(13px,1.5vw,18px); font-weight:500; text-align:left; text-wrap:pretty;">{{ f.q }}</span>
+            <span style="{{ f.iconStyle }}">+</span>
+          </button>
+          <div style="{{ f.answerWrapStyle }}">
+            <div style="min-height:0; overflow:hidden;">
+              <p style="font-size:clamp(15px,1vw,17px); line-height:1.6; color:#8a8a87; margin:0; padding:0 20px 20px; text-wrap:pretty;">{{ f.a }}</p>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- 08 CONTACTO -->
+  <section data-sid="contacto" data-screen-label="Contacto" id="contacto" style="{{ revealContact }}">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(28px,3.5vw,56px); align-items:center; margin-bottom:clamp(40px,5vw,64px);">
+      <div>
+        <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:18px;">
+          <span style="font-family:var(--font-mono); color:var(--syntaxis-blue); font-size:13px; letter-spacing:0.1em;">08</span>
+          <span style="font-family:var(--font-mono); font-size:12px; color:#5c5c59; letter-spacing:0.16em;">CONTACTO</span>
+        </div>
+        <h2 style="font-size:clamp(34px,4.6vw,70px); font-weight:600; margin:0; letter-spacing:-0.02em; line-height:1.06;">¿Qué <span style="color:var(--syntaxis-blue);">podemos</span><br/>construir juntos?</h2>
+      </div>
+      <div>
+        <p style="font-size:clamp(16px,1.7vw,21px); color:#b8b7b2; line-height:1.6; margin:0 0 28px; max-width:38ch; text-wrap:pretty;">Contanos tu idea y te ayudamos a convertirla en una solución digital que haga crecer tu negocio.</p>
+        <a href="#contact-form" style="display:inline-flex; align-items:center; gap:12px; background:var(--syntaxis-blue); color:#ffffff; padding:15px 28px; border-radius:999px; font-family:var(--font-mono); font-size:13px; font-weight:600; letter-spacing:0.06em; min-height:50px;" style-hover="background:var(--blue-hover);">EMPEZAR PROYECTO <span>→</span></a>
+      </div>
+      <div aria-hidden="true" class="contact-visual" style="position:relative; aspect-ratio:16/9; min-height:150px; overflow:hidden;">
+        <div style="position:absolute; left:0; right:0; top:50%; border-top:1px dashed rgba(241,240,236,0.3);"></div>
+        <div style="position:absolute; top:0; bottom:0; left:26%; border-left:1px dashed rgba(241,240,236,0.3);"></div>
+        <div style="position:absolute; top:0; bottom:0; left:14%; width:72%; background-image:linear-gradient(to bottom right, transparent calc(50% - 0.5px), rgba(241,240,236,0.22) calc(50% - 0.5px), rgba(241,240,236,0.22) calc(50% + 0.5px), transparent calc(50% + 0.5px)), linear-gradient(to top right, transparent calc(50% - 0.5px), rgba(241,240,236,0.22) calc(50% - 0.5px), rgba(241,240,236,0.22) calc(50% + 0.5px), transparent calc(50% + 0.5px));"></div>
+        <div style="position:absolute; top:0; left:14%; width:22px; height:22px; border-top:1px solid rgba(241,240,236,0.45); border-left:1px solid rgba(241,240,236,0.45);"></div>
+        <div style="position:absolute; bottom:0; left:14%; width:22px; height:22px; border-bottom:1px solid rgba(241,240,236,0.45); border-left:1px solid rgba(241,240,236,0.45);"></div>
+        <div style="position:absolute; left:22%; top:50%; width:20px; height:20px; background:var(--syntaxis-blue); transform:translate(-50%,-50%);"></div>
+        <div style="position:absolute; right:8%; top:50%; transform:translateY(-50%); width:clamp(52px,7vw,74px); height:clamp(52px,7vw,74px); border:1px solid rgba(241,240,236,0.5); display:flex; align-items:center; justify-content:center; padding:10px;"><img width="64" height="64" src="assets/syntaxis-icon-white-on-black.jpg" alt="" style="width:100%; height:100%; object-fit:contain; mix-blend-mode:screen;" /></div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(32px,4vw,72px); align-items:start;">
+      <div style="display:flex; flex-direction:column; gap:32px;">
+        <a href="https://wa.me/5491125735323" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:20px;" style-hover="color:var(--syntaxis-blue);">
+          <span style="flex-shrink:0; width:50px; height:50px; border-radius:999px; border:1px solid rgba(241,240,236,0.3); display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 24 24" width="25" height="25" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.03.24-3.47-.72-2.94-1.16-4.77-4.2-4.91-4.4-.14-.2-1.15-1.53-1.15-2.92 0-1.39.72-2.07.98-2.35.26-.29.57-.36.76-.36l.55.01c.17 0 .41-.07.63.48.24.58.79 1.98.86 2.12.07.15.12.32.02.51-.1.2-.15.32-.29.5-.14.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.29 2.33 1.44.29.14.46.12.63-.07.17-.2.73-.85.93-1.14.19-.29.39-.24.65-.15.26.1 1.66.79 1.95.93.29.15.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
+          </span>
+          <span>
+            <span style="display:block; font-size:clamp(18px,1.05vw,21px); font-weight:600; margin-bottom:5px;">WhatsApp</span>
+            <span style="display:block; font-family:var(--font-mono); font-size:clamp(15px,0.9vw,16px); color:#8a8a87;">+54 9 11 2573-5323</span>
+          </span>
+        </a>
+        <a href="mailto:syntaxiscontacto@gmail.com" style="display:flex; align-items:center; gap:20px;" style-hover="color:var(--syntaxis-blue);">
+          <span style="flex-shrink:0; width:50px; height:50px; border-radius:999px; border:1px solid rgba(241,240,236,0.3); display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"></rect><path d="M3 6.5l9 6 9-6"></path></svg>
+          </span>
+          <span>
+            <span style="display:block; font-size:clamp(18px,1.05vw,21px); font-weight:600; margin-bottom:5px;">Email</span>
+            <span style="display:block; font-family:var(--font-mono); font-size:clamp(15px,0.9vw,16px); color:#8a8a87;">syntaxiscontacto@gmail.com</span>
+          </span>
+        </a>
+        <div style="display:flex; align-items:center; gap:20px;">
+          <span style="flex-shrink:0; width:50px; height:50px; border-radius:999px; border:1px solid rgba(241,240,236,0.3); display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+          </span>
+          <span>
+            <span style="display:block; font-size:clamp(18px,1.05vw,21px); font-weight:600; margin-bottom:5px;">Ubicación</span>
+            <span style="display:block; font-family:var(--font-mono); font-size:clamp(15px,0.9vw,16px); color:#8a8a87;">Buenos Aires, Argentina</span>
+          </span>
+        </div>
+        <div style="display:flex; gap:24px; font-family:var(--font-mono); font-size:15px; color:#8a8a87; padding-top:8px;">
+          <a href="https://instagram.com/syntaxis.digital" target="_blank" rel="noopener" style-hover="color:var(--syntaxis-blue);">Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=61592937162357" target="_blank" rel="noopener" style-hover="color:var(--syntaxis-blue);">Facebook</a>
+        </div>
+      </div>
+
+      <div id="contact-form" style="position:relative; border:1.5px solid rgba(68,136,238,0.55); border-radius:20px; background:var(--bg-dark); box-shadow:0 25px 70px rgba(68,136,238,0.18); padding:clamp(24px,3vw,38px);">
+        <div aria-hidden="true" style="position:absolute; top:-1px; left:26px; right:26px; height:2px; background:var(--syntaxis-blue);"></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:8px;">
+          <span style="font-family:var(--font-mono); font-size:11px; color:var(--syntaxis-blue); letter-spacing:0.16em;">FORMULARIO / 001</span>
+          <span style="font-family:var(--font-mono); font-size:11px; color:#5c5c59; letter-spacing:0.14em;">RESPUESTA &lt; 48H</span>
+        </div>
+        <h3 style="font-size:clamp(21px,2.4vw,30px); font-weight:600; margin:0 0 24px; letter-spacing:-0.01em;">¿Tenés un proyecto en mente?</h3>
+
+        <sc-if value="{{ formSubmitted }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; justify-content:center; min-height:300px;">
+            <div style="font-family:var(--font-mono); font-size:13px; color:var(--syntaxis-blue); letter-spacing:0.1em; margin-bottom:16px;">CONSULTA ENVIADA</div>
+            <p style="font-size:clamp(20px,1.2vw,23px); line-height:1.5; margin:0 0 20px;">Recibimos tu consulta y te vamos a responder a syntaxiscontacto@gmail.com. Si preferís, también podés escribirnos directamente.</p>
+            <a href="mailto:syntaxiscontacto@gmail.com" style="display:inline-flex; align-self:flex-start; align-items:center; gap:10px; font-family:var(--font-mono); font-size:13px; color:var(--syntaxis-blue); border-bottom:1px solid var(--syntaxis-blue); padding:4px 0;">syntaxiscontacto@gmail.com ↗</a>
+          </div>
+        </sc-if>
+        <sc-if value="{{ formNotSubmitted }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ handleSubmit }}" style="display:flex; flex-direction:column; gap:18px;">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:18px;">
+              <label style="{{ labelStyle }}">01 · Nombre<input required="{{ isRequired }}" name="nombre" type="text" placeholder="Tu nombre" style="{{ inputStyle }}" /></label>
+              <label style="{{ labelStyle }}">02 · Email<input required="{{ isRequired }}" name="email" type="email" placeholder="tu@email.com" style="{{ inputStyle }}" /></label>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:18px;">
+              <label style="{{ labelStyle }}">03 · Empresa (opcional)<input name="empresa" type="text" placeholder="Nombre del negocio" style="{{ inputStyle }}" /></label>
+              <label style="{{ labelStyle }}">04 · WhatsApp<input name="whatsapp" type="tel" placeholder="+54 9 11 ..." style="{{ inputStyle }}" /></label>
+            </div>
+            <label style="{{ labelStyle }}">05 · Tu proyecto<textarea required="{{ isRequired }}" name="proyecto" placeholder="Contanos un poco sobre lo que querés hacer" rows="5" style="{{ textareaStyle }}"></textarea></label>
+            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none;" />
+            <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
+              <p style="font-size:13px; color:#ff6b6b; margin:0;">Hubo un problema al enviar. Probá de nuevo o escribinos directo a <a href="mailto:syntaxiscontacto@gmail.com" style="color:#ff6b6b; text-decoration:underline;">syntaxiscontacto@gmail.com</a>.</p>
+            </sc-if>
+            <button type="submit" disabled="{{ sending }}" style="align-self:stretch; display:inline-flex; align-items:center; justify-content:center; gap:12px; background:var(--syntaxis-blue); color:#ffffff; border:none; padding:18px 30px; border-radius:999px; font-family:var(--font-mono); font-size:14px; font-weight:600; letter-spacing:0.06em; cursor:pointer; min-height:56px;" style-hover="background:var(--blue-hover);">{{ submitLabel }} <span>→</span></button>
+          </form>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <a href="https://wa.me/5491125735323?text=Hola%20Syntaxis,%20quiero%20consultarles%20por%20un%20proyecto" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp" style="position:fixed; bottom:24px; right:24px; z-index:150; display:flex; align-items:center; justify-content:center; width:58px; height:58px; border-radius:999px; background:#25D366; box-shadow:0 10px 30px rgba(0,0,0,0.45);" style-hover="background:#1ebe5b;">
+    <svg viewBox="0 0 24 24" width="30" height="30" fill="var(--bg-dark)" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.03.24-3.47-.72-2.94-1.16-4.77-4.2-4.91-4.4-.14-.2-1.15-1.53-1.15-2.92 0-1.39.72-2.07.98-2.35.26-.29.57-.36.76-.36l.55.01c.17 0 .41-.07.63.48.24.58.79 1.98.86 2.12.07.15.12.32.02.51-.1.2-.15.32-.29.5-.14.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.29 2.33 1.44.29.14.46.12.63-.07.17-.2.73-.85.93-1.14.19-.29.39-.24.65-.15.26.1 1.66.79 1.95.93.29.15.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
+  </a>
+
+  <!-- FOOTER -->
+  <footer style="position:relative; padding:clamp(56px,7vw,88px) clamp(20px,5vw,64px) 36px; display:flex; flex-direction:column; gap:clamp(36px,4vw,56px); background:#08080a; border-top:1px solid rgba(241,240,236,0.12);">
+    <div aria-hidden="true" style="position:absolute; top:0; left:0; right:0; height:96px; background-image:linear-gradient(rgba(241,240,236,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(241,240,236,0.05) 1px, transparent 1px); background-size:48px 48px; mask-image:linear-gradient(to bottom, black, transparent); pointer-events:none;"></div>
+
+    <div style="position:relative; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:36px;">
+      <div style="display:flex; flex-direction:column; gap:18px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <img width="64" height="64" src="assets/syntaxis-icon-white-on-black.jpg" alt="" style="width:36px; height:36px; object-fit:contain; mix-blend-mode:screen;" />
+          <span style="font-family:var(--font-mono); font-size:15px; font-weight:600; letter-spacing:0.14em;">SYNTAXIS</span>
+        </div>
+        <p style="font-size:clamp(14px,0.85vw,15px); color:#8a8a87; line-height:1.6; margin:0; max-width:30ch; text-wrap:pretty;">Estudio digital. Diseño, desarrollo y automatización en un mismo equipo.</p>
+        <a href="#contacto" style="display:inline-flex; align-items:center; gap:10px; align-self:flex-start; border:1px solid rgba(68,136,238,0.5); color:var(--syntaxis-blue); padding:12px 20px; border-radius:999px; font-family:var(--font-mono); font-size:12px; letter-spacing:0.08em;" style-hover="background:var(--syntaxis-blue);color:#ffffff;">EMPEZAR PROYECTO →</a>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; font-size:14px; color:#b8b7b2;">
+        <span style="font-family:var(--font-mono); font-size:11px; color:#5c5c59; letter-spacing:0.16em; margin-bottom:4px;">NAVEGACIÓN</span>
+        <a href="#soluciones" style-hover="color:var(--syntaxis-blue);">Soluciones</a>
+        <a href="#portfolio" style-hover="color:var(--syntaxis-blue);">Portfolio</a>
+        <a href="#proceso" style-hover="color:var(--syntaxis-blue);">Proceso</a>
+        <a href="#faq" style-hover="color:var(--syntaxis-blue);">Preguntas</a>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; font-size:14px; color:#b8b7b2;">
+        <span style="font-family:var(--font-mono); font-size:11px; color:#5c5c59; letter-spacing:0.16em; margin-bottom:4px;">QUÉ HACEMOS</span>
+        <span>Páginas web</span><span>Tiendas online</span><span>Sistemas a medida</span><span>Automatizaciones</span>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; font-size:14px; color:#b8b7b2;">
+        <span style="font-family:var(--font-mono); font-size:11px; color:#5c5c59; letter-spacing:0.16em; margin-bottom:4px;">CONTACTO</span>
+        <a href="mailto:syntaxiscontacto@gmail.com" style-hover="color:var(--syntaxis-blue);">syntaxiscontacto@gmail.com</a>
+        <a href="https://instagram.com/syntaxis.digital" target="_blank" rel="noopener" style-hover="color:var(--syntaxis-blue);">Instagram ↗</a>
+        <a href="https://www.facebook.com/profile.php?id=61592937162357" target="_blank" rel="noopener" style-hover="color:var(--syntaxis-blue);">Facebook ↗</a>
+        <span style="color:#8a8a87;">Buenos Aires, Argentina</span>
+      </div>
+    </div>
+
+    <div style="position:relative; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-family:var(--font-mono); font-size:11.5px; color:#5c5c59; letter-spacing:0.06em; padding-top:24px; border-top:1px solid rgba(241,240,236,0.1);">
+      <span>© 2026 SYNTAXIS — TODOS LOS DERECHOS RESERVADOS</span>
+      <span>34.6°S / 58.4°O</span>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+const ICON = {
+  eye: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-6.2 10-6.2S22 12 22 12s-3.8 6.2-10 6.2S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/><path d="M12 3.2v1.6M12 19.2v1.6"/></svg>',
+  cart: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5h2.6l2.2 10.2h9.5l2.2-7.2H6.6"/><circle cx="9.5" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/><path d="M14 4.2v4.4M11.8 6.4h4.4"/></svg>',
+  gear: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2.6v3M12 18.4v3M21.4 12h-3M5.6 12h-3M18.6 5.4l-2.1 2.1M7.5 16.5l-2.1 2.1M18.6 18.6l-2.1-2.1M7.5 7.5L5.4 5.4"/></svg>',
+  bolt: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.2 2.5L4.8 13.4h5.4l-1.4 8.1 8.4-10.9h-5.4z"/><path d="M20.5 4.5h1.2M20.5 8h1.2M2.3 16h1.2M2.3 19.5h1.2"/></svg>',
+  page: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>',
+  window: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M2.5 9h19"/><circle cx="6" cy="6.8" r=".7" fill="currentColor"/><circle cx="8.6" cy="6.8" r=".7" fill="currentColor"/></svg>',
+  bag: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7.5h15l-1.3 12.3a1.4 1.4 0 01-1.4 1.2H7.2a1.4 1.4 0 01-1.4-1.2z"/><path d="M8.8 7.5V6a3.2 3.2 0 016.4 0v1.5"/></svg>',
+  grid: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.4"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.4"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.4"/><path d="M13.5 17.2h7.5M17.2 13.5v7.5"/></svg>'
+};
+
+class Component extends DCLogic {
+  state = { visible: {}, formSubmitted: false, sending: false, formError: false, reducedMotion: false, cardP: 0, openFaq: null, openStep: 0, menuOpen: false, active: 'hero', observerReady: false,
+    narrow: typeof window !== 'undefined' && window.innerWidth < 960, hoverProject: null, heroPrimaryHover: false, heroSecondaryHover: false };
+
+  sections = [
+    { id: 'hero', label: 'INICIO' },
+    { id: 'soluciones', label: 'SOLUCIONES' },
+    { id: 'tipos', label: 'OPCIONES' },
+    { id: 'portfolio', label: 'PORTFOLIO' },
+    { id: 'proceso', label: 'PROCESO' },
+    { id: 'porque', label: 'POR QUÉ' },
+    { id: 'faq', label: 'FAQ' },
+    { id: 'contacto', label: 'CONTACTO' }
+  ];
+
+  goals = [
+    { n: 'OBJETIVO 01', ico: 'eye', label: 'MÁS VISIBILIDAD', blurb: 'Que más personas conozcan tu negocio.',
+      question: '¿Querés que más gente conozca tu negocio?',
+      sub: 'Una presencia online clara, que se encuentre en Google y explique bien lo que hacés.',
+      items: [
+        { name: 'Página web', desc: 'Tu negocio contado de forma clara, rápida y ordenada.' },
+        { name: 'Página de campaña', desc: 'Una sola página enfocada en que te contacten o compren.' },
+        { name: 'Aparecer en Google', desc: 'Preparamos tu sitio para que te encuentren cuando te buscan.' }
+      ] },
+    { n: 'OBJETIVO 02', ico: 'cart', label: 'MÁS VENTAS', blurb: 'Convertir visitas en clientes.',
+      question: '¿Querés vender por internet?',
+      sub: 'Una tienda propia, fácil de usar para tus clientes y fácil de administrar para vos.',
+      items: [
+        { name: 'Tienda online', desc: 'Catálogo, carrito y compra simple desde el celular.' },
+        { name: 'Cobros y envíos', desc: 'Conectamos los medios de pago y de envío que ya usás.' },
+        { name: 'Panel de productos', desc: 'Cargá productos, precios y stock sin depender de nadie.' }
+      ] },
+    { n: 'OBJETIVO 03', ico: 'gear', label: 'MÁS EFICIENCIA', blurb: 'Ahorrar tiempo y ordenar procesos.',
+      question: '¿Querés ordenar cómo trabaja tu equipo?',
+      sub: 'Una herramienta hecha para tu forma de trabajar, en lugar de adaptarte a un programa genérico.',
+      items: [
+        { name: 'Sistema interno', desc: 'Un solo lugar para ver clientes, pedidos y estados.' },
+        { name: 'Acceso para clientes', desc: 'Tus clientes consultan su información sin escribirte.' },
+        { name: 'Informes claros', desc: 'Los números de tu negocio, actualizados y entendibles.' }
+      ] },
+    { n: 'OBJETIVO 04', ico: 'bolt', label: 'MENOS TAREAS MANUALES', blurb: 'Que el sistema haga lo repetitivo.',
+      question: '¿Querés dejar de perder tiempo en tareas repetitivas?',
+      sub: 'Todo lo que hacés a mano y siempre igual, lo puede hacer el sistema por vos.',
+      items: [
+        { name: 'Tareas automáticas', desc: 'Mails, recordatorios y cargas que se hacen solas.' },
+        { name: 'Conectar tus herramientas', desc: 'Que los programas que ya usás se hablen entre sí.' },
+        { name: 'Ayuda con inteligencia artificial', desc: 'Respuestas y resúmenes automáticos donde tenga sentido.' }
+      ] }
+  ];
+
+  tipos = [
+    { ico: 'page', title: 'LANDING PAGE', desc: 'Una página enfocada en un objetivo específico. Corta, directa y pensada para que el visitante haga una sola cosa.', ideal: ['Campañas', 'Publicidad', 'Captar consultas', 'Promocionar un servicio'] },
+    { ico: 'window', title: 'SITIO WEB', desc: 'Una presencia completa para explicar quién sos, qué hacés y cómo contactarte, con varias secciones.', ideal: ['Empresas', 'Profesionales', 'Instituciones', 'Negocios'] },
+    { ico: 'bag', title: 'E-COMMERCE', desc: 'Una tienda online para vender productos o servicios, con pagos, envíos y gestión de pedidos.', ideal: ['Catálogos', 'Pagos', 'Pedidos', 'Ventas online'] },
+    { ico: 'grid', title: 'SISTEMA WEB', desc: 'Una herramienta a medida para resolver procesos internos o necesidades que ningún programa genérico cubre.', ideal: ['Gestión', 'Clientes', 'Reservas', 'Paneles', 'Automatizaciones'] }
+  ];
+
+  projects = [
+    {
+      title: 'Noir Coffee',
+      category: 'CAFETERÍA',
+      domain: 'noircoffee.com.ar',
+      description: 'Carta de una cafetería de especialidad, con filtros por categoría y fichas de cada método de preparación.',
+      technologies: ['Carta digital', 'Filtros', 'Mobile first'],
+      key: 'noir',
+      imgH: 2355,
+      url: 'https://noir-menu-pi.vercel.app/'
+    },
+    {
+      title: 'Encommunidad',
+      category: 'CAPTACIÓN',
+      domain: 'encommunidad.com',
+      description: 'Página de campaña para una agencia de publicidad, con video, argumentos de venta y un formulario por pasos.',
+      technologies: ['Landing page', 'Formulario por pasos', 'Video'],
+      key: 'enco',
+      imgH: 4106,
+      url: 'https://rad-pavlova-e90537.netlify.app/'
+    },
+    {
+      title: 'Maison Dorée',
+      category: 'GASTRONOMÍA',
+      domain: 'maisondoree.com.ar',
+      description: 'Carta digital para un restaurante de cocina francesa: búsqueda de platos, categorías y pedido desde el celular.',
+      technologies: ['Carta digital', 'Buscador', 'Mobile first'],
+      key: 'maison',
+      imgH: 1922,
+      url: 'https://maison-doree-sand.vercel.app/'
+    }
+  ];
+
+  steps = [
+    { n: '01', title: 'Nos contás', objetivo: 'Entender qué necesita el negocio y qué problema queremos resolver.', hacemos: ['Analizamos el negocio', 'Identificamos al público', 'Ordenamos los objetivos', 'Revisamos el contexto'], obtenes: 'Una definición clara del proyecto, escrita en criollo.' },
+    { n: '02', title: 'Definimos', objetivo: 'Acordar alcance, tiempos y costo antes de escribir una línea de código.', hacemos: ['Priorizamos funcionalidades', 'Armamos el cronograma', 'Elegimos las herramientas', 'Cerramos el presupuesto'], obtenes: 'Una propuesta cerrada, sin costos que aparecen después.' },
+    { n: '03', title: 'Diseñamos', objetivo: 'Ver cómo va a verse y funcionar antes de construirlo.', hacemos: ['Diseñamos las pantallas', 'Definimos la navegación', 'Escribimos los textos clave', 'Iteramos con tu feedback'], obtenes: 'El diseño aprobado de todas las pantallas del proyecto.' },
+    { n: '04', title: 'Construimos', objetivo: 'Convertir el diseño en un producto que funcione de verdad.', hacemos: ['Desarrollamos el frente y el sistema', 'Conectamos pagos e integraciones', 'Probamos en celular y escritorio', 'Te mostramos avances reales'], obtenes: 'Un entorno de prueba donde ver el avance cuando quieras.' },
+    { n: '05', title: 'Lanzamos', objetivo: 'Salir al aire y confirmar que todo anda como esperábamos.', hacemos: ['Publicamos el proyecto', 'Configuramos medición', 'Te enseñamos a administrarlo', 'Ajustamos con datos reales'], obtenes: 'El proyecto en línea, medido y con soporte para seguir.' }
+  ];
+
+  diffs = [
+    { n: '01', title: 'Un solo equipo, de principio a fin', desc: 'Quien lo diseña es quien lo construye. No hay traspasos ni cosas que se pierden en el camino.' },
+    { n: '02', title: 'Hecho para tu negocio', desc: 'No usamos plantillas repetidas. Partimos de cómo trabajás vos.' },
+    { n: '03', title: 'Hablás con quien lo hace', desc: 'Sin intermediarios ni respuestas que tardan una semana.' },
+    { n: '04', title: 'Rápido de verdad', desc: 'Que cargue en segundos y se vea bien en el celular no es opcional.' },
+    { n: '05', title: 'Pensado para crecer', desc: 'Lo que construimos hoy sigue sirviendo cuando tu negocio sea más grande.' },
+    { n: '06', title: 'Te lo explicamos claro', desc: 'Sin palabras técnicas. Vas a entender qué se hace y por qué.' }
+  ];
+
+  estudioTags = ['DISEÑO', 'DESARROLLO', 'AUTOMATIZACIÓN', 'ESTRATEGIA', 'SOPORTE'];
+
+  faqs = [
+    { q: '¿Cuánto tiempo tarda un proyecto?', a: 'Una página simple sale en dos a tres semanas. Una tienda online o un sistema a medida, entre seis y diez, según el alcance. Te damos una fecha concreta antes de empezar.' },
+    { q: '¿Cuánto cuesta un sitio web?', a: 'Depende de lo que necesites. Después de una primera charla te pasamos un presupuesto cerrado, sin costos que aparecen después.' },
+    { q: '¿Con qué plataformas trabajan?', a: 'Desarrollamos a medida y también trabajamos sobre plataformas conocidas si te conviene más. Elegimos según tu caso, no por costumbre.' },
+    { q: '¿Pueden automatizar mis procesos actuales?', a: 'Sí. Revisamos qué tareas hacés a mano todos los días y automatizamos las que se repiten, conectando las herramientas que ya usás.' },
+    { q: '¿Hacen mantenimiento y soporte?', a: 'Sí. Ofrecemos planes mensuales de mantenimiento, actualizaciones y soporte. También podés quedarte solo con el desarrollo.' },
+    { q: '¿Trabajan con empresas pequeñas?', a: 'Sí, es la mayor parte de lo que hacemos. Adaptamos el alcance al presupuesto para que puedas empezar chico y crecer después.' }
+  ];
+
+  componentDidMount() {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    if (!window.location.hash) window.scrollTo(0, 0);
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.setState({ reducedMotion: true });
+    }
+    this.io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('data-sid');
+          if (id) {
+            this.setState((s) => ({ visible: { ...s.visible, [id]: true } }));
+            this.io.unobserve(entry.target);
+          }
+        }
+      });
+    }, { threshold: 0.08 });
+    const scope = () => (this.rootEl || document);
+    const nodes = scope().querySelectorAll('[data-sid]');
+    if (nodes.length) {
+      this.setState({ observerReady: true });
+      nodes.forEach((el) => this.io.observe(el));
+    }
+    this.failOpen = setTimeout(() => {
+      const seen = {};
+      document.querySelectorAll('[data-sid]').forEach((el) => { seen[el.getAttribute('data-sid')] = true; });
+      this.setState((s) => ({ visible: { ...seen, ...s.visible } }));
+    }, 1200);
+    this.scope = scope;
+
+    this.target = 0;
+    this.cur = 0;
+    this.tick = () => {
+      const d = this.target - this.cur;
+      if (Math.abs(d) < 0.0008) {
+        this.cur = this.target;
+        this.anim = null;
+        if (this.state.cardP !== this.cur) this.setState({ cardP: this.cur });
+        return;
+      }
+      this.cur += d * 0.12;
+      this.setState({ cardP: this.cur });
+      this.anim = requestAnimationFrame(this.tick);
+    };
+
+    this.onScroll = () => {
+      if (this.raf) return;
+      this.raf = requestAnimationFrame(() => {
+        this.raf = null;
+        const narrow = window.innerWidth < 960;
+        let p = this.target;
+        if (this.trackEl && !narrow) {
+          const r = this.trackEl.getBoundingClientRect();
+          const NAV = 80;
+          const stickyH = window.innerHeight - NAV;
+          const travel = r.height - stickyH;
+          const t = travel > 0 ? Math.max(0, Math.min(1, (NAV - r.top) / travel)) : 0;
+          const n = this.goals.length;
+          const u = t * n;
+          const i = Math.min(n - 1, Math.floor(u));
+          const f = u - i;
+          const HOLD = 0.55;
+          let step = 0;
+          if (f > HOLD) {
+            const x = Math.min(1, (f - HOLD) / (1 - HOLD));
+            step = x * x * x * (x * (x * 6 - 15) + 10);
+          }
+          p = Math.min(n - 1, i + step);
+        }
+        this.target = p;
+
+        let active = this.state.active;
+        {
+          const mark = window.innerHeight * 0.38;
+          (this.rootEl || document).querySelectorAll('[data-sid]').forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= mark && rect.bottom > mark) active = el.getAttribute('data-sid');
+          });
+        }
+        const patch = {};
+        if (narrow !== this.state.narrow) patch.narrow = narrow;
+        if (active !== this.state.active) patch.active = active;
+        if (Object.keys(patch).length) this.setState(patch);
+        if (!this.anim && Math.abs(this.target - this.cur) > 0.0008) this.anim = requestAnimationFrame(this.tick);
+      });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', this.onScroll);
+    this.onScroll();
+  }
+
+  componentWillUnmount() {
+    if (this.io) this.io.disconnect();
+    if (this.anim) cancelAnimationFrame(this.anim);
+    if (this.failOpen) clearTimeout(this.failOpen);
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onScroll);
+  }
+
+  reveal(id, extra) {
+    const on = this.state.reducedMotion || !this.state.observerReady || this.state.visible[id];
+    return {
+      opacity: on ? 1 : 0,
+      transform: on ? 'translateY(0)' : 'translateY(28px)',
+      transition: 'opacity 0.9s cubic-bezier(.16,.84,.44,1), transform 0.9s cubic-bezier(.16,.84,.44,1)',
+      ...(extra || {})
+    };
+  }
+
+  jumpToGoal(i) {
+    if (!this.trackEl) return;
+    const NAV = 80;
+    const stickyH = window.innerHeight - NAV;
+    const travel = this.trackEl.offsetHeight - stickyH;
+    const top = this.trackEl.getBoundingClientRect().top + window.scrollY - NAV;
+    const t = (i + 0.28) / this.goals.length;
+    window.scrollTo({ top: top + travel * t, behavior: this.state.reducedMotion ? 'auto' : 'smooth' });
+  }
+
+  icon(name, size) {
+    return React.createElement('span', {
+      style: { display: 'inline-flex', width: size || 20, height: size || 20 },
+      dangerouslySetInnerHTML: { __html: ICON[name] }
+    });
+  }
+
+  paintButtons() {
+    const reduce = this.state.reducedMotion;
+    const base = {
+      position: 'relative', overflow: 'hidden', isolation: 'isolate',
+      display: 'inline-flex', alignItems: 'center', gap: '12px',
+      padding: '17px 30px', borderRadius: '999px', minHeight: '52px',
+      fontFamily: "var(--font-mono)", fontSize: '14px', letterSpacing: '0.03em',
+      transition: 'transform 0.4s cubic-bezier(.16,.84,.44,1), box-shadow 0.4s ease, border-color 0.4s ease, color 0.3s ease 0.12s'
+    };
+    const splat = (on, seed) => ({
+      position: 'absolute', left: '50%', top: '50%', width: '150%', paddingBottom: '150%', zIndex: 0,
+      background: 'var(--syntaxis-blue)', pointerEvents: 'none',
+      transformOrigin: 'center',
+      transform: 'translate(-50%,-50%) scale(' + (on ? 1.05 : 0) + ') rotate(' + (on ? seed : seed - 40) + 'deg)',
+      opacity: on ? 1 : 0,
+      transition: reduce
+        ? 'opacity 0.2s linear'
+        : 'transform 0.62s cubic-bezier(.2,1.5,.35,1), opacity 0.3s ease',
+      animation: reduce ? 'none' : 'splat-morph 3.2s ease-in-out infinite',
+      willChange: 'transform'
+    });
+    const drip = (on, delay) => ({
+      position: 'absolute', left: '50%', top: '50%', width: '108%', paddingBottom: '108%', zIndex: 0,
+      background: 'var(--syntaxis-blue)', pointerEvents: 'none', filter: 'blur(0.4px)',
+      transform: 'translate(-62%,-38%) scale(' + (on ? 1.1 : 0) + ') rotate(' + (on ? -25 : 15) + 'deg)',
+      opacity: on ? 1 : 0,
+      transition: reduce
+        ? 'opacity 0.2s linear'
+        : 'transform 0.72s cubic-bezier(.2,1.4,.3,1) ' + delay + ', opacity 0.34s ease ' + delay,
+      animation: reduce ? 'none' : 'splat-morph 2.6s ease-in-out infinite reverse',
+      willChange: 'transform'
+    });
+    const p = this.state.heroPrimaryHover;
+    const s2 = this.state.heroSecondaryHover;
+    return {
+      onPrimaryEnter: () => this.setState({ heroPrimaryHover: true }),
+      onPrimaryLeave: () => this.setState({ heroPrimaryHover: false }),
+      onSecondaryEnter: () => this.setState({ heroSecondaryHover: true }),
+      onSecondaryLeave: () => this.setState({ heroSecondaryHover: false }),
+      heroPrimaryStyle: {
+        ...base, background: 'var(--syntaxis-blue)', color: '#ffffff', fontWeight: 600,
+        transform: p ? 'translateY(-3px)' : 'none',
+        boxShadow: p ? '0 14px 30px rgba(68,136,238,0.3)' : 'none'
+      },
+      heroSecondaryStyle: {
+        ...base, gap: '10px', border: '1.5px solid ' + (s2 ? 'var(--syntaxis-blue)' : 'rgba(11,11,12,0.25)'),
+        color: s2 ? '#ffffff' : 'var(--bg-dark)',
+        transform: s2 ? 'translateY(-3px)' : 'none',
+        boxShadow: s2 ? '0 14px 30px rgba(68,136,238,0.26)' : 'none'
+      },
+      heroPrimarySplat: splat(p, 18),
+      heroPrimaryDrip: drip(p, '0.07s'),
+      heroSecondarySplat: splat(s2, -12),
+      heroSecondaryDrip: drip(s2, '0.09s')
+    };
+  }
+
+  renderVals() {
+    const SEC = { padding: 'clamp(72px,9vw,140px) clamp(20px,5vw,80px)', borderTop: '1px solid rgba(241,240,236,0.1)', position: 'relative' };
+    const vw = typeof window !== 'undefined' ? window.innerWidth : 1440;
+    const narrow = this.state.narrow || vw < 960;
+    const p = this.state.cardP;
+    const wide = !narrow && vw >= 1240;
+    const inputStyle = { background: '#141414', border: '1px solid rgba(241,240,236,0.2)', borderRadius: '10px', color: 'var(--text-light)', padding: '14px 15px', fontFamily: "var(--font-sans)", fontSize: 'clamp(15px,0.9vw,16px)', width: '100%', marginTop: '8px', minHeight: '50px' };
+    const labelStyle = { display: 'block', fontFamily: "var(--font-mono)", fontSize: '11px', letterSpacing: '0.12em', color: '#5c5c59' };
+    const activeIdx = Math.max(0, this.sections.findIndex((s) => s.id === this.state.active));
+
+    return {
+      setRootRef: (el) => { this.rootEl = el; },
+      setTrackRef: (el) => { this.trackEl = el; },
+
+      spineStyle: wide
+        ? { position: 'fixed', left: '22px', top: '50%', transform: 'translateY(-50%)', zIndex: 90, pointerEvents: 'auto' }
+        : { display: 'none' },
+      spineFillStyle: { position: 'absolute', left: '3px', top: '4px', width: '1px', height: (activeIdx / (this.sections.length - 1)) * 100 + '%', background: 'var(--syntaxis-blue)', transition: 'height 0.5s cubic-bezier(.16,.84,.44,1)' },
+      spineNodes: this.sections.map((s, i) => {
+        const on = i <= activeIdx;
+        const now = s.id === this.state.active;
+        return {
+          ...s,
+          href: '#' + s.id,
+          rowStyle: { position: 'relative', display: 'flex', alignItems: 'center', minWidth: '26px', minHeight: '26px', margin: '-9px 0', padding: '9px 12px 9px 0', textDecoration: 'none' },
+          dotStyle: { width: '7px', height: '7px', borderRadius: '999px', background: now ? 'var(--syntaxis-blue)' : (on ? 'rgba(68,136,238,0.55)' : 'rgba(241,240,236,0.28)'), boxShadow: now ? '0 0 0 4px rgba(68,136,238,0.16)' : 'none', transition: 'background 0.35s ease, box-shadow 0.35s ease', flexShrink: 0 },
+          labelStyle: { fontFamily: "var(--font-mono)", fontSize: '9.5px', letterSpacing: '0.16em', color: now ? 'var(--syntaxis-blue)' : 'rgba(241,240,236,0.32)', opacity: now ? 1 : 0.75, transition: 'color 0.35s ease, opacity 0.35s ease', whiteSpace: 'nowrap' }
+        };
+      }),
+
+      navStyle: { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 120, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px clamp(20px,5vw,64px)', background: 'rgba(255,255,255,0.93)', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(11,11,12,0.1)', color: 'var(--bg-dark)' },
+      navLogoStyle: { width: '40px', height: '40px', objectFit: 'cover', borderRadius: '2px' },
+      navDesktopStyle: narrow ? { display: 'none' } : { display: 'flex', alignItems: 'center', gap: 'clamp(18px,2.6vw,40px)' },
+      navLinkStyle: { fontFamily: "var(--font-mono)", fontSize: '15px', color: '#4a4a47', letterSpacing: '0.05em', padding: '8px 0', borderBottom: '2px solid transparent', transition: 'color 0.25s ease, border-color 0.25s ease' },
+      navLinkHoverStyle: { color: 'var(--bg-dark)', borderBottomColor: 'var(--syntaxis-blue)' },
+      navCtaStyle: { display: 'inline-flex', alignItems: 'center', gap: '8px', fontFamily: "var(--font-mono)", fontSize: '14px', letterSpacing: '0.05em', padding: '15px 28px', borderRadius: '999px', background: 'var(--syntaxis-blue)', color: '#ffffff', fontWeight: 600, minHeight: '52px', boxShadow: '0 4px 14px rgba(68,136,238,0.35)', transition: 'background 0.28s ease, color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease' },
+
+      burgerStyle: narrow
+        ? { display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '5px', width: '46px', height: '46px', border: '1px solid ' + (this.state.menuOpen ? 'var(--syntaxis-blue)' : 'rgba(11,11,12,0.16)'), borderRadius: '999px', background: this.state.menuOpen ? 'var(--syntaxis-blue)' : 'rgba(255,255,255,0.7)', boxShadow: this.state.menuOpen ? '0 10px 24px rgba(68,136,238,0.35)' : '0 2px 8px rgba(11,11,12,0.06)', cursor: 'pointer', alignItems: 'center', padding: 0, transition: 'background 0.32s cubic-bezier(.16,.84,.44,1), border-color 0.32s ease, box-shadow 0.32s ease' }
+        : { display: 'none' },
+      burgerTop: { display: 'block', width: '20px', height: '2px', borderRadius: '2px', background: this.state.menuOpen ? '#ffffff' : 'var(--bg-dark)', transform: this.state.menuOpen ? 'translateY(7px) rotate(45deg)' : 'none', transition: 'transform 0.3s cubic-bezier(.16,.84,.44,1), background 0.2s ease' },
+      burgerMid: { display: 'block', width: '20px', height: '2px', borderRadius: '2px', background: this.state.menuOpen ? '#ffffff' : 'var(--bg-dark)', opacity: this.state.menuOpen ? 0 : 1, transition: 'opacity 0.2s ease, background 0.2s ease' },
+      burgerBot: { display: 'block', width: '20px', height: '2px', borderRadius: '2px', background: this.state.menuOpen ? '#ffffff' : 'var(--bg-dark)', transform: this.state.menuOpen ? 'translateY(-7px) rotate(-45deg)' : 'none', transition: 'transform 0.3s cubic-bezier(.16,.84,.44,1), background 0.2s ease' },
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      menuPanelStyle: {
+        position: 'fixed', inset: 0, zIndex: 110, background: 'var(--bg-dark)',
+        display: 'flex', flexDirection: 'column', justifyContent: 'safe center',
+        overflowY: 'auto', overflowX: 'hidden', WebkitOverflowScrolling: 'touch',
+        padding: '96px clamp(24px,7vw,48px) 48px',
+        opacity: this.state.menuOpen ? 1 : 0,
+        visibility: this.state.menuOpen ? 'visible' : 'hidden',
+        transform: this.state.menuOpen ? 'translateY(0)' : 'translateY(-14px)',
+        transition: 'opacity 0.32s ease, transform 0.32s cubic-bezier(.16,.84,.44,1), visibility 0.32s'
+      },
+      menuItems: [
+        { n: '01', label: 'Soluciones', href: '#soluciones' },
+        { n: '02', label: 'Portfolio', href: '#portfolio' },
+        { n: '03', label: 'Proceso', href: '#proceso' },
+        { n: '04', label: 'Preguntas', href: '#faq' }
+      ].map((m, i) => ({
+        ...m,
+        style: {
+          display: 'flex', alignItems: 'baseline', gap: '18px', color: 'var(--text-light)',
+          fontSize: 'clamp(28px,8vw,42px)', fontWeight: 600, letterSpacing: '-0.02em',
+          padding: '12px 0', borderBottom: '1px solid rgba(241,240,236,0.1)',
+          opacity: this.state.menuOpen ? 1 : 0,
+          transform: this.state.menuOpen ? 'translateY(0)' : 'translateY(12px)',
+          transition: 'opacity 0.4s ease ' + (0.06 * i + 0.08) + 's, transform 0.4s cubic-bezier(.16,.84,.44,1) ' + (0.06 * i + 0.08) + 's, color 0.2s ease'
+        }
+      })),
+
+      revealHero: this.reveal('hero', { minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(104px,13vh,132px) clamp(20px,5vw,64px) clamp(72px,10vh,96px)', position: 'relative', background: '#ffffff', color: 'var(--bg-dark)' }),
+      revealServices: this.reveal('soluciones', SEC),
+      revealTipos: this.reveal('tipos', SEC),
+      revealPortfolio: this.reveal('portfolio', SEC),
+      revealProcess: this.reveal('proceso', SEC),
+      revealDiff: this.reveal('porque', { padding: 'clamp(72px,9vw,120px) clamp(20px,5vw,64px)', background: 'var(--text-light)', color: 'var(--bg-dark)', position: 'relative' }),
+      revealFaq: this.reveal('faq', SEC),
+      revealContact: this.reveal('contacto', SEC),
+
+      trackOuterStyle: narrow ? { position: 'relative' } : { position: 'relative', height: (this.goals.length * 95 + 30) + 'vh' },
+      trackStickyStyle: narrow
+        ? { display: 'flex', flexDirection: 'column', gap: '20px' }
+        : { position: 'sticky', top: '80px', height: 'calc(100vh - 80px)', display: 'grid', gridTemplateColumns: 'minmax(280px, 1fr) 1fr', gap: 'clamp(20px,2.5vw,40px)', alignItems: 'center' },
+      headColStyle: narrow ? { marginBottom: '32px' } : {},
+      cardsColStyle: narrow ? { display: 'contents' } : { position: 'relative', height: '100%', overflow: 'hidden' },
+
+      goalCards: this.goals.map((g, i) => {
+        const iconEl = this.icon(g.ico, 20);
+        if (narrow) {
+          return {
+            ...g, icon: iconEl,
+            cardStyle: { background: '#131314', border: '1px solid rgba(241,240,236,0.2)', borderRadius: '18px', padding: '26px', display: 'flex', flexDirection: 'column', boxShadow: '0 12px 34px rgba(0,0,0,0.35)' },
+            cardIconStyle: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '10px', border: '1px solid rgba(68,136,238,0.4)', color: 'var(--syntaxis-blue)' },
+            indexRowStyle: { display: 'none' }, indexIconStyle: {}, indexLabelStyle: {}, onJump: () => {}, dotStyle: { display: 'none' }
+          };
+        }
+        const off = i - p;
+        const abs = Math.abs(off);
+        const active = abs < 0.5;
+        return {
+          ...g,
+          icon: iconEl,
+          onJump: () => this.jumpToGoal(i),
+          cardStyle: {
+            position: 'absolute', left: '0', top: '50%',
+            width: 'min(430px, 88%)', height: 'auto', maxHeight: 'calc(100vh - 150px)',
+            padding: 'clamp(18px,2.4vh,34px) clamp(20px,2.4vw,34px)',
+            display: 'flex', flexDirection: 'column',
+            background: active ? '#16161a' : '#101011',
+            border: '1px solid ' + (active ? 'rgba(68,136,238,0.42)' : 'rgba(241,240,236,0.16)'),
+            borderRadius: '22px',
+            boxShadow: '0 ' + (26 - Math.min(abs, 1) * 18) + 'px ' + (76 - Math.min(abs, 1) * 46) + 'px rgba(0,0,0,' + (0.55 - Math.min(abs, 1) * 0.34) + ')' + (active ? ', 0 0 0 1px rgba(68,136,238,0.1)' : ''),
+            transform: 'translate(' + (off * 106) + '%, -50%) rotate(' + Math.max(-7, Math.min(7, off * 5.5)) + 'deg) scale(' + (1 - Math.min(abs, 1.6) * 0.07) + ')',
+            transformOrigin: 'center center',
+            opacity: abs > 2.2 ? 0 : 1 - Math.min(abs, 1) * 0.4,
+            filter: 'blur(' + Math.min(abs, 1) * 0.9 + 'px)',
+            zIndex: 10 - Math.round(abs * 10),
+            willChange: 'transform, opacity'
+          },
+          cardIconStyle: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '10px', border: '1px solid ' + (active ? 'rgba(68,136,238,0.55)' : 'rgba(241,240,236,0.2)'), color: active ? 'var(--syntaxis-blue)' : '#8a8a87', transition: 'color 0.3s ease, border-color 0.3s ease' },
+          dotStyle: { display: 'none' },
+          indexRowStyle: {
+            display: 'grid', gridTemplateColumns: '38px 1fr', gap: '14px', alignItems: 'center',
+            padding: '13px 0 13px 14px', width: '100%', textAlign: 'left', cursor: 'pointer',
+            background: 'transparent', border: 'none', borderLeft: '2px solid ' + (active ? 'var(--syntaxis-blue)' : 'rgba(241,240,236,0.14)'),
+            color: 'var(--text-light)', fontFamily: "var(--font-sans)",
+            transition: 'border-color 0.3s ease'
+          },
+          indexIconStyle: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: '34px', height: '34px', borderRadius: '9px', border: '1px solid ' + (active ? 'rgba(68,136,238,0.5)' : 'rgba(241,240,236,0.16)'), color: active ? 'var(--syntaxis-blue)' : '#5c5c59', transition: 'color 0.3s ease, border-color 0.3s ease' },
+          indexLabelStyle: { display: 'block', fontSize: '14px', fontWeight: 600, letterSpacing: '0.05em', marginBottom: '3px', color: active ? 'var(--syntaxis-blue)' : 'var(--text-light)', transition: 'color 0.3s ease' }
+        };
+      }),
+
+      tipos: this.tipos.map((t) => ({ ...t, icon: this.icon(t.ico, 22) })),
+
+      projectsGridStyle: { display: 'grid', gridTemplateColumns: wide ? 'repeat(3, 1fr)' : '1fr', gap: 'clamp(22px,2.6vw,34px)', alignItems: 'start' },
+      projects: this.projects.map((pr, i) => {
+        const ratio = (pr.imgH / 1600) / (2 / 3);
+        const travel = Math.max(0, Math.min(88, (1 - 1 / ratio) * 100));
+        const dur = Math.max(5, Math.min(16, pr.imgH / 900));
+        const on = this.state.hoverProject === i;
+        return {
+          ...pr,
+          onEnter: () => this.setState({ hoverProject: i }),
+          onLeave: () => this.setState({ hoverProject: null }),
+          aria: 'Ver el proyecto ' + pr.title,
+          alt: 'Captura del sitio ' + pr.title,
+          cardStyle: { display: 'flex', flexDirection: 'column', background: '#101011', border: '1px solid rgba(241,240,236,0.16)', borderRadius: '20px', overflow: 'hidden', transition: 'border-color 0.35s ease' },
+          frameStyle: { display: 'block', textDecoration: 'none', color: 'inherit' },
+          viewportStyle: { position: 'relative', width: '100%', aspectRatio: '3/2', overflow: 'hidden', background: '#0d0d11' },
+          isNoir: pr.key === 'noir',
+          isEnco: pr.key === 'enco',
+          isMaison: pr.key === 'maison',
+          shotStyle: {
+            display: 'block', width: '100%', height: 'auto', willChange: 'transform',
+            transform: on ? 'translateY(-' + travel.toFixed(1) + '%)' : 'translateY(0)',
+            transition: on ? 'transform ' + dur.toFixed(1) + 's linear' : 'transform 0.9s cubic-bezier(.16,.84,.44,1)'
+          },
+          overlayStyle: { position: 'absolute', inset: 0, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', paddingBottom: '22px', background: 'linear-gradient(to top, rgba(11,11,12,0.72), rgba(11,11,12,0) 45%)', opacity: on ? 1 : 0, transition: 'opacity 0.35s ease', pointerEvents: 'none' }
+        };
+      }),
+
+      stepCounter: 'ETAPA ' + this.steps[this.state.openStep == null ? 0 : this.state.openStep].n + ' / 05',
+      steps: this.steps.map((s, i) => {
+        const open = this.state.openStep === i;
+        return {
+          ...s,
+          open,
+          onClick: () => this.setState({ openStep: open ? null : i }),
+          wrapStyle: { borderTop: '1px solid ' + (open ? 'rgba(68,136,238,0.45)' : 'rgba(241,240,236,0.15)'), background: open ? 'linear-gradient(90deg, rgba(68,136,238,0.06), transparent 55%)' : 'transparent', transition: 'border-color 0.3s ease, background 0.4s ease', borderBottom: i === this.steps.length - 1 ? '1px solid rgba(241,240,236,0.15)' : 'none' },
+          headStyle: { display: 'grid', gridTemplateColumns: narrow ? 'clamp(46px,9vw,72px) 1fr 26px' : 'clamp(56px,7vw,96px) minmax(0,0.9fr) minmax(0,1.1fr) 26px', gap: 'clamp(12px,2vw,28px)', alignItems: 'center', width: '100%', background: 'transparent', border: 'none', color: 'var(--text-light)', padding: 'clamp(20px,2.6vw,30px) clamp(4px,1.5vw,20px)', cursor: 'pointer', fontFamily: "var(--font-sans)", minHeight: '64px', textAlign: 'left' },
+          numStyle: { fontFamily: "var(--font-mono)", fontSize: 'clamp(22px,3.4vw,50px)', color: open ? 'var(--syntaxis-blue)' : 'rgba(241,240,236,0.22)', transition: 'color 0.3s ease', lineHeight: 1 },
+          titleStyle: { fontSize: 'clamp(19px,2.6vw,34px)', fontWeight: 600, letterSpacing: '-0.015em', color: open ? 'var(--syntaxis-blue)' : 'var(--text-light)', transition: 'color 0.3s ease' },
+          hintStyle: narrow ? { display: 'none' } : { fontSize: '14.5px', color: '#6f6f6c', lineHeight: 1.45, opacity: open ? 0 : 1, transition: 'opacity 0.3s ease', overflow: 'hidden' },
+          iconStyle: { fontFamily: "var(--font-mono)", fontSize: '22px', lineHeight: 1, color: 'var(--syntaxis-blue)', transform: open ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 0.3s cubic-bezier(.16,.84,.44,1)', justifySelf: 'end' },
+          bodyStyle: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 'clamp(20px,2.6vw,40px)', padding: narrow ? '0 clamp(4px,1.5vw,20px) 30px' : '0 clamp(4px,1.5vw,20px) 36px clamp(68px,9vw,124px)' },
+          bodyWrapStyle: { display: 'grid', gridTemplateRows: open ? 'minmax(0, 1fr)' : 'minmax(0, 0fr)', opacity: open ? 1 : 0, transition: 'grid-template-rows 0.38s cubic-bezier(.16,.84,.44,1), opacity 0.3s ease', overflow: 'hidden' }
+        };
+      }),
+
+      diagramStyle: narrow
+        ? { position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', width: '100%', margin: '0 auto', backgroundImage: 'repeating-linear-gradient(to bottom, rgba(11,11,12,0.4) 0 6px, transparent 6px 12px)', backgroundSize: '1px 100%', backgroundPosition: 'center top', backgroundRepeat: 'no-repeat' }
+        : { position: 'relative', width: '100%', maxWidth: '460px', aspectRatio: '1/0.78', margin: '0 auto' },
+      vRuleStyle: narrow ? { display: 'none' } : { position: 'absolute', left: '50%', top: '16%', bottom: '16%', width: '1px', background: 'repeating-linear-gradient(to bottom, rgba(11,11,12,0.4) 0 6px, transparent 6px 12px)' },
+      hRuleStyle: narrow ? { display: 'none' } : { position: 'absolute', top: '50%', left: '16%', right: '16%', height: '1px', background: 'repeating-linear-gradient(to right, rgba(11,11,12,0.4) 0 6px, transparent 6px 12px)' },
+      centerNodeStyle: narrow
+        ? { order: 3, position: 'relative', background: 'var(--bg-dark)', color: 'var(--syntaxis-blue)', fontFamily: "var(--font-mono)", fontSize: '14px', fontWeight: 600, letterSpacing: '0.16em', padding: '15px 22px', borderRadius: '12px', zIndex: 2 }
+        : { position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', background: 'var(--bg-dark)', color: 'var(--syntaxis-blue)', fontFamily: "var(--font-mono)", fontSize: 'clamp(12px,1.5vw,15px)', fontWeight: 600, letterSpacing: '0.16em', padding: '16px 20px', borderRadius: '12px', zIndex: 2 },
+      nodes: [
+        { label: 'DISEÑO', order: 1, pos: { left: '50%', top: '0', transform: 'translateX(-50%)' } },
+        { label: 'NEGOCIO', order: 5, pos: { left: '50%', bottom: '0', transform: 'translateX(-50%)' } },
+        { label: 'DESARROLLO', order: 2, pos: { left: '0', top: '50%', transform: 'translateY(-50%)' } },
+        { label: 'AUTOMATIZACIÓN', order: 4, pos: { right: '0', top: '50%', transform: 'translateY(-50%)' } }
+      ].map((n) => {
+        const base = { background: 'var(--text-light)', border: '1px solid rgba(11,11,12,0.35)', borderRadius: '999px', padding: '9px 15px', fontFamily: "var(--font-mono)", fontSize: narrow ? '11px' : 'clamp(9.5px,1.1vw,12px)', letterSpacing: '0.12em', color: 'var(--bg-dark)', whiteSpace: 'nowrap' };
+        return {
+          label: n.label,
+          style: narrow
+            ? { ...base, position: 'relative', order: n.order, zIndex: 2 }
+            : { ...base, position: 'absolute', ...n.pos }
+        };
+      }),
+
+      diffs: this.diffs,
+      estudioTags: this.estudioTags,
+
+      faqs: this.faqs.map((f, i) => {
+        const open = this.state.openFaq === i;
+        return {
+          ...f,
+          open,
+          onClick: () => this.setState({ openFaq: open ? null : i }),
+          itemStyle: { background: '#101011', border: '1px solid ' + (open ? 'rgba(68,136,238,0.5)' : 'rgba(241,240,236,0.14)'), borderRadius: '10px', overflow: 'hidden', transition: 'border-color 0.25s ease', alignSelf: 'start' },
+          buttonStyle: { width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', background: 'transparent', border: 'none', color: 'var(--text-light)', padding: 'clamp(13px,1.8vw,18px) clamp(13px,1.8vw,20px)', fontFamily: "var(--font-sans)", cursor: 'pointer', textAlign: 'left', minHeight: '52px' },
+          iconStyle: { flexShrink: 0, fontFamily: "var(--font-mono)", fontSize: '20px', lineHeight: 1, color: 'var(--syntaxis-blue)', transform: open ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 0.25s ease' },
+          answerWrapStyle: { display: 'grid', gridTemplateRows: open ? 'minmax(0, 1fr)' : 'minmax(0, 0fr)', transition: 'grid-template-rows 0.32s cubic-bezier(.16,.84,.44,1)', overflow: 'hidden' }
+        };
+      }),
+
+      ...this.paintButtons(),
+      inputStyle,
+      isRequired: true,
+      textareaStyle: { ...inputStyle, resize: 'vertical' },
+      labelStyle,
+      formSubmitted: this.state.formSubmitted,
+      formNotSubmitted: !this.state.formSubmitted,
+      sending: this.state.sending,
+      formError: this.state.formError,
+      submitLabel: this.state.sending ? 'ENVIANDO...' : 'ENVIAR CONSULTA',
+      handleSubmit: (e) => {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        if (data.get('botcheck')) return;
+        data.append('access_key', '5e538b05-b91b-4fe3-8d10-e36aec7721ff');
+        data.append('subject', 'Nueva consulta de ' + (data.get('nombre') || 'la web'));
+        data.append('from_name', 'Formulario — syntaxis.digital');
+        this.setState({ sending: true, formError: false });
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: data
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.success) this.setState({ sending: false, formSubmitted: true });
+            else this.setState({ sending: false, formError: true });
+          })
+          .catch(() => this.setState({ sending: false, formError: true }));
+      }
+    };
+  }
+}
+
+</script>
+</body>
+</html>
