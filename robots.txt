@@ -1,0 +1,3 @@
+User-agent: *
+ Allow: / 
+ Sitemap: https://syntaxis-psi.vercel.app/sitemap.xml
