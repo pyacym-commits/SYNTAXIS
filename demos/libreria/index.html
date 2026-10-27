@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Librería Renglón — Demo de librería y kiosco · Minino Alex</title>
+<meta name="description" content="Página de ejemplo para librerías: listas escolares por link, catálogo con precios y pedido por WhatsApp, control de stock y cierre de caja.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#fffdf5">
+<link rel="icon" type="image/svg+xml" href="/assets/minino-icon-white-on-black.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/demos/_base/demo.css">
+<style>
+  :root{
+    --bg:#fffdf5; --surface:#f5f1e3; --surface-2:#ebe5cf; --text:#1b2a4a; --muted:#56617a;
+    --line:rgba(27,42,74,.14); --accent:#1f4fa3; --accent-ink:#fff; --accent-2:#1b2a4a;
+    --hl:#ffe45c; --red:#e2483d; --display:'Nunito',system-ui,sans-serif; --body:'Nunito',system-ui,sans-serif; --hand:'Caveat',cursive;
+    --radius:14px;
+  }
+  h1,h2,h3{font-weight:900;letter-spacing:-.02em}
+  .hand{font-family:var(--hand);font-weight:700;color:var(--accent)}
+  .hero{background:linear-gradient(90deg,transparent 0 46px,rgba(226,72,61,.35) 46px 48px,transparent 48px),repeating-linear-gradient(180deg,transparent 0 33px,rgba(31,79,163,.13) 33px 34px)}
+  .hero h1{font-size:clamp(42px,10.5vw,86px);line-height:1}
+  .hero h1 mark{background:linear-gradient(100deg,transparent 2%,var(--hl) 4%,var(--hl) 96%,transparent 98%);color:inherit;padding:0 .1em}
+  .hero .hand{font-size:clamp(26px,5vw,36px);display:block;transform:rotate(-2deg);margin-top:6px}
+  .list-box{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .list-head{padding:18px;background:var(--accent);color:#fff;display:grid;gap:12px}
+  .list-head .field{color:#fff}
+  .list-head select{color:var(--text)}
+  .list-body{padding:16px 18px;background:repeating-linear-gradient(180deg,#fff 0 43px,rgba(31,79,163,.12) 43px 44px)}
+  .li{display:flex;align-items:center;gap:12px;min-height:44px}
+  .li input[type=checkbox]{width:22px;height:22px;accent-color:var(--accent);flex-shrink:0}
+  .li .grow{flex:1;min-width:0;font-weight:600;line-height:1.25}
+  .li .grow small{display:block;font-weight:400;color:var(--muted);font-size:12.5px}
+  .li.off .grow{text-decoration:line-through;opacity:.5}
+  .li .price{font-size:15px}
+  .upload{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px dashed var(--line);border-radius:12px;background:var(--bg);cursor:pointer;font-weight:700;font-size:14px}
+  .season{display:inline-flex;align-items:center;gap:8px;background:var(--hl);font-weight:800;font-size:13px;padding:6px 12px;border-radius:999px;transform:rotate(-1.5deg)}
+  .prod .thumb{background:#fff;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Librería Renglón, inicio">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="6" width="28" height="30" rx="3" fill="#fff" stroke="#1b2a4a" stroke-width="2"/><path d="M9 6v30" stroke="#e2483d" stroke-width="2"/><path d="M13 15h14M13 21h14M13 27h10" stroke="#1f4fa3" stroke-width="2"/><path d="M30 4l6 6-14 14-7 1 1-7z" fill="#ffe45c" stroke="#1b2a4a" stroke-width="2" stroke-linejoin="round"/></svg>
+      <span>Renglón<small>Librería · Kiosco · Glew</small></span>
+    </a>
+    <nav aria-label="Secciones"><a href="#listas">Listas escolares</a><a href="#catalogo">Catálogo</a><a href="#sistema">Stock y caja</a></nav>
+    <a class="btn sm" href="#listas">Mandar lista</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div data-reveal>
+        <span class="season">✏️ Temporada escolar 2027</span>
+        <h1 style="margin-top:16px">Mandanos la lista,<br><mark>la armamos nosotros.</mark></h1>
+        <span class="hand">y vos pasás a buscarla 😉</span>
+        <p class="lead" style="margin-top:16px">Elegí colegio y grado, tildá lo que te falta y te pasamos el total. Sin hacer fila en marzo.</p>
+        <div class="actions"><a class="btn" href="#listas">Armar mi lista</a><a class="btn ghost" href="#catalogo">Ver precios</a></div>
+        <div class="facts"><span>📎 Fotocopias e impresiones</span><span>🎒 Mochilas y cartucheras</span><span>🍬 Kiosco</span></div>
+      </div>
+      <div class="hero-art" data-reveal data-reveal-d="2" aria-hidden="true" style="max-width:min(400px,74vw)">
+        <svg viewBox="0 0 400 400">
+          <g class="float">
+            <rect x="80" y="60" width="220" height="290" rx="10" fill="#fff" stroke="#1b2a4a" stroke-width="3"/>
+            <rect x="80" y="60" width="34" height="290" rx="10" fill="#1f4fa3"/>
+            <g stroke="#1f4fa3" stroke-opacity=".25" stroke-width="2"><path d="M130 120h150M130 150h150M130 180h150M130 210h150M130 240h150M130 270h150M130 300h150"/></g>
+            <path d="M140 116l8 8 14-16M140 146l8 8 14-16M140 176l8 8 14-16" stroke="#e2483d" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="172" y="124" font-family="Caveat,cursive" font-size="26" fill="#1b2a4a">cuaderno ABC</text>
+            <text x="172" y="154" font-family="Caveat,cursive" font-size="26" fill="#1b2a4a">lápices x12</text>
+            <text x="172" y="184" font-family="Caveat,cursive" font-size="26" fill="#1b2a4a">plasticola</text>
+            <text x="172" y="214" font-family="Caveat,cursive" font-size="26" fill="#1b2a4a" opacity=".55">tijera</text>
+          </g>
+          <g transform="translate(270 250) rotate(35)"><rect x="0" y="0" width="22" height="130" fill="#ffe45c" stroke="#1b2a4a" stroke-width="3"/><path d="M0 130l11 26 11-26z" fill="#f4d7a1" stroke="#1b2a4a" stroke-width="3" stroke-linejoin="round"/><path d="M7 148l4 8 4-8z" fill="#1b2a4a"/><rect x="0" y="-16" width="22" height="16" fill="#e2483d" stroke="#1b2a4a" stroke-width="3"/></g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="listas" style="background:var(--surface)">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow">Listas escolares</span>
+        <h2>La lista del cole, en un link</h2>
+        <p class="lead">Las familias te mandan la lista ordenada y con total, y vos la vas armando con tiempo. En temporada es la diferencia entre atender y explotar.</p>
+        <p class="toggle-note" style="margin-top:12px">Probalo: cambiá de grado, destildá lo que “ya tenés” y mirá cómo cambia el total.</p>
+      </div>
+      <div class="list-box" id="lista" data-reveal data-reveal-d="1"></div>
+    </div>
+  </section>
+
+  <section id="catalogo">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><span class="eyebrow">Catálogo</span><h2>Todo el año, no solo en marzo</h2><p class="lead">Útiles, regalería y fotocopias. Armá el pedido y lo tenés listo para retirar.</p></div>
+      <div id="cat"></div>
+    </div>
+  </section>
+
+  <section id="sistema" style="background:var(--surface)">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow">Solo para el negocio</span>
+        <h2>Stock de lo que más sale y la caja del día</h2>
+        <p class="lead">Muchos productos chicos: con un control simple sabés qué reponer antes de quedarte sin. Y el cierre de caja te sale en un minuto.</p>
+      </div>
+      <div id="sys" data-reveal data-reveal-d="1"></div>
+    </div>
+  </section>
+
+  <section id="local">
+    <div class="wrap split">
+      <div data-reveal><span class="eyebrow">Dónde estamos</span><h2>Glew, cerca de las escuelas</h2><div class="info-list" style="margin-top:18px"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0112 2.5a7 7 0 017 7C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Calle de ejemplo 345, Glew<br><small class="muted">Dirección inventada para la demo</small></span></div></div></div>
+      <div class="card" data-reveal data-reveal-d="1" style="background:var(--bg)"><h3 style="margin-bottom:8px">Horarios</h3><table class="hours" data-hours></table></div>
+    </div>
+  </section>
+
+  <div data-ma-offer></div>
+</main>
+
+<footer class="biz-foot">
+  <div class="wrap">
+    <div><b>Librería Renglón</b><p>Negocio ficticio creado como ejemplo. Colegios, listas y precios inventados.</p></div>
+    <div><a href="#listas">Listas escolares</a><br><a href="#catalogo">Catálogo</a></div>
+    <div><a href="/demos/">← Volver a las demos</a><br><a href="/">Minino Alex</a></div>
+  </div>
+</footer>
+
+<script src="/demos/_base/demo.js"></script>
+<script>
+(function () {
+  var HOURS = { 0: null, 1: [['08:00', '13:00'], ['15:30', '20:00']], 2: [['08:00', '13:00'], ['15:30', '20:00']], 3: [['08:00', '13:00'], ['15:30', '20:00']], 4: [['08:00', '13:00'], ['15:30', '20:00']], 5: [['08:00', '13:00'], ['15:30', '20:00']], 6: [['09:00', '13:00']] };
+  var P = {
+    abc: ['Cuaderno ABC rayado 50 h.', 4800], ari: ['Cuaderno Arañita tapa dura', 5600], lap: ['Lápices negros HB x3', 1500], col: ['Lápices de colores x12', 4200],
+    goma: ['Goma de borrar', 600], saca: ['Sacapuntas con depósito', 900], tij: ['Tijera punta redonda', 2100], pla: ['Plasticola 90 g', 1700],
+    reg: ['Regla 20 cm', 800], carp: ['Carpeta N°3 con anillos', 6900], rep: ['Repuesto N°3 x 96 h.', 5800], bir: ['Birome azul x2', 1300],
+    fib: ['Fibras x12', 4600], cart: ['Cartulinas surtidas x5', 2000], geo: ['Juego de geometría', 3900], calc: ['Calculadora básica', 8500], mapa: ['Mapas N°3 x10', 1500]
+  };
+  var LISTAS = {
+    '1° grado': [['abc', 2], ['lap', 2], ['col', 1], ['goma', 2], ['saca', 1], ['tij', 1], ['pla', 2], ['cart', 1]],
+    '4° grado': [['ari', 2], ['bir', 2], ['lap', 1], ['col', 1], ['fib', 1], ['goma', 1], ['reg', 1], ['tij', 1], ['mapa', 1]],
+    '1° año (secundaria)': [['carp', 1], ['rep', 2], ['bir', 2], ['lap', 1], ['goma', 1], ['geo', 1], ['calc', 1], ['mapa', 1]]
+  };
+  var COLES = ['Escuela N° 7 (ejemplo)', 'Colegio San Martín de Glew (ejemplo)', 'EES N° 3 (ejemplo)'];
+
+  MA.init({ slug: 'libreria', rubro: 'librería', biz: 'Librería Renglón', hours: HOURS, features: ['catalogo', 'stock', 'caja', 'redes'] });
+
+  /* ---------- Listas escolares ---------- */
+  var box = document.getElementById('lista');
+  var st = { cole: COLES[0], grado: '1° grado', off: {}, name: '', file: '' };
+  function total() { return LISTAS[st.grado].reduce(function (a, x) { return a + (st.off[x[0]] ? 0 : P[x[0]][1] * x[1]); }, 0); }
+  function draw() {
+    box.innerHTML = '<div class="list-head"><div class="grid c2" style="gap:10px"><label class="field">Colegio<select data-k="cole">' + COLES.map(function (c) { return '<option' + (c === st.cole ? ' selected' : '') + '>' + c + '</option>'; }).join('') + '</select></label>' +
+      '<label class="field">Grado / año<select data-k="grado">' + Object.keys(LISTAS).map(function (g) { return '<option' + (g === st.grado ? ' selected' : '') + '>' + g + '</option>'; }).join('') + '</select></label></div></div>' +
+      '<div class="list-body">' + LISTAS[st.grado].map(function (x) {
+        var p = P[x[0]], off = !!st.off[x[0]];
+        return '<label class="li' + (off ? ' off' : '') + '"><input type="checkbox" data-it="' + x[0] + '" ' + (off ? '' : 'checked') + '><span class="grow">' + x[1] + ' × ' + p[0] + '<small>' + (off ? 'Ya lo tengo' : MA.fmt(p[1]) + ' c/u') + '</small></span><span class="price">' + (off ? '—' : MA.fmt(p[1] * x[1])) + '</span></label>';
+      }).join('') + '</div>' +
+      '<div style="padding:16px 18px;display:grid;gap:12px;border-top:1px solid var(--line)">' +
+      '<label class="upload"><input type="file" accept="image/*" hidden data-file>📷 <span>' + (st.file ? MA.esc(st.file) + ' (en la demo no se sube)' : '¿Tu lista es distinta? Subí la foto') + '</span></label>' +
+      '<label class="field">Nombre de quien retira<input data-k="name" value="' + MA.esc(st.name) + '" placeholder="Ej: Laura, mamá de Tomás"></label>' +
+      '<div class="total-line"><span>Total estimado</span><span class="price">' + MA.fmt(total()) + '</span></div>' +
+      '<button type="button" class="btn wa" data-send>Mandar lista por WhatsApp</button></div>';
+  }
+  box.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.dataset.k === 'cole' || t.dataset.k === 'grado') { st[t.dataset.k] = t.value; if (t.dataset.k === 'grado') st.off = {}; draw(); }
+    if (t.dataset.it) { st.off[t.dataset.it] = !t.checked; draw(); }
+    if (t.hasAttribute('data-file') && t.files[0]) { st.file = t.files[0].name; draw(); MA.toast('Foto lista (en la demo no se sube a ningún lado)'); }
+  });
+  box.addEventListener('input', function (e) { if (e.target.dataset.k === 'name') st.name = e.target.value; });
+  box.addEventListener('click', function (e) {
+    if (!e.target.closest('[data-send]')) return;
+    if (!st.name.trim()) { var n = box.querySelector('[data-k=name]'); n.focus(); n.style.borderColor = 'var(--bad)'; MA.toast('Poné quién la retira'); return; }
+    var items = LISTAS[st.grado].filter(function (x) { return !st.off[x[0]]; });
+    MA.sendWA('Hola Renglón! Les mando la lista escolar 🎒\n\n🏫 ' + st.cole + '\n📚 ' + st.grado + '\n\n' + items.map(function (x) { return '☐ ' + x[1] + ' × ' + P[x[0]][0]; }).join('\n') +
+      (Object.keys(st.off).some(function (k) { return st.off[k]; }) ? '\n\n(Lo demás ya lo tengo)' : '') + (st.file ? '\n📷 Adjunto foto de la lista.' : '') +
+      '\n\nTotal estimado: ' + MA.fmt(total()) + '\nRetira: ' + st.name.trim(), { title: 'La lista, ordenada y con total' });
+  });
+  draw();
+
+  /* ---------- Catálogo ---------- */
+  var ICONS = {
+    'Útiles': '<rect x="14" y="10" width="36" height="46" rx="3"/><path d="M22 10v46M28 22h16M28 30h16M28 38h10"/>',
+    'Escritura': '<path d="M44 8l12 12-30 30-14 2 2-14z"/><path d="M38 14l12 12"/>',
+    'Arte': '<path d="M32 8C18 8 8 18 8 30c0 10 8 14 14 12 4-1 6 2 6 6 0 4 3 8 10 8 12 0 18-12 18-24C56 18 46 8 32 8z"/><circle cx="22" cy="24" r="3"/><circle cx="34" cy="18" r="3"/><circle cx="44" cy="28" r="3"/>',
+    'Impresiones': '<rect x="14" y="8" width="36" height="16"/><rect x="8" y="24" width="48" height="20" rx="3"/><rect x="18" y="38" width="28" height="18"/>',
+    'Kiosco': '<rect x="12" y="20" width="40" height="22" rx="11"/><path d="M12 31H4M52 31h8M6 24l-2 7 2 7M58 24l2 7-2 7"/>'
+  };
+  MA.catalog(document.getElementById('cat'), {
+    bizShort: 'Renglón', searchPh: 'Buscá: carpeta, fibras, fotocopia…',
+    items: [
+      { id: 'c1', cat: 'Útiles', name: 'Cuaderno ABC rayado', desc: '50 hojas, tapa blanda', price: 4800, bg: '#e8eefb', fg: '#1f4fa3' },
+      { id: 'c2', cat: 'Útiles', name: 'Carpeta N°3 con anillos', desc: 'Varios colores', price: 6900, bg: '#e8eefb', fg: '#1f4fa3' },
+      { id: 'c3', cat: 'Útiles', name: 'Repuesto N°3 rayado', desc: '96 hojas', price: 5800, bg: '#e8eefb', fg: '#1f4fa3', badge: 'Más vendido', badgeCls: 'ok' },
+      { id: 'c4', cat: 'Útiles', name: 'Mochila escolar', desc: 'Con carrito, varios diseños', price: 39900, bg: '#e8eefb', fg: '#1f4fa3' },
+      { id: 'w1', cat: 'Escritura', name: 'Birome azul trazo fino', desc: 'Pack x2', price: 1300, bg: '#fff6c7', fg: '#1b2a4a' },
+      { id: 'w2', cat: 'Escritura', name: 'Resaltadores x4', desc: 'Colores flúo', price: 3900, bg: '#fff6c7', fg: '#1b2a4a' },
+      { id: 'w3', cat: 'Escritura', name: 'Lápiz negro HB', desc: 'Por unidad', price: 500, bg: '#fff6c7', fg: '#1b2a4a' },
+      { id: 'a1', cat: 'Arte', name: 'Témperas x6', desc: 'Pomos de 15 ml', price: 4500, bg: '#fde3e1', fg: '#e2483d' },
+      { id: 'a2', cat: 'Arte', name: 'Fibras x12', desc: 'Lavables', price: 4600, bg: '#fde3e1', fg: '#e2483d' },
+      { id: 'a3', cat: 'Arte', name: 'Block de dibujo N°5', desc: 'Hojas blancas', price: 3800, bg: '#fde3e1', fg: '#e2483d', stock: 0 },
+      { id: 'i1', cat: 'Impresiones', name: 'Fotocopia simple faz', desc: 'B/N, A4', price: 100, unit: 'hoja', bg: '#ececec', fg: '#1b2a4a' },
+      { id: 'i2', cat: 'Impresiones', name: 'Impresión color', desc: 'A4, desde el celular', price: 500, unit: 'hoja', bg: '#ececec', fg: '#1b2a4a' },
+      { id: 'k1', cat: 'Kiosco', name: 'Alfajor triple', desc: 'Chocolate', price: 1400, bg: '#f3e6d8', fg: '#7a4b22' },
+      { id: 'k2', cat: 'Kiosco', name: 'Gaseosa 500 ml', desc: 'Línea cola', price: 1800, bg: '#f3e6d8', fg: '#7a4b22' }
+    ], icons: ICONS
+  });
+
+  /* ---------- Sistema ---------- */
+  MA.systemPanel(document.getElementById('sys'), {
+    title: 'Sistema de Renglón',
+    tabs: [
+      { label: 'Stock', mount: function (el) { MA.stock(el, { biz: 'Librería Renglón', items: [
+        { id: 'r1', name: 'Repuesto N°3 rayado', n: 22, min: 15 }, { id: 'r2', name: 'Cuaderno ABC rayado', n: 8, min: 12 },
+        { id: 'r3', name: 'Plasticola 90 g', n: 30, min: 10 }, { id: 'r4', name: 'Birome azul (pack x2)', n: 4, min: 10 },
+        { id: 'r5', name: 'Block de dibujo N°5', n: 0, min: 5 }, { id: 'r6', name: 'Resma A4 (fotocopiadora)', n: 3, min: 2, unit: 'resmas' }
+      ] }); } },
+      { label: 'Cierre de caja', mount: function (el) { MA.caja(el, { biz: 'Librería Renglón', ph: 'Ej: 20 fotocopias', countLabel: 'Ventas', seed: [
+        ['Fotocopias x40', 4000, 'Efectivo', '08:15'], ['Lista 1° grado (Laura)', 26100, 'Transferencia', '10:02'], ['Kiosco', 3200, 'Efectivo', '10:40'], ['Mochila con carrito', 39900, 'Débito', '12:10']
+      ] }); } }
+    ]
+  });
+})();
+</script>
+</body>
+</html>
