@@ -74,6 +74,15 @@
   footer a{color:var(--accent);font-weight:700}
   .fab{position:fixed;right:16px;bottom:16px;z-index:30;display:flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-weight:700;padding:14px 18px;border-radius:999px;box-shadow:0 10px 26px rgba(0,0,0,.25)}
   @media (max-width:519px){.fab .lbl{display:none}.fab{padding:15px}}
+  .inp{width:100%;background:var(--bg);color:var(--text);border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;font:inherit;font-size:16px}
+  textarea.inp{min-height:130px;resize:vertical}
+  .prod{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .prod .pn{flex:1;font-weight:600}
+  .prod .pn small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+  .qty{display:flex;align-items:center;gap:6px}
+  .qty button{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-size:18px;font-weight:700}
+  .qty span{min-width:22px;text-align:center;font-weight:700}
+  [hidden]{display:none!important}
   .summary{display:flex;flex-direction:column;gap:12px;border-top:1px dashed var(--line);padding-top:18px}
   .summary p{font-size:15px;color:var(--muted)}
   .summary p b{color:var(--text)}
@@ -100,14 +109,14 @@
     </div>
     <div style="display:grid;gap:18px">
       <div class="chips" id="chips"></div>
-      <div class="ctas"><a class="btn" href="#turno" id="heroCta"></a><a class="btn ghost" href="#precios">Ver precios</a></div>
+      <div class="ctas"><a class="btn" href="#turno" id="heroCta"></a><a class="btn ghost" href="#precios" id="verPrecios">Ver precios</a></div>
     </div>
   </div></div>
 
   <section id="precios"><div class="wrap two">
     <div>
-      <h2>Servicios y precios</h2>
-      <p class="sub">Tocá un servicio para elegirlo y armá tu turno abajo.</p>
+      <h2 id="tPrecios">Servicios y precios</h2>
+      <p class="sub" id="sPrecios">Tocá un servicio para elegirlo y armá tu turno abajo.</p>
     </div>
     <div><div class="list" id="servicios"></div><p class="note" id="sena"></p></div>
   </div></section>
@@ -121,6 +130,7 @@
       <div class="step"><h3>1 · Servicio</h3><div class="row" id="bSvc"></div></div>
       <div class="step"><h3>2 · Día</h3><div class="row" id="bDia"></div></div>
       <div class="step"><h3>3 · Horario</h3><div class="row" id="bHora"></div></div>
+      <div class="step" id="bExtraWrap" hidden><h3 id="bExtraLbl"></h3><input class="inp" id="bExtra"></div>
       <div class="summary">
         <p id="resumen">Elegí servicio, día y horario.</p>
         <a class="btn" id="enviar" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
@@ -128,8 +138,24 @@
     </div>
   </div></section>
 
+  <section id="pedido" hidden><div class="wrap two">
+    <div>
+      <h2 id="tPedido">Hacé tu pedido</h2>
+      <p class="sub" id="sPedido">Sumá productos o pegá tu lista, y te llega todo armado a WhatsApp.</p>
+    </div>
+    <div class="booking">
+      <div class="step"><h3 id="pListaLbl">Tu lista</h3><textarea class="inp" id="pLista"></textarea></div>
+      <div class="step"><h3>Productos</h3><div id="pProds"></div></div>
+      <div class="step"><h3>Tu nombre</h3><input class="inp" id="pNombre" placeholder="Para saber de quién es el pedido"></div>
+      <div class="summary">
+        <p id="pResumen">Agregá productos o escribí tu lista.</p>
+        <a class="btn" id="pEnviar" href="#" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
+      </div>
+    </div>
+  </div></section>
+
   <section id="trabajos"><div class="wrap">
-    <h2>Trabajos</h2>
+    <h2 id="tTrabajos">Trabajos</h2>
     <p class="sub">Acá van las fotos de tus trabajos. Se actualizan cuando quieras.</p>
     <div class="grid3" id="galeria"></div>
   </div></section>
@@ -167,6 +193,8 @@
   var $ = function(id){ return document.getElementById(id); };
   var money = function(n){ return '$' + n.toLocaleString('es-AR'); };
   var el = function(tag, cls, txt){ var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+  var MODE = D.accion || 'turno', X = D.textos || {};
+  var price = function(sv){ return sv.precio == null ? (sv.precioTxt || 'A presupuestar') : (sv.desde ? 'desde ' : '') + money(sv.precio); };
   var wa = function(msg){ return 'https://wa.me/' + D.whatsapp + '?text=' + encodeURIComponent(msg); };
 
   $('brand').textContent = D.nombre; var s = el('small', null, D.sufijo); $('brand').appendChild(s);
@@ -182,6 +210,10 @@
   $('horarioTxt').textContent = D.horarioTexto;
   $('foot').textContent = D.nombre + ' ' + D.sufijo + ' · ' + D.direccion;
   if (D.sena) $('sena').textContent = D.sena;
+  ['tPrecios','sPrecios','tTrabajos','verPrecios','tPedido','sPedido','pListaLbl'].forEach(function(k){ if (X[k]) $(k).textContent = X[k]; });
+  if (X.listaPlaceholder) $('pLista').placeholder = X.listaPlaceholder;
+  if (D.extra){ $('bExtraWrap').hidden = false; $('bExtraLbl').textContent = '4 · ' + D.extra.label; $('bExtra').placeholder = D.extra.placeholder || ''; $('bExtra').oninput = function(){ refresh(); }; }
+  if (MODE === 'pedido'){ $('turno').hidden = true; $('pedido').hidden = false; ['topCta','heroCta'].forEach(function(k){ $(k).href = '#pedido'; }); }
 
   var state = { svc: null, dia: null, hora: null };
 
@@ -189,12 +221,12 @@
   var svcBtns = [], svcChips = [];
   D.servicios.forEach(function(sv, i){
     var b = el('button','svc'); b.type = 'button'; b.setAttribute('aria-pressed','false');
-    b.appendChild(el('span','n',sv.nombre)); b.appendChild(el('span','d',sv.detalle + ' · ' + sv.min + ' min'));
-    var p = el('span','p',money(sv.precio)); b.appendChild(p);
-    b.onclick = function(){ pick('svc', i); document.getElementById('turno').scrollIntoView({behavior:'smooth'}); };
+    b.appendChild(el('span','n',sv.nombre)); b.appendChild(el('span','d',sv.detalle + (sv.min ? ' · ' + sv.min + ' min' : '')));
+    var p = el('span','p',price(sv)); if (sv.precio == null) p.style.fontSize = '15px'; b.appendChild(p);
+    b.onclick = function(){ if (MODE === 'pedido'){ addQty(i, 1); $('pedido').scrollIntoView({behavior:'smooth'}); } else { pick('svc', i); $('turno').scrollIntoView({behavior:'smooth'}); } };
     $('servicios').appendChild(b); svcBtns.push(b);
     var o = el('button','opt',sv.nombre); o.type='button'; o.setAttribute('aria-pressed','false');
-    o.appendChild(el('small',null,money(sv.precio))); o.onclick = function(){ pick('svc', i); };
+    o.appendChild(el('small',null,price(sv))); o.onclick = function(){ pick('svc', i); };
     $('bSvc').appendChild(o); svcChips.push(o);
   });
 
@@ -248,8 +280,9 @@
     if (sv && dx && hr){
       var fecha = DN[dx.getDay()] + ' ' + dx.getDate() + '/' + (dx.getMonth()+1);
       r.innerHTML = ''; r.appendChild(document.createTextNode('Tu turno: '));
-      r.appendChild(el('b',null, sv.nombre + ' · ' + fecha + ' · ' + hr + ' hs · ' + money(sv.precio)));
-      var msg = 'Hola ' + D.nombre + '! Quiero pedir un turno:\n• ' + sv.nombre + ' (' + money(sv.precio) + ')\n• ' + fecha + ' a las ' + hr + ' hs\n¿Está disponible?';
+      var ex = D.extra ? $('bExtra').value.trim() : '';
+      r.appendChild(el('b',null, sv.nombre + ' · ' + fecha + ' · ' + hr + ' hs' + (sv.precio == null ? '' : ' · ' + price(sv)) + (ex ? ' · ' + ex : '')));
+      var msg = 'Hola ' + D.nombre + '! Quiero pedir un turno:\n• ' + sv.nombre + (sv.precio == null ? '' : ' (' + price(sv) + ')') + '\n• ' + fecha + ' a las ' + hr + ' hs' + (ex ? '\n• ' + D.extra.label + ': ' + ex : '') + '\n¿Está disponible?';
       $('enviar').href = wa(msg); $('enviar').style.opacity = 1; $('enviar').style.pointerEvents = 'auto';
     } else {
       r.textContent = 'Elegí ' + [!sv && 'servicio', !dx && 'día', !hr && 'horario'].filter(Boolean).join(', ') + '.';
@@ -257,6 +290,31 @@
     }
   }
   refresh();
+
+  // Pedido (librería, kiosco, comercio)
+  var qty = D.servicios.map(function(){ return 0; }), qtyEls = [];
+  D.servicios.forEach(function(sv, i){
+    var row = el('div','prod'); var n = el('span','pn',sv.nombre); n.appendChild(el('small',null,price(sv))); row.appendChild(n);
+    var q = el('div','qty'); var mi = el('button',null,'−'); mi.type='button'; mi.setAttribute('aria-label','Quitar ' + sv.nombre);
+    var v = el('span',null,'0'); var pl = el('button',null,'+'); pl.type='button'; pl.setAttribute('aria-label','Agregar ' + sv.nombre);
+    mi.onclick = function(){ addQty(i, -1); }; pl.onclick = function(){ addQty(i, 1); };
+    q.appendChild(mi); q.appendChild(v); q.appendChild(pl); row.appendChild(q); $('pProds').appendChild(row); qtyEls.push(v);
+  });
+  function addQty(i, d){ qty[i] = Math.max(0, qty[i] + d); qtyEls[i].textContent = qty[i]; refreshPedido(); }
+  function refreshPedido(){
+    var items = [], total = 0;
+    qty.forEach(function(q, i){ if (q){ var sv = D.servicios[i]; items.push(q + 'x ' + sv.nombre + (sv.precio != null ? ' (' + money(sv.precio * q) + ')' : '')); total += (sv.precio || 0) * q; } });
+    var lista = $('pLista').value.trim(), nom = $('pNombre').value.trim(), r = $('pResumen');
+    if (!items.length && !lista){ r.textContent = 'Agregá productos o escribí tu lista.'; $('pEnviar').style.opacity = .45; $('pEnviar').style.pointerEvents = 'none'; $('pEnviar').href = '#'; return; }
+    r.innerHTML = ''; r.appendChild(document.createTextNode('Tu pedido: '));
+    r.appendChild(el('b',null, (items.length ? items.length + ' producto' + (items.length > 1 ? 's' : '') + (total ? ' · ' + money(total) : '') : '') + (items.length && lista ? ' + ' : '') + (lista ? 'lista' : '')));
+    var msg = 'Hola ' + D.nombre + '! Quiero hacer un pedido' + (nom ? ' (soy ' + nom + ')' : '') + ':';
+    if (items.length) msg += '\n' + items.map(function(t){ return '• ' + t; }).join('\n');
+    if (lista) msg += '\n\n' + (X.pListaLbl || 'Lista') + ':\n' + lista;
+    if (total) msg += '\n\nTotal aprox: ' + money(total);
+    $('pEnviar').href = wa(msg); $('pEnviar').style.opacity = 1; $('pEnviar').style.pointerEvents = 'auto';
+  }
+  $('pLista').oninput = refreshPedido; $('pNombre').oninput = refreshPedido; refreshPedido();
 
   D.galeria.forEach(function(g){ $('galeria').appendChild(el('div','tile',g)); });
   D.porque.forEach(function(p){ var w = el('div'); w.appendChild(el('b',null,p.t)); w.appendChild(el('p',null,p.d)); $('porque').appendChild(w); });
