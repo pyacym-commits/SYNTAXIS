@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Navaja Sur Barbería — Demo de barbería y peluquería · Minino Alex</title>
+<meta name="description" content="Página de ejemplo para barberías y peluquerías: precios, turnos online por barbero y horario, tarjeta de fidelidad y panel con cierre de caja.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#141210">
+<link rel="icon" type="image/svg+xml" href="/assets/minino-icon-white-on-black.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/demos/_base/demo.css">
+<style>
+  :root{
+    --bg:#141210; --surface:#1d1a17; --surface-2:#2a2622; --text:#efe6d6; --muted:#a59a89;
+    --line:rgba(239,230,214,.14); --accent:#c8372d; --accent-ink:#fff; --accent-2:#efe6d6;
+    --cream:#efe6d6; --display:'Oswald',Impact,sans-serif; --body:'Barlow',system-ui,sans-serif;
+    --radius:6px; --radius-sm:4px; --shadow:0 18px 40px rgba(0,0,0,.4);
+    --ok:#4cbf7a; --warn:#e3a33b; --bad:#ff6b5e;
+  }
+  h1,h2,h3{text-transform:uppercase;letter-spacing:.01em;font-weight:600}
+  .hero{background:repeating-linear-gradient(135deg,transparent 0 22px,rgba(239,230,214,.025) 22px 44px)}
+  .hero h1{font-size:clamp(54px,15vw,120px);line-height:.9}
+  .hero h1 span{color:var(--accent)}
+  .ticket{display:inline-flex;gap:10px;align-items:center;border:1.5px dashed var(--line);padding:6px 12px;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .price-board{background:#0e0d0b;border:1px solid var(--line);padding:22px;position:relative}
+  .price-board::before{content:"";position:absolute;inset:6px;border:1px solid rgba(239,230,214,.08);pointer-events:none}
+  .pb-row{display:flex;align-items:baseline;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .pb-row:last-child{border:0}
+  .pb-row b{font-family:var(--display);font-size:20px;text-transform:uppercase;letter-spacing:.02em}
+  .pb-row small{display:block;color:var(--muted);font-size:13.5px}
+  .pb-row .dots{flex:1;border-bottom:2px dotted rgba(239,230,214,.18);transform:translateY(-6px)}
+  .pb-row .price{font-family:var(--display);font-size:24px;color:var(--cream)}
+  .pole-stripes{animation:pole 1.6s linear infinite}
+  @keyframes pole{to{transform:translateY(-48px)}}
+  .stamp-card{background:var(--cream);color:#1a1714;padding:20px;border-radius:8px;position:relative;overflow:hidden}
+  .stamp-card::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;border:14px solid rgba(200,55,45,.12)}
+  .stamps{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:14px 0}
+  .stamp{aspect-ratio:1;border-radius:50%;border:2px dashed rgba(26,23,20,.3);display:grid;place-items:center;font-family:var(--display);font-size:13px;color:rgba(26,23,20,.4)}
+  .stamp.on{border:0;background:var(--accent);color:#fff;animation:stampin .45s var(--ease)}
+  .stamp.free{border-color:var(--accent);color:var(--accent)}
+  @keyframes stampin{0%{transform:scale(1.6) rotate(-20deg);opacity:0}100%{transform:none;opacity:1}}
+  .stamp-card .btn.ghost{color:#1a1714;border-color:rgba(26,23,20,.25)}
+  .barbers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .barber{background:var(--surface);border:1px solid var(--line);padding:16px 12px;text-align:center}
+  .barber .av{width:64px;height:64px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:26px;color:#fff}
+  .barber b{font-family:var(--display);text-transform:uppercase;font-size:18px;display:block}
+  .barber small{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Navaja Sur, inicio">
+      <svg width="30" height="38" viewBox="0 0 30 38" aria-hidden="true"><rect x="7" y="2" width="16" height="4" rx="2" fill="#efe6d6"/><rect x="9" y="6" width="12" height="26" fill="#efe6d6"/><path d="M9 10l12-4M9 17l12-4M9 24l12-4M9 31l12-4" stroke="#c8372d" stroke-width="3"/><rect x="7" y="32" width="16" height="4" rx="2" fill="#efe6d6"/></svg>
+      <span style="font-family:var(--display);text-transform:uppercase;letter-spacing:.04em">Navaja Sur<small>Barbería · Glew</small></span>
+    </a>
+    <nav aria-label="Secciones"><a href="#precios">Precios</a><a href="#turnos">Turnos</a><a href="#club">Club</a><a href="#panel">Panel</a><a href="#local">Local</a></nav>
+    <a class="btn sm" href="#turnos">Sacar turno</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div data-reveal>
+        <span data-open-badge></span>
+        <h1 style="margin-top:16px">Corte,<br>barba<br><span>y charla.</span></h1>
+        <p class="lead">Barbería de barrio en Glew. Elegí barbero y horario desde el celu y venís a la hora justa, sin esperar sentado.</p>
+        <div class="actions"><a class="btn" href="#turnos">Sacar turno</a><a class="btn ghost" href="#precios">Ver precios</a></div>
+        <div class="facts"><span class="ticket">Sin turno: según lugar</span><span class="ticket">Efectivo · QR · Transferencia</span></div>
+      </div>
+      <div class="hero-art" data-reveal data-reveal-d="2" aria-hidden="true" style="max-width:min(380px,70vw)">
+        <svg viewBox="0 0 400 400">
+          <defs><clipPath id="tube"><rect x="160" y="70" width="80" height="240" rx="8"/></clipPath></defs>
+          <circle cx="200" cy="200" r="180" fill="#1d1a17"/>
+          <circle cx="200" cy="200" r="180" fill="none" stroke="rgba(239,230,214,.12)" stroke-dasharray="4 8"/>
+          <rect x="150" y="44" width="100" height="26" rx="13" fill="#efe6d6"/>
+          <rect x="150" y="310" width="100" height="26" rx="13" fill="#efe6d6"/>
+          <rect x="176" y="336" width="48" height="20" fill="#a59a89"/>
+          <g clip-path="url(#tube)">
+            <rect x="160" y="70" width="80" height="240" fill="#efe6d6"/>
+            <g class="pole-stripes">
+              <g id="st"><path d="M120 70l160-60v24l-160 60z" fill="#c8372d"/><path d="M120 94l160-60v24l-160 60z" fill="#2b5aa6"/></g>
+              <use href="#st" y="48"/><use href="#st" y="96"/><use href="#st" y="144"/><use href="#st" y="192"/><use href="#st" y="240"/><use href="#st" y="288"/>
+            </g>
+            <rect x="160" y="70" width="18" height="240" fill="#fff" opacity=".35"/>
+          </g>
+          <g transform="translate(286 120) rotate(30)" fill="none" stroke="#efe6d6" stroke-width="5" stroke-linecap="round">
+            <circle cx="0" cy="0" r="14"/><circle cx="34" cy="0" r="14"/><path d="M8 -10l46 -70M26 -10l-20 -70"/>
+          </g>
+          <g transform="translate(60 250) rotate(-20)">
+            <rect x="0" y="0" width="90" height="16" rx="3" fill="#c8372d"/>
+            <path d="M6 16v18M16 16v18M26 16v18M36 16v18M46 16v18M56 16v18M66 16v18M76 16v18M86 16v12" stroke="#c8372d" stroke-width="4" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="precios" style="padding-top:32px">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow">Precios</span>
+        <h2>La pizarra, siempre actualizada</h2>
+        <p class="lead" style="margin-bottom:22px">El cliente ve el precio antes de venir y te escribe sabiendo qué quiere. Si cambia algo, se actualiza en un minuto.</p>
+        <div class="barbers">
+          <div class="barber"><div class="av" style="background:#c8372d">N</div><b>Nico</b><small>Degradés</small></div>
+          <div class="barber"><div class="av" style="background:#2b5aa6">L</div><b>Leo</b><small>Barba y navaja</small></div>
+          <div class="barber"><div class="av" style="background:#6b5d4b">T</div><b>Tomi</b><small>Color y diseño</small></div>
+        </div>
+      </div>
+      <div class="price-board" data-reveal data-reveal-d="1" id="board"></div>
+    </div>
+  </section>
+
+  <section id="turnos" style="background:var(--surface)">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow">Turnos online</span>
+        <h2>Elegí barbero y horario</h2>
+        <p class="lead">Probalo: el turno se arma solo y se manda por WhatsApp. Los horarios tachados ya están tomados. Al terminar, el turno aparece en el panel del local.</p>
+      </div>
+      <div id="booker" data-reveal data-reveal-d="1"></div>
+    </div>
+  </section>
+
+  <section id="club">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow">Club Navaja</span>
+        <h2>Cinco cortes, el sexto va de regalo</h2>
+        <p class="lead">Una tarjeta de sellos digital que no se pierde en la billetera. Hace que el cliente vuelva y no se vaya a la barbería de enfrente.</p>
+      </div>
+      <div class="stamp-card" data-reveal data-reveal-d="1">
+        <b style="font-family:var(--display);text-transform:uppercase;font-size:22px">Tarjeta de Juan (ejemplo)</b>
+        <div class="stamps" id="stamps"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" type="button" id="stamp-add">Sumar un corte</button><button class="btn ghost sm" type="button" id="stamp-reset">Empezar de nuevo</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="panel" style="background:var(--surface)">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow">Solo para el local</span>
+        <h2>La agenda del día y la caja</h2>
+        <p class="lead">Ves quién viene, con qué barbero y cuánto vas a cobrar. Tocás “Cobrar” y se suma al cierre de caja. A la noche, el resumen te llega por WhatsApp.</p>
+        <p class="toggle-note">Ejemplo: en un local real va con usuario y contraseña.</p>
+      </div>
+      <div id="owner" data-reveal data-reveal-d="1"></div>
+    </div>
+  </section>
+
+  <section id="local">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow">El local</span>
+        <h2>Estamos en Glew</h2>
+        <div class="info-list" style="margin:18px 0 22px">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0112 2.5a7 7 0 017 7C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Calle de ejemplo 567, Glew<br><small class="muted">Dirección inventada para la demo</small></span></div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Mirá abajo si estamos abiertos ahora</span></div>
+        </div>
+      </div>
+      <div class="card" data-reveal data-reveal-d="1"><h3 style="margin-bottom:8px">Horarios</h3><table class="hours" data-hours></table></div>
+    </div>
+  </section>
+
+  <div data-ma-offer></div>
+</main>
+
+<footer class="biz-foot">
+  <div class="wrap">
+    <div><b style="text-transform:uppercase">Navaja Sur Barbería</b><p>Negocio ficticio creado como ejemplo. Nombres, precios y horarios inventados.</p></div>
+    <div><a href="#precios">Precios</a><br><a href="#turnos">Turnos</a><br><a href="#local">Horarios</a></div>
+    <div><a href="/demos/">← Volver a las demos</a><br><a href="/">Minino Alex</a></div>
+  </div>
+</footer>
+
+<script src="/demos/_base/demo.js"></script>
+<script>
+(function () {
+  var HOURS = { 0: null, 1: [['14:00', '20:00']], 2: [['10:00', '13:00'], ['15:00', '20:30']], 3: [['10:00', '13:00'], ['15:00', '20:30']], 4: [['10:00', '13:00'], ['15:00', '20:30']], 5: [['10:00', '21:00']], 6: [['09:00', '18:00']] };
+  var SERVICES = [
+    { id: 'corte', name: 'Corte', desc: 'Tijera o máquina', dur: 30, price: 8000 },
+    { id: 'cb', name: 'Corte + barba', desc: 'Con toalla caliente', dur: 45, price: 11000 },
+    { id: 'deg', name: 'Degradé + diseño', desc: 'Líneas a mano alzada', dur: 45, price: 9500 },
+    { id: 'barba', name: 'Barba', desc: 'Perfilado con navaja', dur: 20, price: 5000 },
+    { id: 'kid', name: 'Corte niño', desc: 'Hasta 12 años', dur: 30, price: 6500 },
+    { id: 'color', name: 'Platinado / color', desc: 'Consultar largo', dur: 120, price: 25000 }
+  ];
+  var PROS = [
+    { id: 'nico', name: 'Nico', role: 'Degradés y diseños', initials: 'N', color: '#c8372d' },
+    { id: 'leo', name: 'Leo', role: 'Barba y navaja', initials: 'L', color: '#2b5aa6', only: ['corte', 'cb', 'barba', 'kid'] },
+    { id: 'tomi', name: 'Tomi', role: 'Color y diseño', initials: 'T', color: '#6b5d4b' }
+  ];
+  document.getElementById('board').innerHTML = SERVICES.map(function (s) {
+    return '<div class="pb-row"><span><b>' + s.name + '</b><small>' + s.desc + '</small></span><span class="dots" aria-hidden="true"></span><span class="price">' + MA.fmt(s.price) + '</span></div>';
+  }).join('');
+
+  MA.init({ slug: 'barberia', rubro: 'barbería o peluquería', rubroCorto: 'barbería', biz: 'Navaja Sur Barbería', hours: HOURS, features: ['turnos', 'caja', 'fichero', 'redes'] });
+
+  MA.booking(document.getElementById('booker'), {
+    services: SERVICES, pros: PROS, proLabel: 'Barbero', hours: HOURS, step: 30, busy: 45, seed: 'navaja',
+    bizShort: 'Navaja Sur', ownerName: 'el local', noteLabel: '¿Algo más? (opcional)', notePh: 'Ej: traigo foto del corte'
+  });
+
+  MA.ownerPanel(document.getElementById('owner'), {
+    title: 'Panel de Navaja Sur', biz: 'Navaja Sur Barbería', cajaPh: 'Ej: cera para peinar',
+    sample: [
+      ['10:00', 'Juan', 'Corte + barba', 'Leo', 11000],
+      ['10:30', 'Lauti', 'Degradé + diseño', 'Nico', 9500],
+      ['15:00', 'Matías R.', 'Corte', 'Tomi', 8000],
+      ['16:00', 'Benja (8)', 'Corte niño', 'Leo', 6500],
+      ['19:30', 'Facu', 'Barba', 'Leo', 5000]
+    ],
+    cajaSeed: [['Cera mate', 6000, 'QR / Mercado Pago', '10:05']]
+  });
+
+  // Tarjeta de sellos (se guarda en el navegador)
+  var box = document.getElementById('stamps');
+  function draw(anim) {
+    var n = MA.store.get('sellos', 3), h = '';
+    for (var i = 1; i <= 6; i++) h += '<span class="stamp' + (i <= n ? ' on' : '') + (i === 6 && n < 6 ? ' free' : '') + '"' + (anim && i === n ? '' : ' style="animation:none"') + '>' + (i <= n ? '✂' : (i === 6 ? 'GRATIS' : i)) + '</span>';
+    box.innerHTML = h;
+  }
+  document.getElementById('stamp-add').addEventListener('click', function () {
+    var n = MA.store.get('sellos', 3);
+    if (n >= 6) { MA.store.set('sellos', 0); draw(); MA.toast('Tarjeta nueva: a juntar sellos otra vez'); return; }
+    MA.store.set('sellos', n + 1); draw(true);
+    if (n + 1 === 5) MA.toast('🎉 ¡El próximo corte es gratis!');
+    else if (n + 1 === 6) MA.toast('Corte gratis usado. ¡Gracias por volver!');
+    else MA.toast('Sello sumado: van ' + (n + 1) + ' de 5');
+  });
+  document.getElementById('stamp-reset').addEventListener('click', function () { MA.store.set('sellos', 0); draw(); });
+  draw();
+})();
+</script>
+</body>
+</html>
