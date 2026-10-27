@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grano & Hoja Dietética — Demo de dietética y almacén · Minino Alex</title>
+<meta name="description" content="Página de ejemplo para dietéticas y almacenes: catálogo a granel con precios actualizables, pedido por WhatsApp, fiado sin cuaderno, stock con vencimientos y cierre de caja.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f7f3ea">
+<link rel="icon" type="image/svg+xml" href="/assets/minino-icon-white-on-black.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/demos/_base/demo.css">
+<style>
+  :root{
+    --bg:#f7f3ea; --surface:#efe8d8; --surface-2:#e3dac4; --text:#2d3320; --muted:#636a55;
+    --line:rgba(45,51,32,.14); --accent:#55652a; --accent-ink:#fbf8ef; --accent-2:#2d3320;
+    --terra:#c4703f; --display:'Fraunces',Georgia,serif; --body:'DM Sans',system-ui,sans-serif; --radius:18px;
+  }
+  .hero{background:radial-gradient(70% 70% at 90% 20%,#e9dfc6 0%,transparent 70%)}
+  .hero h1{font-size:clamp(44px,10.5vw,88px);line-height:.98}
+  .hero h1 i{color:var(--terra)}
+  .stamp-fresh{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--accent);border:1.5px solid currentColor;border-radius:999px;padding:5px 12px}
+  .jar-l{animation:ma-float 7s ease-in-out infinite}.jar-r{animation:ma-float 6s 1s ease-in-out infinite}
+  .why{display:grid;gap:12px}
+  @media (min-width:800px){.why{grid-template-columns:repeat(3,1fr)}}
+  .why div{padding:18px;border-radius:var(--radius);background:var(--bg);border:1px solid var(--line)}
+  .why b{font-family:var(--display);font-size:20px;display:block;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Grano y Hoja, inicio">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#55652a"/><path d="M20 31V16" stroke="#f7f3ea" stroke-width="2.4" stroke-linecap="round"/><path d="M20 19c0-6 5-10 11-10 0 6-5 10-11 10zM20 24c0-5-4-8-9-8 0 5 4 8 9 8z" fill="#f7f3ea"/></svg>
+      <span>Grano & Hoja<small>Dietética · Guernica</small></span>
+    </a>
+    <nav aria-label="Secciones"><a href="#catalogo">Precios</a><a href="#sistema">Fiado y caja</a><a href="#local">El local</a></nav>
+    <a class="btn sm" href="#catalogo">Hacer pedido</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div data-reveal>
+        <span class="stamp-fresh">● Precios actualizados hoy</span>
+        <h1 style="margin-top:16px">Comprá suelto,<br>comé <i>rico</i>.</h1>
+        <p class="lead">Frutos secos, semillas, harinas y productos sin TACC en Guernica. Mirá los precios de hoy y armá tu pedido para retirar o con envío.</p>
+        <div class="actions"><a class="btn" href="#catalogo">Ver precios</a><a class="btn ghost" href="#local">Horarios</a></div>
+        <div class="facts"><span>🌾 Sin TACC</span><span>🥜 A granel</span><span>🛵 Envío en Guernica</span></div>
+      </div>
+      <div class="hero-art" data-reveal data-reveal-d="2" aria-hidden="true" style="max-width:min(420px,76vw)">
+        <svg viewBox="0 0 400 400">
+          <ellipse cx="200" cy="350" rx="170" ry="16" fill="#2d3320" opacity=".1"/>
+          <g class="jar-l">
+            <rect x="60" y="130" width="130" height="210" rx="26" fill="#fff" fill-opacity=".55" stroke="#2d3320" stroke-width="3"/>
+            <rect x="70" y="110" width="110" height="26" rx="8" fill="#c4703f"/>
+            <path d="M64 230c30-14 92-14 122 0v84a24 24 0 01-24 24H88a24 24 0 01-24-24z" fill="#d6a565"/>
+            <g fill="#a8733a"><ellipse cx="90" cy="262" rx="9" ry="6"/><ellipse cx="120" cy="250" rx="9" ry="6" transform="rotate(30 120 250)"/><ellipse cx="150" cy="268" rx="9" ry="6"/><ellipse cx="104" cy="296" rx="9" ry="6" transform="rotate(-20 104 296)"/><ellipse cx="140" cy="306" rx="9" ry="6"/><ellipse cx="166" cy="292" rx="9" ry="6" transform="rotate(40 166 292)"/></g>
+            <rect x="86" y="170" width="78" height="34" rx="6" fill="#f7f3ea" stroke="#2d3320" stroke-width="2"/><text x="125" y="193" text-anchor="middle" font-family="Fraunces,serif" font-size="16" fill="#2d3320">almendras</text>
+          </g>
+          <g class="jar-r">
+            <rect x="214" y="170" width="120" height="170" rx="24" fill="#fff" fill-opacity=".55" stroke="#2d3320" stroke-width="3"/>
+            <rect x="224" y="152" width="100" height="24" rx="8" fill="#55652a"/>
+            <path d="M218 250c28-12 84-12 112 0v66a24 24 0 01-24 24h-64a24 24 0 01-24-24z" fill="#3b4422"/>
+            <g fill="#f7f3ea" opacity=".8"><circle cx="240" cy="276" r="2.5"/><circle cx="262" cy="288" r="2.5"/><circle cx="286" cy="272" r="2.5"/><circle cx="306" cy="292" r="2.5"/><circle cx="250" cy="308" r="2.5"/><circle cx="296" cy="318" r="2.5"/><circle cx="274" cy="304" r="2.5"/></g>
+            <rect x="236" y="200" width="76" height="30" rx="6" fill="#f7f3ea" stroke="#2d3320" stroke-width="2"/><text x="274" y="221" text-anchor="middle" font-family="Fraunces,serif" font-size="16" fill="#2d3320">chía</text>
+          </g>
+          <path d="M330 120c0-30 22-50 50-50 0 30-22 50-50 50z" fill="#55652a"/><path d="M330 120c-4-18 4-34 20-42" stroke="#2d3320" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalogo">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><span class="eyebrow">Lista de precios</span><h2>Los precios de hoy, siempre al día</h2><p class="lead">Cuando cambian los precios, se actualizan en un minuto (o te los cambio yo con el mantenimiento). Probá armar un pedido.</p></div>
+      <div id="cat"></div>
+    </div>
+  </section>
+
+  <section id="sistema" style="background:var(--surface)">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow">Solo para el negocio</span>
+        <h2>Chau cuaderno del fiado</h2>
+        <p class="lead">Quién debe cuánto, a un toque. Qué se vence esta semana. Y la caja cerrada en cinco minutos, con el total por efectivo y transferencia.</p>
+        <div class="why" style="margin-top:20px">
+          <div><b>Fiado</b><span class="muted">Anotá y cobrá sin perder la cuenta.</span></div>
+          <div><b>Vencimientos</b><span class="muted">Te avisa lo que vence pronto.</span></div>
+          <div><b>Caja</b><span class="muted">El resumen del día por WhatsApp.</span></div>
+        </div>
+      </div>
+      <div id="sys" data-reveal data-reveal-d="1"></div>
+    </div>
+  </section>
+
+  <section id="local">
+    <div class="wrap split">
+      <div data-reveal><span class="eyebrow">Dónde estamos</span><h2>Guernica centro</h2><div class="info-list" style="margin-top:18px"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0112 2.5a7 7 0 017 7C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Calle de ejemplo 711, Guernica<br><small class="muted">Dirección inventada para la demo</small></span></div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h11v10H2zM13 9h4l4 4v3h-8z"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><span>Envío en Guernica $2.500 · gratis desde $25.000</span></div></div></div>
+      <div class="card" data-reveal data-reveal-d="1" style="background:var(--bg)"><h3 style="margin-bottom:8px">Horarios</h3><table class="hours" data-hours></table></div>
+    </div>
+  </section>
+
+  <div data-ma-offer></div>
+</main>
+
+<footer class="biz-foot">
+  <div class="wrap">
+    <div><b>Grano & Hoja Dietética</b><p>Negocio ficticio creado como ejemplo. Precios, clientes y montos inventados.</p></div>
+    <div><a href="#catalogo">Precios</a><br><a href="#sistema">Fiado y caja</a></div>
+    <div><a href="/demos/">← Volver a las demos</a><br><a href="/">Minino Alex</a></div>
+  </div>
+</footer>
+
+<script src="/demos/_base/demo.js"></script>
+<script>
+(function () {
+  var HOURS = { 0: [['09:00', '13:00']], 1: [['08:30', '13:00'], ['16:30', '20:30']], 2: [['08:30', '13:00'], ['16:30', '20:30']], 3: [['08:30', '13:00'], ['16:30', '20:30']], 4: [['08:30', '13:00'], ['16:30', '20:30']], 5: [['08:30', '13:00'], ['16:30', '20:30']], 6: [['08:30', '13:30'], ['17:00', '20:30']] };
+  var ICONS = {
+    'Frutos secos': '<path d="M32 10c12 0 20 10 20 22S44 56 32 56 12 44 12 32s8-22 20-22z"/><path d="M32 10v46M22 20c4 8 4 18 0 28M42 20c-4 8-4 18 0 28"/>',
+    'Cereales y harinas': '<path d="M32 58V14"/><path d="M32 20c-6 0-10-4-10-10 6 0 10 4 10 10zM32 20c6 0 10-4 10-10-6 0-10 4-10 10zM32 32c-6 0-10-4-10-10 6 0 10 4 10 10zM32 32c6 0 10-4 10-10-6 0-10 4-10 10zM32 44c-6 0-10-4-10-10 6 0 10 4 10 10zM32 44c6 0 10-4 10-10-6 0-10 4-10 10z"/>',
+    'Legumbres': '<path d="M20 18c10-6 24 0 26 12 2 10-6 20-16 20-12 0-18-10-14-20"/><path d="M22 34c4 2 8 2 12-2"/>',
+    'Semillas': '<circle cx="22" cy="24" r="5"/><circle cx="40" cy="20" r="5"/><circle cx="30" cy="38" r="5"/><circle cx="46" cy="40" r="5"/><circle cx="18" cy="44" r="5"/>',
+    'Almacén natural': '<rect x="18" y="20" width="28" height="36" rx="6"/><rect x="22" y="10" width="20" height="10" rx="3"/><path d="M24 36h16"/>',
+    'Sin TACC': '<circle cx="32" cy="32" r="22"/><path d="M16 48L48 16"/><path d="M32 46V22M32 26c-4 0-6-3-6-6 4 0 6 3 6 6zM32 26c4 0 6-3 6-6-4 0-6 3-6 6z"/>'
+  };
+  var C = { 'Frutos secos': ['#f1dfc4', '#8a5a2b'], 'Cereales y harinas': ['#f3ebcf', '#8a7330'], 'Legumbres': ['#efdcc9', '#9a5a2e'], 'Semillas': ['#e2e6cf', '#55652a'], 'Almacén natural': ['#f0e1d3', '#c4703f'], 'Sin TACC': ['#e1ead8', '#3b6a3a'] };
+  var ITEMS = [
+    ['a1', 'Frutos secos', 'Almendras peladas', 'Calidad extra', 3900, '100 g', 'Oferta', 'warn'],
+    ['a2', 'Frutos secos', 'Nueces mariposa', 'Extra light', 3200, '100 g'],
+    ['a3', 'Frutos secos', 'Mix de frutos secos', 'Con pasas y maní', 2800, '100 g'],
+    ['a4', 'Frutos secos', 'Pasas de uva', 'Sin semilla', 1100, '100 g', null, null, 0],
+    ['b1', 'Cereales y harinas', 'Avena arrollada', 'Tradicional', 1900, '500 g'],
+    ['b2', 'Cereales y harinas', 'Granola casera', 'Con miel y coco', 4500, '500 g', 'De la casa', 'ok'],
+    ['b3', 'Cereales y harinas', 'Harina integral', 'Fina', 1700, 'kg'],
+    ['c1', 'Legumbres', 'Lentejas', 'Seleccionadas', 1600, '500 g'],
+    ['c2', 'Legumbres', 'Garbanzos', 'Calibre grande', 1800, '500 g'],
+    ['d1', 'Semillas', 'Chía', 'Negra', 900, '100 g'],
+    ['d2', 'Semillas', 'Semillas de girasol', 'Peladas', 700, '100 g'],
+    ['d3', 'Semillas', 'Lino', 'Dorado', 600, '100 g'],
+    ['e1', 'Almacén natural', 'Miel pura', 'Del delta', 5500, '500 g'],
+    ['e2', 'Almacén natural', 'Mantequilla de maní', 'Sin azúcar', 4800, '350 g'],
+    ['e3', 'Almacén natural', 'Yerba orgánica', 'Con palo', 4300, '500 g'],
+    ['f1', 'Sin TACC', 'Premezcla universal', 'Apta celíacos', 2600, 'kg'],
+    ['f2', 'Sin TACC', 'Galletas de arroz', 'Con sal', 1300, 'paq.'],
+    ['f3', 'Sin TACC', 'Fideos de arroz', 'Tipo tirabuzón', 2400, '500 g']
+  ].map(function (x) { return { id: x[0], cat: x[1], name: x[2], desc: x[3], price: x[4], unit: x[5], badge: x[6], badgeCls: x[7], stock: x[8], bg: C[x[1]][0], fg: C[x[1]][1] }; });
+
+  MA.init({ slug: 'dietetica', rubro: 'dietética o almacén', rubroCorto: 'dietética', biz: 'Grano & Hoja Dietética', hours: HOURS, features: ['catalogo', 'stock', 'caja', 'fiado', 'redes'] });
+
+  MA.catalog(document.getElementById('cat'), {
+    items: ITEMS, icons: ICONS, bizShort: 'Grano & Hoja', searchPh: 'Buscá: almendras, chía, sin TACC…',
+    delivery: { cost: 2500, freeFrom: 25000, note: 'Envío en Guernica, de lunes a sábado por la tarde.' }
+  });
+
+  MA.systemPanel(document.getElementById('sys'), {
+    title: 'Sistema de Grano & Hoja',
+    tabs: [
+      { label: 'Fiado', mount: function (el) { MA.fiado(el, { biz: 'Grano & Hoja', seed: [['Marta (la del 3)', 18400, 'hace 6 días'], ['Don Julio', 7200, 'ayer'], ['Gabi P.', 26500, 'hace 12 días'], ['Romi', 0, 'pagó el lunes']] }); } },
+      { label: 'Stock y vencimientos', mount: function (el) { MA.stock(el, { biz: 'Grano & Hoja Dietética', vence: true, note: 'Lo que vence en 10 días o menos se marca en rojo: ponelo en oferta antes de tirarlo.', items: [
+        { id: 'v1', name: 'Almendras (kg)', n: 6, min: 3, unit: 'kg', vence: 90 }, { id: 'v2', name: 'Granola casera (kg)', n: 2, min: 4, unit: 'kg', vence: 8 },
+        { id: 'v3', name: 'Leche de almendras 1 L', n: 5, min: 6, unit: 'u.', vence: 6 }, { id: 'v4', name: 'Chía (kg)', n: 4, min: 2, unit: 'kg', vence: 200 },
+        { id: 'v5', name: 'Pasas de uva (kg)', n: 0, min: 2, unit: 'kg', vence: 60 }, { id: 'v6', name: 'Premezcla sin TACC', n: 9, min: 5, unit: 'u.', vence: 45 }
+      ] }); } },
+      { label: 'Cierre de caja', mount: function (el) { MA.caja(el, { biz: 'Grano & Hoja Dietética', ph: 'Ej: 250 g de almendras', countLabel: 'Ventas', seed: [
+        ['Mostrador', 8700, 'Efectivo', '08:50'], ['Pedido WhatsApp (envío)', 21300, 'Transferencia', '10:15'], ['Mostrador', 4100, 'QR / Mercado Pago', '11:30']
+      ] }); } }
+    ]
+  });
+})();
+</script>
+</body>
+</html>
