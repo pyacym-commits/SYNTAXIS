@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruda Indumentaria — Demo de tienda de ropa · Minino Alex</title>
+<meta name="description" content="Página de ejemplo para tiendas de ropa: catálogo con talles, precios y stock, pedido por WhatsApp, link para la bio de Instagram y control de stock por talle.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f3f1ec">
+<link rel="icon" type="image/svg+xml" href="/assets/minino-icon-white-on-black.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/demos/_base/demo.css">
+<style>
+  :root{
+    --bg:#f3f1ec; --surface:#e9e6df; --surface-2:#dcd8cf; --text:#111110; --muted:#5f5d58;
+    --line:rgba(17,17,16,.14); --accent:#111110; --accent-ink:#f3f1ec; --accent-2:#111110;
+    --lila:#b9a3e3; --display:'Syne',system-ui,sans-serif; --body:'Manrope',system-ui,sans-serif; --radius:4px; --radius-sm:4px;
+  }
+  h1,h2{font-weight:800;letter-spacing:-.03em}
+  .hero{padding-top:28px}
+  .hero h1{font-size:clamp(56px,16vw,150px);line-height:.85;text-transform:uppercase}
+  .hero h1 span{display:inline-block;background:var(--lila);padding:0 .08em}
+  .marquee{overflow:hidden;border-block:1px solid var(--text);background:var(--text);color:var(--bg);white-space:nowrap;font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase}
+  .marquee div{display:inline-block;padding:12px 0;animation:marq 22s linear infinite}
+  @keyframes marq{to{transform:translateX(-50%)}}
+  .look{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .look .tile{aspect-ratio:3/4;display:grid;place-items:center;position:relative;overflow:hidden}
+  .look .tile svg{width:66%;transition:transform .6s var(--ease)}
+  .look .tile:hover svg{transform:scale(1.06) rotate(-3deg)}
+  .look .tile span{position:absolute;left:10px;bottom:10px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:var(--bg);padding:4px 8px}
+  .prod{border-radius:4px}
+  .prod .thumb{width:84px;height:104px;border-radius:2px}
+  .prod .thumb svg{width:64px;height:64px}
+  .dm{max-width:360px;display:grid;gap:8px;padding:18px;background:#fff;border:1px solid var(--line);border-radius:22px}
+  .dm p{padding:9px 14px;border-radius:18px;font-size:14.5px;max-width:82%;line-height:1.35}
+  .dm .in{background:#efefef;justify-self:start}
+  .dm .out{background:#3d6bff;color:#fff;justify-self:end}
+  .dm .link{background:#fff;border:1px solid var(--line);color:var(--text);font-weight:700}
+  .dm small{text-align:center;color:var(--muted);font-size:11px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Ruda, inicio"><span style="font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.04em">RUDA<small>Indumentaria · Longchamps</small></span></a>
+    <nav aria-label="Secciones"><a href="#catalogo">Catálogo</a><a href="#bio">Link en la bio</a><a href="#sistema">Stock</a></nav>
+    <a class="btn sm" href="#catalogo">Comprar</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div data-reveal>
+        <span data-open-badge></span>
+        <h1 style="margin-top:14px">Nueva<br><span>tempo</span><br>rada.</h1>
+        <p class="lead" style="margin-top:18px">Ropa urbana para todos los días, en Longchamps. Elegí talle, mirá si hay stock y pedilo por WhatsApp. Lo retirás o te lo mandamos.</p>
+        <div class="actions"><a class="btn" href="#catalogo">Ver catálogo</a><a class="btn ghost" href="#bio">¿Cómo funciona?</a></div>
+      </div>
+      <div class="look" data-reveal data-reveal-d="2" aria-hidden="true">
+        <div class="tile" style="background:#d9d0f0"><svg viewBox="0 0 64 64"><path d="M22 8l-14 8 6 12 6-3v31h24V25l6 3 6-12-14-8c-2 4-6 6-10 6s-8-2-10-6z" fill="#111110"/></svg><span>Remera boxy</span></div>
+        <div class="tile" style="background:#111110;margin-top:36px"><svg viewBox="0 0 64 64"><path d="M20 8h24l4 50H36l-4-28-4 28H16z" fill="#7d93b8"/><path d="M20 14h24" stroke="#f3f1ec" stroke-width="1.5"/></svg><span>Jean recto</span></div>
+        <div class="tile" style="background:#e6ded1;margin-top:-36px"><svg viewBox="0 0 64 64"><path d="M20 6l-12 10v40h12V30h24v26h12V16L44 6c-2 5-7 8-12 8s-10-3-12-8z" fill="#c8b48e"/><path d="M32 14v42" stroke="#111110" stroke-width="1.5"/></svg><span>Campera</span></div>
+        <div class="tile" style="background:#b9a3e3"><svg viewBox="0 0 64 64"><path d="M24 6h16l2 12 10 38H12l10-38z" fill="#f3f1ec"/></svg><span>Vestido</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="marquee" aria-hidden="true"><div>Envíos a Longchamps, Glew y Burzaco · Cambios dentro de los 30 días · 3 cuotas sin interés · Envíos a Longchamps, Glew y Burzaco · Cambios dentro de los 30 días · 3 cuotas sin interés ·&nbsp;</div></div>
+
+  <section id="catalogo">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><span class="eyebrow" style="color:var(--text)">Catálogo</span><h2>Elegí talle y sumalo al pedido</h2><p class="lead">Los talles agotados aparecen tachados. Probalo: el pedido se arma solo con talle, cantidad y total.</p></div>
+      <div id="cat"></div>
+    </div>
+  </section>
+
+  <section id="bio" style="background:var(--surface)">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow" style="color:var(--text)">Link en la bio</span>
+        <h2>Instagram para mostrar, la página para vender</h2>
+        <p class="lead">En vez de contestar “¿precio?” cuarenta veces por día, mandás un link. La clienta elige talle y te escribe con el pedido ya armado.</p>
+      </div>
+      <div class="dm" data-reveal data-reveal-d="1" aria-label="Ejemplo de conversación por mensaje directo">
+        <small>Mensaje directo · ejemplo</small>
+        <p class="in">holaa precio del buzo lila? 💜</p>
+        <p class="in">y talles?</p>
+        <p class="out">¡Hola! Acá tenés todo con precios y talles 👇</p>
+        <p class="out link">🔗 ruda.com.ar/catalogo</p>
+        <p class="in">listo, ya te mandé el pedido por wpp 🙌</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="sistema">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow" style="color:var(--text)">Solo para el negocio</span>
+        <h2>Stock por talle, sin planillas raras</h2>
+        <p class="lead">Sabés cuántas te quedan de cada talle. Cuando un talle se agota, en la página aparece tachado y nadie te pide lo que no tenés.</p>
+      </div>
+      <div id="sys" data-reveal data-reveal-d="1"></div>
+    </div>
+  </section>
+
+  <section id="local" style="background:var(--surface)">
+    <div class="wrap split">
+      <div data-reveal><span class="eyebrow" style="color:var(--text)">Showroom</span><h2>Longchamps</h2><div class="info-list" style="margin-top:18px"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0112 2.5a7 7 0 017 7C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Calle de ejemplo 1500, Longchamps<br><small class="muted">Dirección inventada para la demo</small></span></div></div></div>
+      <div class="card" data-reveal data-reveal-d="1" style="background:var(--bg)"><h3 style="margin-bottom:8px">Horarios</h3><table class="hours" data-hours></table></div>
+    </div>
+  </section>
+
+  <div data-ma-offer></div>
+</main>
+
+<footer class="biz-foot">
+  <div class="wrap">
+    <div><b>Ruda Indumentaria</b><p>Marca ficticia creada como ejemplo. Productos, precios y stock inventados.</p></div>
+    <div><a href="#catalogo">Catálogo</a><br><a href="#bio">Link en la bio</a></div>
+    <div><a href="/demos/">← Volver a las demos</a><br><a href="/">Minino Alex</a></div>
+  </div>
+</footer>
+
+<script src="/demos/_base/demo.js"></script>
+<script>
+(function () {
+  var HOURS = { 0: null, 1: [['10:00', '13:00'], ['16:30', '20:30']], 2: [['10:00', '13:00'], ['16:30', '20:30']], 3: [['10:00', '13:00'], ['16:30', '20:30']], 4: [['10:00', '13:00'], ['16:30', '20:30']], 5: [['10:00', '13:00'], ['16:30', '20:30']], 6: [['10:00', '20:30']] };
+  var G = {
+    remera: function (c) { return '<path d="M22 8l-14 8 6 12 6-3v31h24V25l6 3 6-12-14-8c-2 4-6 6-10 6s-8-2-10-6z" fill="' + c + '" stroke="none"/>'; },
+    buzo: function (c) { return '<path d="M22 8l-14 10 4 30h8V26h24v22h8l4-30-14-10c-2 4-6 6-10 6s-8-2-10-6z" fill="' + c + '" stroke="none"/><path d="M24 40h16v12H24z" fill="rgba(0,0,0,.15)" stroke="none"/>'; },
+    jean: function (c) { return '<path d="M20 8h24l4 50H36l-4-28-4 28H16z" fill="' + c + '" stroke="none"/>'; },
+    campera: function (c) { return '<path d="M20 6l-12 10v40h12V30h24v26h12V16L44 6c-2 5-7 8-12 8s-10-3-12-8z" fill="' + c + '" stroke="none"/><path d="M32 14v42" stroke="rgba(0,0,0,.4)" stroke-width="1.5"/>'; },
+    vestido: function (c) { return '<path d="M24 6h16l2 12 10 38H12l10-38z" fill="' + c + '" stroke="none"/>'; },
+    short: function (c) { return '<path d="M16 16h32l4 30H36l-4-14-4 14H12z" fill="' + c + '" stroke="none"/>'; }
+  };
+  var T = ['S', 'M', 'L', 'XL'];
+  var RAW = [
+    ['r1', 'Remeras', 'Remera boxy algodón', 'Corte cuadrado, peinado 24/1', 16900, 'remera', '#111110', '#d9d0f0', { S: 3, M: 0, L: 5, XL: 2 }, 'Nuevo'],
+    ['r2', 'Remeras', 'Remera básica lisa', 'Blanco, negro y gris', 11900, 'remera', '#f3f1ec', '#cfcac0', { S: 8, M: 6, L: 4, XL: 1 }],
+    ['b1', 'Buzos', 'Buzo lila oversize', 'Frisa invisible', 32900, 'buzo', '#b9a3e3', '#ece7f8', { S: 0, M: 2, L: 3, XL: 0 }, 'Últimos'],
+    ['b2', 'Buzos', 'Hoodie negro', 'Con capucha y bolsillo canguro', 35900, 'buzo', '#111110', '#e3e0d9', { S: 4, M: 5, L: 2, XL: 2 }],
+    ['j1', 'Pantalones', 'Jean recto azul', 'Tiro alto, rígido', 39900, 'jean', '#7d93b8', '#e6ebf2', { S: 2, M: 4, L: 0, XL: 1 }],
+    ['j2', 'Pantalones', 'Cargo verde', 'Gabardina con bolsillos', 36900, 'jean', '#6c7350', '#e6e7dc', { S: 3, M: 3, L: 3, XL: 0 }],
+    ['j3', 'Pantalones', 'Short de jean', 'Con ruedo desflecado', 21900, 'short', '#8ea3c4', '#e6ebf2', { S: 5, M: 4, L: 2, XL: 1 }],
+    ['c1', 'Abrigos', 'Campera de gabardina', 'Beige, con forro', 59900, 'campera', '#c8b48e', '#efe8db', { S: 1, M: 2, L: 2, XL: 1 }],
+    ['v1', 'Vestidos', 'Vestido midi liso', 'Fibrana, con breteles', 28900, 'vestido', '#3c3a8f', '#e1e0f2', { S: 2, M: 3, L: 1, XL: 0 }]
+  ];
+  var ITEMS = RAW.map(function (x) {
+    return { id: x[0], cat: x[1], name: x[2], desc: x[3], price: x[4], icon: x[0], bg: x[7], variants: T, vstock: x[8], badge: x[9], badgeCls: x[9] === 'Últimos' ? 'warn' : 'ok', svg: G[x[5]](x[6]) };
+  });
+  var ICONS = {}; ITEMS.forEach(function (i) { ICONS[i.id] = i.svg; });
+
+  MA.init({ slug: 'indumentaria', rubro: 'tienda de ropa', rubroCorto: 'tienda', biz: 'Ruda Indumentaria', hours: HOURS, features: ['catalogo', 'stock', 'caja', 'redes'] });
+
+  MA.catalog(document.getElementById('cat'), {
+    items: ITEMS, icons: ICONS, bizShort: 'Ruda', searchPh: 'Buscá: buzo, jean, vestido…', variantLabel: 'talle',
+    greeting: 'Hola Ruda! 🖤 Quiero estas prendas:',
+    delivery: { cost: 3000, freeFrom: 60000, note: 'Envíos a Longchamps, Glew y Burzaco en 24/48 h.' }
+  });
+
+  var stockItems = [];
+  RAW.slice(0, 5).forEach(function (x) { T.forEach(function (t) { if (x[0] === 'r1' || x[0] === 'b1' || x[0] === 'j1') stockItems.push({ id: x[0] + t, name: x[2] + ' — ' + t, n: x[8][t], min: 1 }); }); });
+
+  MA.systemPanel(document.getElementById('sys'), {
+    title: 'Sistema de Ruda',
+    tabs: [
+      { label: 'Stock por talle', mount: function (el) { MA.stock(el, { biz: 'Ruda Indumentaria', items: stockItems, note: 'Cada venta descuenta del talle. Con 1 o menos se marca para reponer.' }); } },
+      { label: 'Cierre de caja', mount: function (el) { MA.caja(el, { biz: 'Ruda Indumentaria', ph: 'Ej: remera boxy L', countLabel: 'Ventas', seed: [
+        ['Buzo lila M (pedido IG)', 32900, 'Transferencia', '10:40'], ['2 remeras básicas', 23800, 'Débito', '12:15'], ['Jean recto S', 39900, 'QR / Mercado Pago', '17:05']
+      ] }); } }
+    ]
+  });
+})();
+</script>
+</body>
+</html>
