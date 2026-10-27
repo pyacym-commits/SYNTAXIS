@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GEO Mecánica — Taller mecánico en Glew</title>
+<meta name="description" content="Service, frenos y tren delantero en Glew. Pedí tu turno y traé el auto sin esperar.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link id="fonts" rel="stylesheet" href="">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+  .demo{background:var(--accent);color:var(--accentText);font-size:13px;text-align:center;padding:8px 16px;font-weight:600}
+  .demo a{text-decoration:underline}
+  header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{font-family:var(--display);font-size:22px;letter-spacing:.02em}
+  .brand small{font-family:var(--body);font-size:11px;letter-spacing:.18em;color:var(--muted);margin-left:8px;text-transform:uppercase}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:var(--accentText);padding:13px 22px;border-radius:999px;font-weight:700;min-height:48px;transition:transform .2s,box-shadow .2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px color-mix(in srgb,var(--accent) 35%,transparent)}
+  .btn.ghost{background:transparent;color:var(--text);border:1.5px solid var(--line)}
+  .btn.sm{padding:9px 16px;min-height:40px;font-size:14px}
+  .hero{position:relative;overflow:hidden;padding:56px 0 64px}
+  .hero::before{content:"";position:absolute;inset:0;background:var(--pattern);pointer-events:none}
+  .hero .wrap{position:relative;display:grid;gap:28px}
+  .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--accent);font-weight:700}
+  h1{font-family:var(--display);font-size:clamp(46px,11vw,96px);line-height:.95;letter-spacing:-.01em;text-transform:var(--case,none)}
+  h1 span{display:block}
+  h1 span:last-child{color:var(--accent)}
+  .lead{font-size:18px;color:var(--muted);max-width:44ch}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:14px}
+  .chip b{color:var(--accent)}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px}
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  h2{font-family:var(--display);font-size:clamp(30px,6vw,44px);line-height:1.05;margin-bottom:8px}
+  .sub{color:var(--muted);margin-bottom:28px;max-width:52ch}
+  .list{display:grid;gap:10px}
+  .svc{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:center;text-align:left;width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:16px 18px;transition:border-color .2s,transform .2s}
+  .svc:hover{transform:translateY(-1px)}
+  .svc[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+  .svc .n{font-weight:700;font-size:17px}
+  .svc .d{color:var(--muted);font-size:14px;grid-column:1}
+  .svc .p{font-family:var(--display);font-size:22px;grid-row:1/3;grid-column:2;color:var(--accent);text-align:right}
+  .svc .p small{display:block;font-family:var(--body);font-size:12px;color:var(--muted)}
+  .note{margin-top:14px;font-size:14px;color:var(--muted)}
+  .booking{background:var(--surface);border:1.5px solid var(--line);border-radius:22px;padding:22px}
+  .step{margin-bottom:22px}
+  .step h3{font-size:13px;letter-spacing:.16em;color:var(--muted);margin-bottom:10px;text-transform:uppercase}
+  .row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+  .row::-webkit-scrollbar{display:none}
+  .opt{flex:0 0 auto;border:1.5px solid var(--line);border-radius:14px;padding:10px 14px;min-width:64px;text-align:center;font-weight:600;background:var(--bg)}
+  .opt small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+  .opt[aria-pressed="true"]{background:var(--accent);color:var(--accentText);border-color:var(--accent)}
+  .opt[aria-pressed="true"] small{color:inherit;opacity:.8}
+  .opt:disabled{opacity:.35;cursor:not-allowed}
+  .grid3{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+  .tile{aspect-ratio:1;border-radius:16px;background:var(--pattern),var(--surface);border:1px solid var(--line);display:flex;align-items:flex-end;padding:12px;font-weight:700;font-size:14px;position:relative;overflow:hidden}
+  .tile::after{content:"Tu foto acá";position:absolute;top:12px;left:12px;font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+  .why{display:grid;gap:12px}
+  .why div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+  .why b{display:block;font-size:17px;margin-bottom:4px}
+  .why p{color:var(--muted);font-size:15px}
+  .info{display:grid;gap:12px}
+  .info a,.info div{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+  .ico{flex:0 0 42px;height:42px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+  .info small{display:block;color:var(--muted);font-size:13px}
+  footer{padding:36px 0 110px;text-align:center;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+  footer a{color:var(--accent);font-weight:700}
+  .fab{position:fixed;right:16px;bottom:16px;z-index:30;display:flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-weight:700;padding:14px 18px;border-radius:999px;box-shadow:0 10px 26px rgba(0,0,0,.25)}
+  @media (max-width:519px){.fab .lbl{display:none}.fab{padding:15px}}
+  .inp{width:100%;background:var(--bg);color:var(--text);border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;font:inherit;font-size:16px}
+  textarea.inp{min-height:130px;resize:vertical}
+  .prod{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .prod .pn{flex:1;font-weight:600}
+  .prod .pn small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+  .qty{display:flex;align-items:center;gap:6px}
+  .qty button{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-size:18px;font-weight:700}
+  .qty span{min-width:22px;text-align:center;font-weight:700}
+  [hidden]{display:none!important}
+  .summary{display:flex;flex-direction:column;gap:12px;border-top:1px dashed var(--line);padding-top:18px}
+  .summary p{font-size:15px;color:var(--muted)}
+  .summary p b{color:var(--text)}
+  @media (min-width:820px){
+    .hero{padding:88px 0 96px}
+    .hero .wrap{grid-template-columns:1.2fr .8fr;align-items:end}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+    .grid3{grid-template-columns:repeat(3,1fr)}
+    .why{grid-template-columns:repeat(3,1fr)}
+  }
+</style>
+</head>
+<body>
+<script id="data" type="application/json">{"slug": "geo-mecanica", "nombre": "GEO Mecánica", "sufijo": "Taller", "rubro": "Taller mecánico", "zona": "Glew", "direccion": "Mazzini 1389, Glew", "maps": "https://www.google.com/maps/place/?q=place_id:ChIJN0f1Ia_VvJUR83fFnFBqeJE", "whatsapp": "5491150077878", "rating": "4,9", "resenas": "22", "tagline": "Service, frenos y tren delantero en Glew. Pedí tu turno y traé el auto sin esperar.", "eyebrow": "TALLER MECÁNICO · GLEW", "titulo": ["Tu auto,", "en buenas", "manos."], "cta": "Pedir turno", "accion": "turno", "tema": {"bg": "#f4f5f7", "surface": "#ffffff", "line": "rgba(20,30,50,0.12)", "text": "#141a26", "muted": "#5d6676", "accent": "#e2592b", "accentText": "#ffffff", "display": "'Barlow Condensed', sans-serif", "body": "'Barlow', sans-serif", "fonts": "family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700", "pattern": "linear-gradient(90deg, rgba(20,30,50,0.05) 1px, transparent 1px), linear-gradient(rgba(20,30,50,0.05) 1px, transparent 1px)"}, "textos": {"tPrecios": "Servicios", "sPrecios": "Tocá un servicio para elegirlo y armá tu turno abajo. Te pasamos el presupuesto antes de arrancar.", "tTrabajos": "Trabajos en el taller", "verPrecios": "Ver servicios"}, "extra": {"label": "Tu auto", "placeholder": "Ej: Corsa 2012 · hace ruido al frenar"}, "servicios": [{"nombre": "Service completo", "detalle": "Aceite, filtros y revisión general", "precio": null, "precioTxt": "Presupuesto", "min": 120}, {"nombre": "Frenos", "detalle": "Pastillas, discos y líquido", "precio": null, "precioTxt": "Presupuesto", "min": 90}, {"nombre": "Tren delantero", "detalle": "Bujes, rótulas y extremos", "precio": null, "precioTxt": "Presupuesto", "min": 180}, {"nombre": "Embrague", "detalle": "Kit completo y regulación", "precio": null, "precioTxt": "Presupuesto", "min": 240}, {"nombre": "Diagnóstico", "detalle": "Revisamos qué tiene y te avisamos", "precio": null, "precioTxt": "Consultar", "min": 45}], "dias": [1, 2, 3, 4, 5, 6], "horas": ["08:30", "10:00", "11:30", "14:00", "15:30", "17:00"], "horarioTexto": "Lunes a sábado · con turno", "galeria": ["Service", "Frenos", "Tren delantero", "El taller", "Antes", "Después"], "porque": [{"t": "Turnos sin llamadas", "d": "El cliente elige día y horario y te dice qué auto trae y qué le pasa."}, {"t": "Ficha de cada auto", "d": "Se puede sumar un fichero para saber qué le hiciste y avisar el próximo service."}, {"t": "Confianza desde Google", "d": "Tus 22 reseñas de 4,9 más una página propia dan seriedad."}]}</script>
+<div class="demo">Página de ejemplo · precios, fotos y horarios de muestra · <a href="https://syntaxis-psi.vercel.app/" target="_blank" rel="noopener">hecha por Alex</a></div>
+<header class="top"><div class="wrap"><a class="brand" href="#inicio" id="brand"></a><a class="btn sm" href="#turno" id="topCta"></a></div></header>
+
+<main>
+  <div class="hero" id="inicio"><div class="wrap">
+    <div>
+      <p class="eyebrow" id="eyebrow"></p>
+      <h1 id="h1" style="margin:14px 0 18px"></h1>
+      <p class="lead" id="lead"></p>
+    </div>
+    <div style="display:grid;gap:18px">
+      <div class="chips" id="chips"></div>
+      <div class="ctas"><a class="btn" href="#turno" id="heroCta"></a><a class="btn ghost" href="#precios" id="verPrecios">Ver precios</a></div>
+    </div>
+  </div></div>
+
+  <section id="precios"><div class="wrap two">
+    <div>
+      <h2 id="tPrecios">Servicios y precios</h2>
+      <p class="sub" id="sPrecios">Tocá un servicio para elegirlo y armá tu turno abajo.</p>
+    </div>
+    <div><div class="list" id="servicios"></div><p class="note" id="sena"></p></div>
+  </div></section>
+
+  <section id="turno"><div class="wrap two">
+    <div>
+      <h2>Pedí tu turno en 3 toques</h2>
+      <p class="sub">Elegís servicio, día y horario, y te llega todo armado a WhatsApp. Sin idas y vueltas.</p>
+    </div>
+    <div class="booking">
+      <div class="step"><h3>1 · Servicio</h3><div class="row" id="bSvc"></div></div>
+      <div class="step"><h3>2 · Día</h3><div class="row" id="bDia"></div></div>
+      <div class="step"><h3>3 · Horario</h3><div class="row" id="bHora"></div></div>
+      <div class="step" id="bExtraWrap" hidden><h3 id="bExtraLbl"></h3><input class="inp" id="bExtra"></div>
+      <div class="summary">
+        <p id="resumen">Elegí servicio, día y horario.</p>
+        <a class="btn" id="enviar" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+      </div>
+    </div>
+  </div></section>
+
+  <section id="pedido" hidden><div class="wrap two">
+    <div>
+      <h2 id="tPedido">Hacé tu pedido</h2>
+      <p class="sub" id="sPedido">Sumá productos o pegá tu lista, y te llega todo armado a WhatsApp.</p>
+    </div>
+    <div class="booking">
+      <div class="step"><h3 id="pListaLbl">Tu lista</h3><textarea class="inp" id="pLista"></textarea></div>
+      <div class="step"><h3>Productos</h3><div id="pProds"></div></div>
+      <div class="step"><h3>Tu nombre</h3><input class="inp" id="pNombre" placeholder="Para saber de quién es el pedido"></div>
+      <div class="summary">
+        <p id="pResumen">Agregá productos o escribí tu lista.</p>
+        <a class="btn" id="pEnviar" href="#" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
+      </div>
+    </div>
+  </div></section>
+
+  <section id="trabajos"><div class="wrap">
+    <h2 id="tTrabajos">Trabajos</h2>
+    <p class="sub">Acá van las fotos de tus trabajos. Se actualizan cuando quieras.</p>
+    <div class="grid3" id="galeria"></div>
+  </div></section>
+
+  <section><div class="wrap">
+    <h2>¿Por qué te sirve esta página?</h2>
+    <p class="sub">Lo que cambia en el día a día del negocio.</p>
+    <div class="why" id="porque"></div>
+  </div></section>
+
+  <section id="contacto"><div class="wrap two">
+    <div><h2>Dónde estamos</h2><p class="sub" id="horarioTxt"></p></div>
+    <div class="info" id="info"></div>
+  </div></section>
+</main>
+
+<footer><div class="wrap">
+  <p id="foot"></p>
+  <p style="margin-top:8px">Ejemplo armado por <a href="https://syntaxis-psi.vercel.app/" target="_blank" rel="noopener">Alex · Minino Alex</a> — páginas web para negocios de Zona Sur.</p>
+</div></footer>
+
+<a class="fab" id="fab" href="#" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.06c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.03.24-3.47-.72-2.94-1.16-4.77-4.2-4.91-4.4-.14-.2-1.15-1.53-1.15-2.92s.72-2.07.98-2.35c.26-.29.57-.36.76-.36l.55.01c.17 0 .41-.07.63.48.24.58.79 1.98.86 2.12.07.15.12.32.02.51-.1.2-.15.32-.29.5-.14.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.29 2.33 1.44.29.14.46.12.63-.07.17-.2.73-.85.93-1.14.19-.29.39-.24.65-.15.26.1 1.66.79 1.95.93.29.15.48.22.55.34.07.13.07.75-.17 1.43z"/></svg>
+  <span class="lbl">WhatsApp</span>
+</a>
+
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var T = D.tema, root = document.documentElement.style;
+  ['bg','surface','line','text','muted','accent','accentText','display','body','pattern'].forEach(function(k){ root.setProperty('--'+k, T[k]); });
+  if (D.slug === 'the-carelli') root.setProperty('--case','uppercase');
+  document.getElementById('fonts').href = 'https://fonts.googleapis.com/css2?' + T.fonts + '&display=swap';
+
+  var $ = function(id){ return document.getElementById(id); };
+  var money = function(n){ return '$' + n.toLocaleString('es-AR'); };
+  var el = function(tag, cls, txt){ var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+  var MODE = D.accion || 'turno', X = D.textos || {};
+  var price = function(sv){ return sv.precio == null ? (sv.precioTxt || 'A presupuestar') : (sv.desde ? 'desde ' : '') + money(sv.precio); };
+  var wa = function(msg){ return 'https://wa.me/' + D.whatsapp + '?text=' + encodeURIComponent(msg); };
+
+  $('brand').textContent = D.nombre; var s = el('small', null, D.sufijo); $('brand').appendChild(s);
+  $('topCta').textContent = D.cta; $('heroCta').textContent = D.cta + ' →';
+  $('eyebrow').textContent = D.eyebrow;
+  D.titulo.forEach(function(t){ $('h1').appendChild(el('span', null, t)); });
+  $('lead').textContent = D.tagline;
+  var c1 = el('span','chip'); c1.innerHTML = '<b>★ ' + D.rating + '</b>'; c1.appendChild(document.createTextNode(' · ' + D.resenas + ' reseñas en Google'));
+  $('chips').appendChild(c1);
+  $('chips').appendChild(el('span','chip','📍 ' + D.zona));
+  $('chips').appendChild(el('span','chip','🕒 ' + D.horarioTexto));
+  $('fab').href = wa('Hola ' + D.nombre + ', vi su página y quería consultar.');
+  $('horarioTxt').textContent = D.horarioTexto;
+  $('foot').textContent = D.nombre + ' ' + D.sufijo + ' · ' + D.direccion;
+  if (D.sena) $('sena').textContent = D.sena;
+  ['tPrecios','sPrecios','tTrabajos','verPrecios','tPedido','sPedido','pListaLbl'].forEach(function(k){ if (X[k]) $(k).textContent = X[k]; });
+  if (X.listaPlaceholder) $('pLista').placeholder = X.listaPlaceholder;
+  if (D.extra){ $('bExtraWrap').hidden = false; $('bExtraLbl').textContent = '4 · ' + D.extra.label; $('bExtra').placeholder = D.extra.placeholder || ''; $('bExtra').oninput = function(){ refresh(); }; }
+  if (MODE === 'pedido'){ $('turno').hidden = true; $('pedido').hidden = false; ['topCta','heroCta'].forEach(function(k){ $(k).href = '#pedido'; }); }
+
+  var state = { svc: null, dia: null, hora: null };
+
+  // Servicios (lista de precios)
+  var svcBtns = [], svcChips = [];
+  D.servicios.forEach(function(sv, i){
+    var b = el('button','svc'); b.type = 'button'; b.setAttribute('aria-pressed','false');
+    b.appendChild(el('span','n',sv.nombre)); b.appendChild(el('span','d',sv.detalle + (sv.min ? ' · ' + sv.min + ' min' : '')));
+    var p = el('span','p',price(sv)); if (sv.precio == null) p.style.fontSize = '15px'; b.appendChild(p);
+    b.onclick = function(){ if (MODE === 'pedido'){ addQty(i, 1); $('pedido').scrollIntoView({behavior:'smooth'}); } else { pick('svc', i); $('turno').scrollIntoView({behavior:'smooth'}); } };
+    $('servicios').appendChild(b); svcBtns.push(b);
+    var o = el('button','opt',sv.nombre); o.type='button'; o.setAttribute('aria-pressed','false');
+    o.appendChild(el('small',null,price(sv))); o.onclick = function(){ pick('svc', i); };
+    $('bSvc').appendChild(o); svcChips.push(o);
+  });
+
+  // Días: próximos 10, solo los que atiende
+  var DN = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'], dias = [], diaBtns = [];
+  var d = new Date(); d.setHours(0,0,0,0);
+  for (var k = 0; dias.length < 7 && k < 14; k++){
+    var x = new Date(d); x.setDate(d.getDate() + k);
+    if (D.dias.indexOf(x.getDay()) === -1) continue;
+    dias.push(x);
+  }
+  dias.forEach(function(x, i){
+    var o = el('button','opt', k === 0 ? '' : ''); o.type='button'; o.setAttribute('aria-pressed','false');
+    var hoy = x.getTime() === d.getTime();
+    o.textContent = hoy ? 'Hoy' : DN[x.getDay()];
+    o.appendChild(el('small',null, x.getDate() + '/' + (x.getMonth()+1)));
+    o.onclick = function(){ pick('dia', i); };
+    $('bDia').appendChild(o); diaBtns.push(o);
+  });
+
+  // Horarios
+  var horaBtns = [];
+  D.horas.forEach(function(h, i){
+    var o = el('button','opt',h); o.type='button'; o.setAttribute('aria-pressed','false');
+    o.onclick = function(){ pick('hora', i); };
+    $('bHora').appendChild(o); horaBtns.push(o);
+  });
+
+  function pick(k, i){
+    state[k] = i;
+    if (k === 'svc'){ svcBtns.concat(svcChips).forEach(function(b){ b.setAttribute('aria-pressed','false'); }); svcBtns[i].setAttribute('aria-pressed','true'); svcChips[i].setAttribute('aria-pressed','true'); var row=$('bSvc'); row.scrollLeft = svcChips[i].offsetLeft - row.offsetLeft - 8; }
+    if (k === 'dia'){ diaBtns.forEach(function(b,j){ b.setAttribute('aria-pressed', j===i ? 'true':'false'); }); state.hora = null; }
+    if (k === 'hora'){ horaBtns.forEach(function(b,j){ b.setAttribute('aria-pressed', j===i ? 'true':'false'); }); }
+    refresh();
+  }
+
+  function refresh(){
+    // Si el día elegido es hoy, deshabilitar horarios ya pasados
+    var now = new Date();
+    horaBtns.forEach(function(b, j){
+      var past = false;
+      if (state.dia != null && dias[state.dia].getTime() === d.getTime()){
+        var hm = D.horas[j].split(':'); past = (+hm[0]*60 + +hm[1]) <= (now.getHours()*60 + now.getMinutes());
+      }
+      b.disabled = past; if (past || state.hora !== j) b.setAttribute('aria-pressed','false');
+    });
+    var sv = state.svc != null ? D.servicios[state.svc] : null;
+    var dx = state.dia != null ? dias[state.dia] : null;
+    var hr = state.hora != null ? D.horas[state.hora] : null;
+    var r = $('resumen');
+    if (sv && dx && hr){
+      var fecha = DN[dx.getDay()] + ' ' + dx.getDate() + '/' + (dx.getMonth()+1);
+      r.innerHTML = ''; r.appendChild(document.createTextNode('Tu turno: '));
+      var ex = D.extra ? $('bExtra').value.trim() : '';
+      r.appendChild(el('b',null, sv.nombre + ' · ' + fecha + ' · ' + hr + ' hs' + (sv.precio == null ? '' : ' · ' + price(sv)) + (ex ? ' · ' + ex : '')));
+      var msg = 'Hola ' + D.nombre + '! Quiero pedir un turno:\n• ' + sv.nombre + (sv.precio == null ? '' : ' (' + price(sv) + ')') + '\n• ' + fecha + ' a las ' + hr + ' hs' + (ex ? '\n• ' + D.extra.label + ': ' + ex : '') + '\n¿Está disponible?';
+      $('enviar').href = wa(msg); $('enviar').style.opacity = 1; $('enviar').style.pointerEvents = 'auto';
+    } else {
+      r.textContent = 'Elegí ' + [!sv && 'servicio', !dx && 'día', !hr && 'horario'].filter(Boolean).join(', ') + '.';
+      $('enviar').style.opacity = .45; $('enviar').style.pointerEvents = 'none'; $('enviar').href = '#';
+    }
+  }
+  refresh();
+
+  // Pedido (librería, kiosco, comercio)
+  var qty = D.servicios.map(function(){ return 0; }), qtyEls = [];
+  D.servicios.forEach(function(sv, i){
+    var row = el('div','prod'); var n = el('span','pn',sv.nombre); n.appendChild(el('small',null,price(sv))); row.appendChild(n);
+    var q = el('div','qty'); var mi = el('button',null,'−'); mi.type='button'; mi.setAttribute('aria-label','Quitar ' + sv.nombre);
+    var v = el('span',null,'0'); var pl = el('button',null,'+'); pl.type='button'; pl.setAttribute('aria-label','Agregar ' + sv.nombre);
+    mi.onclick = function(){ addQty(i, -1); }; pl.onclick = function(){ addQty(i, 1); };
+    q.appendChild(mi); q.appendChild(v); q.appendChild(pl); row.appendChild(q); $('pProds').appendChild(row); qtyEls.push(v);
+  });
+  function addQty(i, d){ qty[i] = Math.max(0, qty[i] + d); qtyEls[i].textContent = qty[i]; refreshPedido(); }
+  function refreshPedido(){
+    var items = [], total = 0;
+    qty.forEach(function(q, i){ if (q){ var sv = D.servicios[i]; items.push(q + 'x ' + sv.nombre + (sv.precio != null ? ' (' + money(sv.precio * q) + ')' : '')); total += (sv.precio || 0) * q; } });
+    var lista = $('pLista').value.trim(), nom = $('pNombre').value.trim(), r = $('pResumen');
+    if (!items.length && !lista){ r.textContent = 'Agregá productos o escribí tu lista.'; $('pEnviar').style.opacity = .45; $('pEnviar').style.pointerEvents = 'none'; $('pEnviar').href = '#'; return; }
+    r.innerHTML = ''; r.appendChild(document.createTextNode('Tu pedido: '));
+    r.appendChild(el('b',null, (items.length ? items.length + ' producto' + (items.length > 1 ? 's' : '') + (total ? ' · ' + money(total) : '') : '') + (items.length && lista ? ' + ' : '') + (lista ? 'lista' : '')));
+    var msg = 'Hola ' + D.nombre + '! Quiero hacer un pedido' + (nom ? ' (soy ' + nom + ')' : '') + ':';
+    if (items.length) msg += '\n' + items.map(function(t){ return '• ' + t; }).join('\n');
+    if (lista) msg += '\n\n' + (X.pListaLbl || 'Lista') + ':\n' + lista;
+    if (total) msg += '\n\nTotal aprox: ' + money(total);
+    $('pEnviar').href = wa(msg); $('pEnviar').style.opacity = 1; $('pEnviar').style.pointerEvents = 'auto';
+  }
+  $('pLista').oninput = refreshPedido; $('pNombre').oninput = refreshPedido; refreshPedido();
+
+  D.galeria.forEach(function(g){ $('galeria').appendChild(el('div','tile',g)); });
+  D.porque.forEach(function(p){ var w = el('div'); w.appendChild(el('b',null,p.t)); w.appendChild(el('p',null,p.d)); $('porque').appendChild(w); });
+
+  var info = $('info');
+  var a1 = el('a'); a1.href = D.maps; a1.target = '_blank'; a1.rel = 'noopener';
+  a1.innerHTML = '<span class="ico">📍</span>'; var t1 = el('span',null,D.direccion); t1.appendChild(el('small',null,'Cómo llegar en Google Maps')); a1.appendChild(t1); info.appendChild(a1);
+  var a2 = el('a'); a2.href = wa('Hola ' + D.nombre + ', quería consultar.'); a2.target = '_blank'; a2.rel = 'noopener';
+  a2.innerHTML = '<span class="ico">💬</span>'; var t2 = el('span',null,'Escribinos por WhatsApp'); t2.appendChild(el('small',null,'Respondemos en el día')); a2.appendChild(t2); info.appendChild(a2);
+  var a3 = el('div'); a3.innerHTML = '<span class="ico">🕒</span>'; var t3 = el('span',null,D.horarioTexto); t3.appendChild(el('small',null,'Horarios de atención')); a3.appendChild(t3); info.appendChild(a3);
+})();
+</script>
+</body>
+</html>
