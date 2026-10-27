@@ -62,6 +62,7 @@
     <div style="{{ navDesktopStyle }}">
       <a href="#soluciones" style="{{ navLinkStyle }}" style-hover="{{ navLinkHoverStyle }}">Soluciones</a>
       <a href="#portfolio" style="{{ navLinkStyle }}" style-hover="{{ navLinkHoverStyle }}">Portfolio</a>
+      <a href="/demos/" style="{{ navLinkStyle }}" style-hover="{{ navLinkHoverStyle }}">Demos</a>
       <a href="#proceso" style="{{ navLinkStyle }}" style-hover="{{ navLinkHoverStyle }}">Proceso</a>
       <a href="#contacto" style="{{ navCtaStyle }}" style-hover="background:var(--bg-dark);color:#ffffff;box-shadow:0 10px 30px rgba(68,136,238,0.6);transform:translateY(-2px);">Contacto</a>
     </div>
@@ -301,6 +302,15 @@
         </article>
       </sc-for>
     </div>
+
+    <a href="/demos/" aria-label="Ver demos por rubro" style="margin-top:clamp(28px,3vw,44px); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px; padding:clamp(20px,2.4vw,30px); border:1px solid rgba(241,240,236,0.14); border-radius:20px; background:linear-gradient(120deg, rgba(68,136,238,0.14), rgba(68,136,238,0.02) 60%); transition:border-color 0.3s ease, transform 0.3s ease;" style-hover="border-color:rgba(68,136,238,0.6);transform:translateY(-2px);">
+      <span style="display:flex; flex-direction:column; gap:8px; max-width:62ch;">
+        <span style="font-family:var(--font-mono); font-size:11px; letter-spacing:0.18em; color:var(--syntaxis-blue);">NUEVO · DEMOS POR RUBRO</span>
+        <span style="font-size:clamp(20px,2.2vw,30px); font-weight:600; letter-spacing:-0.01em; line-height:1.15;">¿Tenés un negocio? Mirá una página de ejemplo de tu rubro, funcionando.</span>
+        <span style="font-size:clamp(14px,0.95vw,16px); color:#b8b7b2; line-height:1.5;">Estética, barbería, taller, ferretería, librería, dietética, ropa, rotisería y pet shop: turnos, pedidos por WhatsApp, stock y caja.</span>
+      </span>
+      <span style="display:inline-flex; align-items:center; gap:10px; background:var(--syntaxis-blue); color:#ffffff; padding:14px 24px; border-radius:999px; font-family:var(--font-mono); font-size:12.5px; font-weight:600; letter-spacing:0.08em; white-space:nowrap;">VER DEMOS →</span>
+    </a>
   </section>
 
   <!-- 05 PROCESO -->
@@ -527,6 +537,7 @@
         <span style="font-family:var(--font-mono); font-size:11px; color:#5c5c59; letter-spacing:0.16em; margin-bottom:4px;">NAVEGACIÓN</span>
         <a href="#soluciones" style-hover="color:var(--syntaxis-blue);">Soluciones</a>
         <a href="#portfolio" style-hover="color:var(--syntaxis-blue);">Portfolio</a>
+        <a href="/demos/" style-hover="color:var(--syntaxis-blue);">Demos por rubro</a>
         <a href="#proceso" style-hover="color:var(--syntaxis-blue);">Proceso</a>
         <a href="#faq" style-hover="color:var(--syntaxis-blue);">Preguntas</a>
       </div>
@@ -926,7 +937,8 @@ class Component extends DCLogic {
         { n: '01', label: 'Soluciones', href: '#soluciones' },
         { n: '02', label: 'Portfolio', href: '#portfolio' },
         { n: '03', label: 'Proceso', href: '#proceso' },
-        { n: '04', label: 'Preguntas', href: '#faq' }
+        { n: '04', label: 'Preguntas', href: '#faq' },
+        { n: '05', label: 'Demos por rubro', href: '/demos/' }
       ].map((m, i) => ({
         ...m,
         style: {
