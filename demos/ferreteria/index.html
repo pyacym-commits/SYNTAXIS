@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ferretería La Tuerca — Demo de ferretería · Minino Alex</title>
+<meta name="description" content="Página de ejemplo para ferreterías: catálogo con buscador y precios, pedido armado por WhatsApp, control de stock con alertas y cierre de caja.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1c2430">
+<link rel="icon" type="image/svg+xml" href="/assets/minino-icon-white-on-black.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Work+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/demos/_base/demo.css">
+<style>
+  :root{
+    --bg:#fbfaf6; --surface:#f2eee4; --surface-2:#e6dfcf; --text:#1c2430; --muted:#596272;
+    --line:rgba(28,36,48,.14); --accent:#c0392b; --accent-ink:#fff; --accent-2:#1c2430;
+    --display:'Zilla Slab',Georgia,serif; --body:'Work Sans',system-ui,sans-serif; --radius:12px; --radius-sm:8px;
+  }
+  .hero{background:var(--accent-2);color:#f5f1e8;padding-bottom:64px}
+  .hero::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(245,241,232,.08) 1.5px,transparent 1.5px);background-size:22px 22px;pointer-events:none}
+  .hero .wrap{z-index:1}
+  .hero .lead,.hero .facts{color:#b9c0cc}
+  .hero h1{font-size:clamp(44px,11vw,92px);line-height:.95}
+  .hero h1 u{text-decoration:none;background:linear-gradient(transparent 62%,var(--accent) 62%)}
+  .big-search{display:flex;gap:8px;background:#fff;border-radius:999px;padding:6px;max-width:520px;margin-top:22px;box-shadow:0 12px 30px rgba(0,0,0,.3)}
+  .big-search input{flex:1;min-width:0;border:0;outline:0;background:transparent;padding:0 14px;font-size:17px;color:var(--text)}
+  .big-search .btn{min-height:46px}
+  .quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;font-size:13px;color:#b9c0cc}
+  .quick button{color:#f5f1e8;border-bottom:1px dashed rgba(245,241,232,.4)}
+  .label-tag{position:absolute;font-family:var(--display);font-weight:700;background:#f5f1e8;color:var(--text);padding:8px 14px 8px 22px;border-radius:6px;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+  .label-tag::before{content:"";position:absolute;left:8px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--accent-2)}
+  .label-tag b{color:var(--accent);margin-left:6px}
+  .prod .thumb{background:repeating-linear-gradient(45deg,var(--surface-2) 0 6px,#ece5d6 6px 12px)}
+  .rubros{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  @media (min-width:720px){.rubros{grid-template-columns:repeat(6,1fr)}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Ferretería La Tuerca, inicio">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3l14.7 8.5v17L20 37 5.3 28.5v-17z" fill="#c0392b"/><circle cx="20" cy="20" r="7" fill="#fbfaf6"/></svg>
+      <span>La Tuerca<small>Ferretería · Longchamps</small></span>
+    </a>
+    <nav aria-label="Secciones"><a href="#catalogo">Catálogo</a><a href="#sistema">Stock y caja</a><a href="#local">El local</a></nav>
+    <a class="btn sm" href="#catalogo">Armar pedido</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div data-reveal>
+        <span data-open-badge style="color:var(--text)"></span>
+        <h1 style="margin-top:16px">¿Tenés…?<br><u>Fijate acá.</u></h1>
+        <p class="lead">Buscá lo que necesitás, mirá el precio y armá el pedido. Te lo dejamos listo para retirar o te lo llevamos en Longchamps.</p>
+        <form class="big-search" id="hero-search" role="search"><label class="sr-only" for="hs">Buscar producto</label><input id="hs" placeholder="Ej: tarugo, teflón, lija…" autocomplete="off"><button class="btn" type="submit">Buscar</button></form>
+        <div class="quick">Lo más buscado: <button type="button" data-qs="tarugo">tarugos</button> <button type="button" data-qs="led">lámparas LED</button> <button type="button" data-qs="silicona">silicona</button> <button type="button" data-qs="latex">látex</button></div>
+      </div>
+      <div class="hero-art" data-reveal data-reveal-d="2" aria-hidden="true" style="max-width:min(400px,74vw)">
+        <svg viewBox="0 0 400 400">
+          <g class="float">
+            <path d="M200 70l104 60v120l-104 60-104-60V130z" fill="#c0392b"/>
+            <path d="M200 70l104 60v120l-104 60" fill="#a8301f"/>
+            <circle cx="200" cy="190" r="56" fill="#1c2430"/>
+            <circle cx="200" cy="190" r="56" fill="none" stroke="#f5f1e8" stroke-width="3" stroke-dasharray="8 10" opacity=".5"/>
+          </g>
+          <g transform="translate(78 300) rotate(-35)"><rect x="0" y="-10" width="150" height="20" rx="4" fill="#d9cdb5"/><path d="M150 -10l30 10-30 10z" fill="#d9cdb5"/><path d="M20 -10v20M40 -10v20M60 -10v20M80 -10v20M100 -10v20M120 -10v20" stroke="#1c2430" stroke-width="2" opacity=".35"/></g>
+        </svg>
+        <span class="label-tag" style="right:4%;top:14%">Tuerca 3/8″ <b>$ 90</b></span>
+        <span class="label-tag" style="left:0;bottom:16%">Envío gratis <b>+$40.000</b></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalogo">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><span class="eyebrow">Catálogo</span><h2>Precios a la vista, pedido por WhatsApp</h2><p class="lead">Probalo: agregá productos y mandá el pedido. Se arma solo, con cantidades y total.</p></div>
+      <div id="cat"></div>
+    </div>
+  </section>
+
+  <section id="sistema" style="background:var(--surface)">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow">Solo para el negocio</span>
+        <h2>Enterate de lo que falta antes que el cliente</h2>
+        <p class="lead">Un control de stock simple: cuando algo llega al mínimo, se marca solo y armás el pedido al proveedor con un toque. Y a la noche, el cierre de caja por medio de pago.</p>
+        <p class="toggle-note">Arrancamos con lo que más se vende, no hace falta cargar los miles de artículos de golpe.</p>
+      </div>
+      <div id="sys" data-reveal data-reveal-d="1"></div>
+    </div>
+  </section>
+
+  <section id="local">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow">El local</span>
+        <h2>Pasá o pedí con envío</h2>
+        <div class="info-list" style="margin:18px 0">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0112 2.5a7 7 0 017 7C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Calle de ejemplo 2020, Longchamps<br><small class="muted">Dirección inventada para la demo</small></span></div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h11v10H2zM13 9h4l4 4v3h-8z"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><span>Envío en Longchamps $3.500 · gratis desde $40.000</span></div>
+        </div>
+      </div>
+      <div class="card" data-reveal data-reveal-d="1" style="background:var(--bg)"><h3 style="margin-bottom:8px">Horarios</h3><table class="hours" data-hours></table></div>
+    </div>
+  </section>
+
+  <div data-ma-offer></div>
+</main>
+
+<footer class="biz-foot">
+  <div class="wrap">
+    <div><b>Ferretería La Tuerca</b><p>Negocio ficticio creado como ejemplo. Precios y stock inventados.</p></div>
+    <div><a href="#catalogo">Catálogo</a><br><a href="#sistema">Stock y caja</a><br><a href="#local">Horarios</a></div>
+    <div><a href="/demos/">← Volver a las demos</a><br><a href="/">Minino Alex</a></div>
+  </div>
+</footer>
+
+<script src="/demos/_base/demo.js"></script>
+<script>
+(function () {
+  var HOURS = { 0: null, 1: [['08:00', '13:00'], ['16:00', '20:00']], 2: [['08:00', '13:00'], ['16:00', '20:00']], 3: [['08:00', '13:00'], ['16:00', '20:00']], 4: [['08:00', '13:00'], ['16:00', '20:00']], 5: [['08:00', '13:00'], ['16:00', '20:00']], 6: [['08:00', '13:30']] };
+  var ICONS = {
+    'Herramientas': '<path d="M12 14h24l6 6h10v10H42l-6-6H12z"/><path d="M26 24l-3 30h10l-3-30"/>',
+    'Electricidad': '<path d="M32 8a16 16 0 0110 28c-2 2-3 4-3 7H25c0-3-1-5-3-7A16 16 0 0132 8z"/><path d="M25 50h14M27 56h10"/>',
+    'Plomería': '<path d="M8 26h20v-8h8v8h8a8 8 0 018 8v6h-8v-6H36v4H8z"/><path d="M48 46v4M48 54v2"/>',
+    'Pinturería': '<rect x="10" y="10" width="36" height="14" rx="4"/><path d="M46 17h6v14H32v8"/><rect x="28" y="39" width="8" height="16" rx="2"/>',
+    'Jardín': '<path d="M32 56V30"/><path d="M32 34c0-12 10-20 22-20 0 12-10 20-22 20z"/><path d="M32 40c0-9-7-15-16-15 0 9 7 15 16 15z"/>'
+  };
+  var ITEMS = [
+    { id: 't1', cat: 'Tornillería', name: 'Tornillo autoperforante 8 × ½″', desc: 'Caja x 100', mark: '8×½', price: 6500, kw: 'chapa mecha' },
+    { id: 't2', cat: 'Tornillería', name: 'Tarugo de nylon 8 mm', desc: 'Bolsa x 50', mark: 'Ø8', price: 4200, kw: 'taco' },
+    { id: 't3', cat: 'Tornillería', name: 'Tornillo para madera 6 × 40', desc: 'Bolsa x 50', mark: '6×40', price: 3800 },
+    { id: 't4', cat: 'Tornillería', name: 'Bulón ¼ × 2″ con tuerca', desc: 'Bolsa x 10', mark: '¼″', price: 3200 },
+    { id: 't5', cat: 'Tornillería', name: 'Clavo punta París 2″', desc: 'Por kilo', mark: '2″', price: 5500, unit: 'kg' },
+    { id: 'h1', cat: 'Herramientas', name: 'Martillo galponero 27 mm', desc: 'Mango de fibra', price: 14900 },
+    { id: 'h2', cat: 'Herramientas', name: 'Juego de destornilladores', desc: '6 piezas, planos y Phillips', price: 18500 },
+    { id: 'h3', cat: 'Herramientas', name: 'Pinza universal 8″', desc: 'Mango aislado', price: 12300 },
+    { id: 'h4', cat: 'Herramientas', name: 'Cinta métrica 5 m', desc: 'Con freno', price: 7900, kw: 'metro' },
+    { id: 'h5', cat: 'Herramientas', name: 'Llave francesa 10″', desc: 'Cromada', price: 16400, stock: 0 },
+    { id: 'e1', cat: 'Electricidad', name: 'Lámpara LED 12 W', desc: 'Luz fría, rosca común', price: 2900, kw: 'foco bombita led' },
+    { id: 'e2', cat: 'Electricidad', name: 'Cable unipolar 2,5 mm', desc: 'Rollo de 100 m', price: 68000, unit: 'rollo' },
+    { id: 'e3', cat: 'Electricidad', name: 'Toma doble con tierra', desc: 'Módulo blanco', price: 3600, kw: 'enchufe' },
+    { id: 'e4', cat: 'Electricidad', name: 'Térmica bipolar 2 × 20 A', desc: 'Para tablero', price: 11200, kw: 'termica' },
+    { id: 'e5', cat: 'Electricidad', name: 'Cinta aisladora', desc: '20 m, negra', price: 1300 },
+    { id: 'p1', cat: 'Plomería', name: 'Cinta de teflón ¾″', desc: '10 m', price: 900, kw: 'teflon' },
+    { id: 'p2', cat: 'Plomería', name: 'Canilla esférica ½″', desc: 'Bronce', price: 8700, kw: 'llave de paso' },
+    { id: 'p3', cat: 'Plomería', name: 'Codo PPR 20 mm', desc: 'Termofusión', price: 650, kw: 'agua caño' },
+    { id: 'p4', cat: 'Plomería', name: 'Silicona transparente', desc: 'Cartucho 280 ml', price: 5200, kw: 'sellador' },
+    { id: 'n1', cat: 'Pinturería', name: 'Látex interior blanco 4 L', desc: 'Lavable, mate', price: 28500, kw: 'pintura latex' },
+    { id: 'n2', cat: 'Pinturería', name: 'Rodillo de lana 22 cm', desc: 'Con mango', price: 9800 },
+    { id: 'n3', cat: 'Pinturería', name: 'Pincel N° 20', desc: 'Cerda natural', price: 3400 },
+    { id: 'n4', cat: 'Pinturería', name: 'Lija al agua N° 180', desc: 'Por pliego', price: 700 },
+    { id: 'j1', cat: 'Jardín', name: 'Manguera ½″ × 15 m', desc: 'Reforzada', price: 17500 },
+    { id: 'j2', cat: 'Jardín', name: 'Tijera de podar', desc: 'Hoja de acero', price: 11900 },
+    { id: 'j3', cat: 'Jardín', name: 'Tierra fértil', desc: 'Bolsa 50 dm³', price: 6900 }
+  ];
+  ITEMS.forEach(function (i) { if (i.mark) { i.bg = '#1c2430'; i.fg = '#f5f1e8'; } });
+
+  MA.init({ slug: 'ferreteria', rubro: 'ferretería', biz: 'Ferretería La Tuerca', hours: HOURS, features: ['catalogo', 'stock', 'caja', 'redes'] });
+
+  var cat = MA.catalog(document.getElementById('cat'), {
+    items: ITEMS, icons: ICONS, bizShort: 'La Tuerca', searchPh: 'Buscá: tarugo, cable, látex…',
+    noResults: 'Mandanos una foto por WhatsApp y te decimos si lo tenemos.',
+    delivery: { cost: 3500, freeFrom: 40000, note: 'Envío en Longchamps y alrededores, en el día.' }
+  });
+
+  function goSearch(v) {
+    var inp = document.querySelector('#cat [data-q]'); inp.value = v; inp.dispatchEvent(new Event('input', { bubbles: true }));
+    document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+  }
+  document.getElementById('hero-search').addEventListener('submit', function (e) { e.preventDefault(); goSearch(document.getElementById('hs').value); });
+  [].forEach.call(document.querySelectorAll('[data-qs]'), function (b) { b.addEventListener('click', function () { goSearch(b.dataset.qs); }); });
+
+  MA.systemPanel(document.getElementById('sys'), {
+    title: 'Sistema de La Tuerca',
+    tabs: [
+      { label: 'Stock', mount: function (el) { MA.stock(el, { biz: 'Ferretería La Tuerca', items: [
+        { id: 's1', name: 'Tarugo 8 mm (bolsa x50)', n: 14, min: 10 },
+        { id: 's2', name: 'Lámpara LED 12 W', n: 6, min: 12 },
+        { id: 's3', name: 'Silicona transparente', n: 9, min: 6 },
+        { id: 's4', name: 'Cinta de teflón ¾″', n: 3, min: 20 },
+        { id: 's5', name: 'Látex interior 4 L', n: 5, min: 4 },
+        { id: 's6', name: 'Llave francesa 10″', n: 0, min: 2 },
+        { id: 's7', name: 'Cable 2,5 mm (rollo)', n: 4, min: 2, unit: 'rollos' }
+      ] }); } },
+      { label: 'Cierre de caja', mount: function (el) { MA.caja(el, { biz: 'Ferretería La Tuerca', ph: 'Ej: 2 tarugos y teflón', countLabel: 'Ventas', seed: [
+        ['Mostrador: tornillos y tarugos', 10700, 'Efectivo', '08:40'], ['Látex 4 L + rodillo', 38300, 'QR / Mercado Pago', '09:55'], ['Pedido WhatsApp: cable + térmica', 79200, 'Transferencia', '11:20'], ['Mostrador: cinta aisladora', 1300, 'Efectivo', '12:05']
+      ] }); } }
+    ]
+  });
+})();
+</script>
+</body>
+</html>
