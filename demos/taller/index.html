@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taller El Pistón — Demo de taller mecánico · Minino Alex</title>
+<meta name="description" content="Página de ejemplo para talleres mecánicos: servicios, pedido de turno o presupuesto por WhatsApp, estado del auto en vivo y fichero de clientes con aviso de service.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1d1f22">
+<link rel="icon" type="image/svg+xml" href="/assets/minino-icon-white-on-black.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/demos/_base/demo.css">
+<style>
+  :root{
+    --bg:#f2f0eb; --surface:#e8e5de; --surface-2:#dcd8cf; --text:#1d1f22; --muted:#5d5f62;
+    --line:rgba(29,31,34,.14); --accent:#f2b705; --accent-ink:#1d1f22; --accent-2:#1d1f22;
+    --display:'Archivo Black','Archivo',Impact,sans-serif; --body:'Archivo',system-ui,sans-serif;
+    --radius:10px; --radius-sm:8px;
+  }
+  h1,h2{text-transform:uppercase;letter-spacing:-.01em}
+  .hero{background:#1d1f22;color:#f2f0eb}
+  .hero .lead{color:#b9b9b3}
+  .hero .btn.ghost{color:#f2f0eb;border-color:rgba(242,240,235,.3)}
+  .hero .facts{color:#b9b9b3}
+  .hero h1{font-size:clamp(40px,10vw,86px);line-height:.95}
+  .hero h1 mark{background:var(--accent);color:#1d1f22;padding:0 .12em}
+  .hazard{height:12px;background:repeating-linear-gradient(-45deg,#f2b705 0 16px,#1d1f22 16px 32px)}
+  .gear{transform-origin:center;transform-box:fill-box;animation:ma-spin 14s linear infinite}
+  .gear.rev{animation-direction:reverse;animation-duration:9s}
+  .svc{display:flex;gap:14px;align-items:flex-start;padding:18px;background:var(--bg);border:1.5px solid var(--line);border-radius:var(--radius);transition:border-color .2s,transform .25s var(--ease)}
+  .svc:hover{border-color:#1d1f22;transform:translateY(-2px)}
+  .svc .ico{width:46px;height:46px;flex-shrink:0;border-radius:8px;background:var(--accent);display:grid;place-items:center}
+  .svc .ico svg{width:26px;height:26px}
+  .svc b{display:block;font-size:17px}
+  .svc small{display:block;color:var(--muted);font-size:14px;line-height:1.4}
+  .svc .from{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;margin-top:6px;display:block}
+  .plate{display:inline-flex;align-items:center;gap:8px;border:2.5px solid #1d1f22;border-radius:8px;background:#fff;padding:0 12px 0 0;overflow:hidden;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:20px;letter-spacing:.12em}
+  .plate::before{content:"AR";background:#1f4fa3;color:#fff;font-size:10px;letter-spacing:.06em;padding:12px 6px;align-self:stretch;display:grid;place-items:center}
+  .plate input{border:0;outline:0;background:transparent;width:9.5ch;font:inherit;letter-spacing:inherit;text-transform:uppercase;min-height:48px}
+  .tracker{display:grid;gap:0;margin-top:18px}
+  .tstep{display:grid;grid-template-columns:34px 1fr;gap:12px;position:relative;padding-bottom:18px}
+  .tstep::before{content:"";position:absolute;left:16px;top:30px;bottom:0;width:2px;background:var(--line)}
+  .tstep:last-child::before{display:none}
+  .tstep .dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:var(--bg);display:grid;place-items:center;font-weight:800;font-size:14px;z-index:1;transition:all .4s var(--ease)}
+  .tstep.done .dot{background:#1d1f22;border-color:#1d1f22;color:var(--accent)}
+  .tstep.done::before{background:#1d1f22}
+  .tstep.now .dot{background:var(--accent);border-color:#1d1f22;animation:ma-pulse-y 1.8s infinite}
+  @keyframes ma-pulse-y{0%{box-shadow:0 0 0 0 rgba(242,183,5,.7)}70%{box-shadow:0 0 0 10px rgba(242,183,5,0)}100%{box-shadow:0 0 0 0 rgba(242,183,5,0)}}
+  .tstep b{display:block;padding-top:5px}
+  .tstep small{color:var(--muted);font-size:14px}
+  .tstep:not(.done):not(.now){opacity:.5}
+  .bar{height:10px;border-radius:10px;background:var(--surface-2);overflow:hidden;margin:12px 0 4px}
+  .bar i{display:block;height:100%;background:repeating-linear-gradient(-45deg,#f2b705 0 10px,#e0a800 10px 20px);border-radius:inherit;transition:width 1s var(--ease)}
+  .dark-sec{background:#1d1f22;color:#f2f0eb}
+  .dark-sec .lead,.dark-sec .muted{color:#b9b9b3}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Taller El Pistón, inicio">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#1d1f22"/><rect x="13" y="8" width="14" height="14" rx="2" fill="#f2b705"/><rect x="11" y="11" width="18" height="2" fill="#1d1f22"/><rect x="11" y="15" width="18" height="2" fill="#1d1f22"/><path d="M20 22v10" stroke="#f2b705" stroke-width="4"/><circle cx="20" cy="32" r="3" fill="#f2b705"/></svg>
+      <span style="text-transform:uppercase">El Pistón<small>Taller mecánico · Guernica</small></span>
+    </a>
+    <nav aria-label="Secciones"><a href="#servicios">Servicios</a><a href="#presupuesto">Presupuesto</a><a href="#estado">Estado del auto</a><a href="#fichero">Fichero</a></nav>
+    <a class="btn sm" href="#presupuesto">Pedir turno</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div data-reveal>
+        <span data-open-badge style="color:var(--text)"></span>
+        <h1 style="margin-top:16px">Tu auto en<br>buenas manos.<br><mark>Y vos al tanto.</mark></h1>
+        <p class="lead">Mecánica general en Guernica. Pedí turno o presupuesto por WhatsApp y seguí el estado de tu auto desde el celu, sin llamar diez veces.</p>
+        <div class="actions"><a class="btn" href="#presupuesto">Pedir presupuesto</a><a class="btn ghost" href="#estado">¿Cómo va mi auto?</a></div>
+        <div class="facts"><span>■ Escáner y diagnóstico</span><span>■ Presupuesto antes de tocar nada</span><span>■ Garantía escrita</span></div>
+      </div>
+      <div class="hero-art" data-reveal data-reveal-d="2" aria-hidden="true" style="max-width:min(420px,76vw)">
+        <svg viewBox="0 0 400 400">
+          <g class="gear" fill="#f2b705"><path d="M200 92l14 2 4 22 14 6 18-13 12 8 8 12-13 18 6 14 22 4 2 14-2 14-22 4-6 14 13 18-8 12-12 8-18-13-14 6-4 22-14 2-14-2-4-22-14-6-18 13-12-8-8-12 13-18-6-14-22-4-2-14 2-14 22-4 6-14-13-18 8-12 12-8 18 13 14-6 4-22z"/><circle cx="200" cy="200" r="44" fill="#1d1f22"/></g>
+          <g class="gear rev" fill="none" stroke="#f2f0eb" stroke-width="6"><circle cx="318" cy="300" r="36"/><path d="M318 252v14M318 334v14M270 300h14M352 300h14M284 266l10 10M342 324l10 10M284 334l10-10M342 276l10-10"/></g>
+          <g transform="translate(70 300) rotate(-40)"><path d="M0 0h120" stroke="#f2f0eb" stroke-width="14" stroke-linecap="round"/><path d="M120 -18a22 22 0 100 36l-8-10v-16z" fill="#f2f0eb"/></g>
+        </svg>
+      </div>
+    </div>
+  </section>
+  <div class="hazard" aria-hidden="true"></div>
+
+  <section id="servicios">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><span class="eyebrow" style="color:#1d1f22">Servicios</span><h2>Lo que hacemos</h2><p class="lead">Precios orientativos de mano de obra. El presupuesto final te lo pasamos por WhatsApp antes de arrancar.</p></div>
+      <div class="grid c3" id="svcs"></div>
+    </div>
+  </section>
+
+  <section id="presupuesto" style="background:var(--surface)">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow" style="color:#1d1f22">Turno o presupuesto</span>
+        <h2>Contanos qué le pasa</h2>
+        <p class="lead">Completás tres datos y te llega a WhatsApp ordenado: qué auto es, qué tiene y cuándo lo podés traer. Nada de audios de cinco minutos.</p>
+      </div>
+      <form class="card" id="quote" data-reveal data-reveal-d="1" style="background:var(--bg);display:grid;gap:12px" novalidate>
+        <label class="field">¿Qué necesitás?<select name="svc"></select></label>
+        <div class="grid c2" style="gap:12px"><label class="field">Auto (marca, modelo y año)<input name="car" required placeholder="Ej: Gol Trend 2015"></label><label class="field">Patente (opcional)<input name="pat" placeholder="AB123CD" style="text-transform:uppercase"></label></div>
+        <label class="field">¿Qué le notás?<textarea name="prob" placeholder="Ej: hace ruido al frenar, tiembla el volante a más de 80"></textarea></label>
+        <div class="field">¿Cuándo lo podés traer?<div class="chips" role="group" aria-label="Momento"><button type="button" class="chip" data-when="Esta semana, a la mañana" aria-pressed="true">Esta semana, mañana</button><button type="button" class="chip" data-when="Esta semana, a la tarde" aria-pressed="false">Esta semana, tarde</button><button type="button" class="chip" data-when="La semana que viene" aria-pressed="false">Semana que viene</button></div></div>
+        <label class="field">Tu nombre<input name="name" required placeholder="Ej: Carlos" autocomplete="given-name"></label>
+        <button class="btn wa" type="submit"><svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3z"/></svg> Mandar por WhatsApp</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="estado">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow" style="color:#1d1f22">Estado del auto</span>
+        <h2>¿Cómo va mi auto?</h2>
+        <p class="lead">El cliente pone la patente y ve en qué etapa está. Vos lo actualizás con un toque y te ahorrás las llamadas de “¿y, ya está?”.</p>
+        <p class="toggle-note">Probá con <button type="button" class="chip" data-try="AB123CD">AB123CD</button> <button type="button" class="chip" data-try="AF908KL">AF908KL</button> <button type="button" class="chip" data-try="OJK452">OJK452</button></p>
+      </div>
+      <div class="card" data-reveal data-reveal-d="1" style="background:var(--bg)">
+        <form id="track" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><label class="plate"><span class="sr-only">Patente</span><input name="p" placeholder="AB123CD" maxlength="7" autocomplete="off"></label><button class="btn" type="submit">Ver estado</button></form>
+        <div id="track-out" aria-live="polite"><p class="muted" style="margin-top:16px;font-size:14px">Escribí una patente de ejemplo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fichero" class="dark-sec">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow">Solo para el taller</span>
+        <h2>Fichero de autos y aviso de service</h2>
+        <p class="lead">Cada auto con lo que se le hizo y cuándo le toca el próximo service. Cuando se vence, le mandás un WhatsApp y el cliente vuelve a vos.</p>
+        <p class="toggle-note" style="color:#8f8f89">Ejemplo con datos inventados. En un taller real va con usuario y contraseña.</p>
+      </div>
+      <div class="panel" id="fich" data-reveal data-reveal-d="1" style="color:var(--text)"></div>
+    </div>
+  </section>
+
+  <section id="horarios">
+    <div class="wrap split">
+      <div data-reveal>
+        <span class="eyebrow" style="color:#1d1f22">Dónde estamos</span>
+        <h2>Guernica</h2>
+        <div class="info-list" style="margin:18px 0">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0112 2.5a7 7 0 017 7C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Calle de ejemplo 890, Guernica<br><small class="muted">Dirección inventada para la demo</small></span></div>
+        </div>
+      </div>
+      <div class="card" data-reveal data-reveal-d="1" style="background:var(--bg)"><h3 style="margin-bottom:8px">Horarios</h3><table class="hours" data-hours></table></div>
+    </div>
+  </section>
+
+  <div data-ma-offer></div>
+</main>
+
+<footer class="biz-foot">
+  <div class="wrap">
+    <div><b style="text-transform:uppercase">Taller El Pistón</b><p>Negocio ficticio creado como ejemplo. Patentes, nombres y precios inventados.</p></div>
+    <div><a href="#servicios">Servicios</a><br><a href="#presupuesto">Presupuesto</a><br><a href="#estado">Estado del auto</a></div>
+    <div><a href="/demos/">← Volver a las demos</a><br><a href="/">Minino Alex</a></div>
+  </div>
+</footer>
+
+<script src="/demos/_base/demo.js"></script>
+<script>
+(function () {
+  var HOURS = { 0: null, 1: [['08:00', '17:00']], 2: [['08:00', '17:00']], 3: [['08:00', '17:00']], 4: [['08:00', '17:00']], 5: [['08:00', '17:00']], 6: [['08:00', '12:30']] };
+  var I = {
+    oil: '<path d="M4 15h11l3-4h3v2l-3 6H6z"/><path d="M8 15v-3h6v3M20 8c0 1.5-1 2-1 3"/>',
+    brake: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M5 7a9 9 0 0114 0"/>',
+    wheel: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M12 3v7M4 15l6-2M20 15l-6-2"/>',
+    scan: '<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M7 13l3-3 2 2 4-4M8 21h8"/>',
+    gear: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',
+    bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'
+  };
+  var SVCS = [
+    ['oil', 'Service completo', 'Aceite, filtros y revisión de 20 puntos', 'desde $ 65.000'],
+    ['brake', 'Frenos', 'Pastillas, discos, cintas y líquido', 'desde $ 30.000'],
+    ['wheel', 'Tren delantero', 'Rótulas, extremos, bujes y alineación', 'desde $ 45.000'],
+    ['scan', 'Diagnóstico con escáner', 'Luz de check, fallas eléctricas', '$ 20.000'],
+    ['gear', 'Embrague y distribución', 'Kit completo con garantía', 'a presupuesto'],
+    ['bolt', 'Electricidad', 'Arranque, alternador, batería', 'desde $ 25.000']
+  ];
+  document.getElementById('svcs').innerHTML = SVCS.map(function (s, i) {
+    return '<div class="svc" data-reveal data-reveal-d="' + (i % 3) + '"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#1d1f22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I[s[0]] + '</svg></span><span><b>' + s[1] + '</b><small>' + s[2] + '</small><span class="from">' + s[3] + '</span></span></div>';
+  }).join('');
+  var q = document.getElementById('quote');
+  q.svc.innerHTML = SVCS.map(function (s) { return '<option>' + s[1] + '</option>'; }).join('') + '<option>Otra cosa / no sé qué tiene</option>';
+
+  MA.init({ slug: 'taller', rubro: 'taller mecánico', rubroCorto: 'taller', biz: 'Taller El Pistón', hours: HOURS, features: ['turnos', 'fichero', 'redes'] });
+
+  /* Pedido de turno / presupuesto */
+  var when = 'Esta semana, a la mañana';
+  q.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-when]'); if (!b) return;
+    when = b.dataset.when; [].forEach.call(q.querySelectorAll('[data-when]'), function (x) { x.setAttribute('aria-pressed', x === b); });
+  });
+  q.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var miss = ['car', 'name'].filter(function (n) { return !q[n].value.trim(); });
+    if (miss.length) { q[miss[0]].focus(); q[miss[0]].style.borderColor = 'var(--bad)'; MA.toast('Completá ' + (miss[0] === 'car' ? 'qué auto es' : 'tu nombre')); return; }
+    var t = 'Hola El Pistón! Quiero ' + (/presupuesto|no sé/i.test(q.svc.value) ? 'un presupuesto' : 'un turno') + ' 🔧\n\n' +
+      '• Servicio: ' + q.svc.value + '\n• Auto: ' + q.car.value.trim() + (q.pat.value.trim() ? '\n• Patente: ' + q.pat.value.trim().toUpperCase() : '') +
+      (q.prob.value.trim() ? '\n• Qué le pasa: ' + q.prob.value.trim() : '') + '\n• Lo puedo llevar: ' + when + '\n\nSoy ' + q.name.value.trim() + '.';
+    MA.sendWA(t, { title: 'Tu pedido, ordenadito' });
+  });
+  q.addEventListener('input', function (e) { e.target.style.borderColor = ''; });
+
+  /* Estado del auto */
+  var STAGES = ['Recibido', 'Diagnóstico', 'Presupuesto aprobado', 'En reparación', 'Prueba en calle', 'Listo para retirar'];
+  var CARS = {
+    AB123CD: { car: 'Fiat Palio 2012', owner: 'Carlos', stage: 3, work: 'Cambio de pastillas y discos delanteros', note: 'Llegaron los discos. Lo terminamos hoy a la tarde.', eta: 'Hoy 17 h', total: 98000 },
+    AF908KL: { car: 'Toyota Etios 2019', owner: 'Mariela', stage: 5, work: 'Service de 60.000 km', note: '¡Listo! Lo podés pasar a buscar hasta las 17 h.', eta: 'Listo', total: 112000 },
+    OJK452: { car: 'Renault 19 1997', owner: 'Rubén', stage: 1, work: 'Ruido en el tren delantero', note: 'Lo estamos revisando. Te pasamos presupuesto por WhatsApp.', eta: 'A confirmar', total: 0 }
+  };
+  var out = document.getElementById('track-out'), tf = document.getElementById('track');
+  function show(p) {
+    p = (p || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    var c = CARS[p];
+    if (!c) { out.innerHTML = '<div class="empty" style="margin-top:16px">No encontramos la patente <b>' + MA.esc(p || '—') + '</b>. Probá con una de ejemplo.</div>'; return; }
+    var pct = Math.round(c.stage / (STAGES.length - 1) * 100);
+    out.innerHTML = '<div style="margin-top:18px"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><b style="font-size:18px">' + c.car + '</b><span class="tag ' + (c.stage === 5 ? 'ok' : 'warn') + '">' + (c.stage === 5 ? 'Listo' : 'En el taller') + '</span></div>' +
+      '<small class="muted">' + c.work + (c.total ? ' · Presupuesto aprobado ' + MA.fmt(c.total) : '') + '</small>' +
+      '<div class="bar" role="progressbar" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100"><i style="width:0"></i></div><small class="muted">Entrega estimada: <b style="color:var(--text)">' + c.eta + '</b></small>' +
+      '<div class="tracker">' + STAGES.map(function (s, i) { return '<div class="tstep ' + (i < c.stage ? 'done' : i === c.stage ? 'now' : '') + '"><span class="dot">' + (i < c.stage ? '✓' : i + 1) + '</span><span><b>' + s + '</b>' + (i === c.stage ? '<small>' + c.note + '</small>' : '') + '</span></div>'; }).join('') + '</div>' +
+      '<button type="button" class="btn wa block" data-ask>Consultar por WhatsApp</button></div>';
+    requestAnimationFrame(function () { setTimeout(function () { out.querySelector('.bar i').style.width = pct + '%'; }, 60); });
+    out.querySelector('[data-ask]').onclick = function () { MA.sendWA('Hola El Pistón! Soy ' + c.owner + ', del ' + c.car + ' (patente ' + p + '). Vi en la página que está en "' + STAGES[c.stage] + '". ¿A qué hora lo puedo pasar a buscar?', { title: 'Consulta del cliente' }); };
+  }
+  tf.addEventListener('submit', function (e) { e.preventDefault(); show(tf.p.value); });
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-try]'); if (b) { tf.p.value = b.dataset.try; show(b.dataset.try); document.getElementById('track-out').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } });
+
+  /* Fichero de clientes / vehículos */
+  var fich = document.getElementById('fich');
+  var SEED = [
+    { id: 1, pat: 'AA301ZT', car: 'VW Gol Trend 2014', owner: 'Hugo', last: 'Service 120.000 km', lastDate: '2026-04-10', months: 6 },
+    { id: 2, pat: 'AD554PR', car: 'Chevrolet Onix 2020', owner: 'Silvina', last: 'Frenos delanteros', lastDate: '2026-07-22', months: 6 },
+    { id: 3, pat: 'KLM203', car: 'Peugeot 206 2009', owner: 'Darío', last: 'Service + correa', lastDate: '2026-03-05', months: 6 },
+    { id: 4, pat: 'AE120QS', car: 'Ford Ka 2018', owner: 'Natalia', last: 'Alineación y balanceo', lastDate: '2026-09-30', months: 6 }
+  ];
+  function nextDate(d, m) { var x = new Date(d + 'T00:00:00'); x.setMonth(x.getMonth() + m); return x; }
+  function drawF(newId) {
+    var list = MA.store.get('fichero', SEED), now = new Date();
+    var due = list.filter(function (v) { return nextDate(v.lastDate, v.months) <= now; }).length;
+    fich.innerHTML = '<div class="panel-head" style="background:var(--accent);color:#1d1f22"><div><b>Fichero del taller</b><br><small>' + list.length + ' autos · ' + due + ' con service vencido</small></div></div>' +
+      '<div class="panel-body"><div class="rows">' + list.map(function (v) {
+        var nd = nextDate(v.lastDate, v.months), venc = nd <= now, soon = !venc && (nd - now) < 1000 * 60 * 60 * 24 * 45;
+        return '<div class="row' + (v.id === newId ? ' new' : '') + '" style="flex-wrap:wrap"><span class="grow"><b>' + MA.esc(v.car) + ' · ' + MA.esc(v.owner) + '</b><small>' + MA.esc(v.pat) + ' · ' + MA.esc(v.last) + ' · próximo: ' + MA.niceDate(MA.isoDate(nd)).replace(/^\S+ /, '') + '</small></span>' +
+          '<span class="tag ' + (venc ? 'bad' : soon ? 'warn' : 'ok') + '">' + (venc ? 'Le toca' : soon ? 'Pronto' : 'Al día') + '</span>' +
+          (venc || soon ? '<button type="button" class="chip" data-avisar="' + v.id + '">Avisar</button>' : '') + '</div>';
+      }).join('') + '</div>' +
+      '<form class="inline-form" id="addcar" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))"><label class="field">Patente<input name="pat" required placeholder="AB123CD" style="text-transform:uppercase"></label><label class="field">Auto<input name="car" required placeholder="Ej: Corsa 2010"></label><label class="field">Cliente<input name="owner" required placeholder="Nombre"></label><label class="field">Qué se hizo<input name="last" required placeholder="Ej: service"></label><button class="btn" type="submit">Cargar auto</button></form>' +
+      '<p class="toggle-note">Cargar un auto lleva un minuto. El aviso de service se calcula solo (cada 6 meses en el ejemplo).</p></div>';
+  }
+  fich.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-avisar]'); if (!b) return;
+    var v = MA.store.get('fichero', SEED).filter(function (x) { return String(x.id) === b.dataset.avisar; })[0];
+    MA.sendWA('Hola ' + v.owner + '! Te escribimos del Taller El Pistón 🔧\nAl ' + v.car + ' (' + v.pat + ') ya le toca el próximo service: el último fue "' + v.last + '".\n¿Querés que te reservemos un turno esta semana?', { title: 'Aviso de service', note: 'Con un toque el cliente se acuerda y vuelve. En tu página va al cliente; en la demo, a Alex.' });
+  });
+  fich.addEventListener('submit', function (e) {
+    e.preventDefault(); var f = e.target;
+    if (['pat', 'car', 'owner', 'last'].some(function (n) { return !f[n].value.trim(); })) { MA.toast('Completá los cuatro datos'); return; }
+    var list = MA.store.get('fichero', SEED).slice(), id = Date.now();
+    list.unshift({ id: id, pat: f.pat.value.trim().toUpperCase(), car: f.car.value.trim(), owner: f.owner.value.trim(), last: f.last.value.trim(), lastDate: MA.isoDate(new Date()), months: 6 });
+    MA.store.set('fichero', list); drawF(id); MA.toast('Auto cargado. Te avisa en 6 meses.');
+  });
+  drawF();
+})();
+</script>
+</body>
+</html>
